@@ -160,7 +160,9 @@
    
    <ProductPrice productId="SM-1000" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="INR" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="15.99"/>
    <ProductPrice productId="SM-1001" productPricePurposeId="PURCHASE" productPriceTypeId="LIST_PRICE" currencyUomId="INR" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="15.0"/>
-
+   <ProductPrice productId="SM-1000" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="15.99"/>
+   <ProductPrice productId="SM-1001" productPricePurposeId="PURCHASE" productPriceTypeId="LIST_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="15.0"/>
+   
     <ProductCategoryMember productCategoryId="100" productId="SM-1000" fromDate="2011-08-02 12:00:00.0"/>
     <ProductCategoryMember productCategoryId="200" productId="SM-1001" fromDate="2011-08-02 12:00:00.0"/>
     
