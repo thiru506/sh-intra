@@ -2,6 +2,15 @@
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
 
+	<screen name="MyDecorator">
+		<section>
+			<widgets>
+			<platform-specific><html><html-template location="component://shopsmint/webapp/shopsmint/includes/header.ftl"/> </html> </platform-specific>
+			<decorator-section-include name="body"/>
+			<platform-specific><html><html-template location="component://shopsmint/webapp/shopsmint/includes/footer.ftl"/> </html> </platform-specific>
+			</widgets>
+		</section>
+	</screen>
     <screen name="main">
         <section>
             <actions>
@@ -12,6 +21,34 @@
                     <decorator-section name="body">
                     </decorator-section>
                 </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="store">
+        <section>
+            <actions>
+               <service service-name="getMerchants" result-map="resultMap"></service>
+               
+            </actions>
+            <widgets>
+                <decorator-screen name="MyDecorator">
+                    <decorator-section name="body">
+                    		<!-- <platform-specific><html><html-template location="component://shopsmint/webapp/shopsmint/includes/header.ftl"/> </html> </platform-specific> -->
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="products">
+        <section>
+            <actions>
+               <service service-name="getAllProductsOfMerchant" result-map="resultMap"></service>
+               
+            </actions>
+            <widgets>
+            <platform-specific><html><html-template location="component://shopsmint/webapp/shopsmint/includes/productList.ftl"/> </html> </platform-specific>
             </widgets>
         </section>
     </screen>

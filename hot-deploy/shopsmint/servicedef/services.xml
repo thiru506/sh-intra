@@ -10,5 +10,19 @@
             Dummy service to prevent empty files and syntax error - Remove when the 1st real service will be added here 
         </description>
     </service> 
+
+    <service name="getMerchants" engine="java" location="com.shopsmint.party.MerchantServices" invoke="getMerchants" >
+        <description>
+            Get all merchants who are in the system 
+        </description>
+        <attribute name="merchants" mode="OUT" type="List"></attribute>
+    </service> 
     
+    <service name="getAllProductsOfMerchant" engine="java" location="com.shopsmint.party.Product" invoke="getAllProductsOfMerchant" >
+        <description>
+            Get all merchants who are in the system 
+        </description>
+        <attribute name="products" mode="OUT" type="List"></attribute>
+    </service> 
+
 </services>
