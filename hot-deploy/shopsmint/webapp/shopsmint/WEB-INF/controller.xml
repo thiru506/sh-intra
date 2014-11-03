@@ -38,6 +38,6 @@
     </request-map>
     <!-- View Mappings -->
     <view-map name="main" type="screen" page="component://shopsmint/widget/ShopsMintScreens.xml#main"/>
-    <view-map name="store" type="screen" page="component://shopsmint/widget/ShopsMintScreens.xml#store"/>
+    <view-map name="store"  page="/includes/store.jsp"/>
     <view-map name="products" type="screen" page="component://shopsmint/widget/ShopsMintScreens.xml#products"/>
 </site-conf>

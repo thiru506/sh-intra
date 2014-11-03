@@ -40,7 +40,7 @@ under the License.
 
     <test-suite loader="main" location="testdef/workefforttests.xml"/>
 
-     <webapp name="workeffort"
+     <!-- <webapp name="workeffort"
         title="WorkEffort"
         server="default-server"
         location="webapp/workeffort"
@@ -52,5 +52,5 @@ under the License.
         app-bar-display="false"
         server="default-server"
         location="webapp/ical"
-        mount-point="/iCalendar"/>
+        mount-point="/iCalendar"/> -->
 </ofbiz-component>

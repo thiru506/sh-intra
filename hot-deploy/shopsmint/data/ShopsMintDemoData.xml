@@ -40,6 +40,7 @@
 
 
 <!--  Products -->
+   <Facility facilityId="WebStoreWarehouse" facilityName="WebStoreWarehouse" />
     <ProductStore productStoreId="9001" storeName="Shops mint demo Store" companyName="Shopsmint" title="Open For Commerce"
         subtitle="Part of the Open For Business Family of Open Source Software" payToPartyId="DemoMerchant" daysToCancelNonPay="30" prorateShipping="Y" prorateTaxes="Y"
         inventoryFacilityId="WebStoreWarehouse" oneInventoryFacility="Y" checkInventory="N" reserveInventory="N" balanceResOnOrderCreation="Y" reserveOrderEnumId="INVRO_FIFO_REC" requireInventory="N"
@@ -52,6 +53,37 @@
         storeCreditValidDays="90" storeCreditAccountEnumId="FIN_ACCOUNT"
         visualThemeId="EC_DEFAULT" prodSearchExcludeVariants="Y" autoApproveInvoice="Y" shipIfCaptureFails="Y" autoApproveOrder="Y" showOutOfStockProducts="Y"/>
     
+    
+    
+    <PaymentMethodType description="Credit Card" paymentMethodTypeId="CREDIT_CARD"/>
+    <PaymentMethodType description="Gift Card" paymentMethodTypeId="GIFT_CARD"/>
+    <PaymentMethodType description="Gift Certificate" paymentMethodTypeId="GIFT_CERTIFICATE"/>
+    <PaymentMethodType description="Cash" paymentMethodTypeId="CASH"/>
+    <PaymentMethodType description="Electronic Funds Transfer" paymentMethodTypeId="EFT_ACCOUNT"/>
+    <PaymentMethodType description="Financial Account" paymentMethodTypeId="FIN_ACCOUNT"/>
+    <PaymentMethodType description="Personal Check" paymentMethodTypeId="PERSONAL_CHECK"/>
+    <PaymentMethodType description="Company Check" paymentMethodTypeId="COMPANY_CHECK"/>
+    <PaymentMethodType description="Certified Check" paymentMethodTypeId="CERTIFIED_CHECK"/>
+    <PaymentMethodType description="Money Order" paymentMethodTypeId="MONEY_ORDER"/>
+    <PaymentMethodType description="Company Account" paymentMethodTypeId="COMPANY_ACCOUNT"/>
+    <PaymentMethodType description="Billing Account" paymentMethodTypeId="EXT_BILLACT"/>
+    <PaymentMethodType description="Cash On Delivery" paymentMethodTypeId="EXT_COD"/>
+    <PaymentMethodType description="eBay" paymentMethodTypeId="EXT_EBAY"/>
+    <PaymentMethodType description="Offline Payment" paymentMethodTypeId="EXT_OFFLINE"/>
+    <PaymentMethodType description="PayPal" paymentMethodTypeId="EXT_PAYPAL"/>
+    <PaymentMethodType description="RBS WorldPay" paymentMethodTypeId="EXT_WORLDPAY"/>
+    <PaymentMethodType description="iDEAL" paymentMethodTypeId="EXT_IDEAL"/>
+    <EnumerationType description="Product Store Payment Service Type" enumTypeId="PRDS_PAYSVC" hasTable="N" parentTypeId=""/>
+    <Enumeration description="Payment Authorization Service" enumCode="PAY_AUTH" enumId="PRDS_PAY_AUTH" sequenceId="01" enumTypeId="PRDS_PAYSVC"/>
+    <Enumeration description="Payment Auth Verification Service" enumCode="PAY_AUTH_VERIFY" enumId="PRDS_PAY_AUTH_VERIFY" sequenceId="06" enumTypeId="PRDS_PAYSVC"/>
+    <Enumeration description="Payment Re-Authorization Service" enumCode="PAY_REAUTH" enumId="PRDS_PAY_REAUTH" sequenceId="02" enumTypeId="PRDS_PAYSVC"/>
+    <Enumeration description="Payment Release Authorization Service" enumCode="PAY_RELEASE" enumId="PRDS_PAY_RELEASE" sequenceId="03" enumTypeId="PRDS_PAYSVC"/>
+    <Enumeration description="Payment Capture Service" enumCode="PAY_CAPTURE" enumId="PRDS_PAY_CAPTURE" sequenceId="04" enumTypeId="PRDS_PAYSVC"/>
+    <Enumeration description="Payment Refund Service" enumCode="PAY_REFUND" enumId="PRDS_PAY_REFUND" sequenceId="05" enumTypeId="PRDS_PAYSVC"/>
+    <Enumeration description="Payment Credit Service" enumCode="PAY_CREDIT" enumId="PRDS_PAY_CREDIT" sequenceId="06" enumTypeId="PRDS_PAYSVC"/>
+    <Enumeration description="External Payment (No Service)" enumCode="PAY_EXTERNAL" enumId="PRDS_PAY_EXTERNAL" sequenceId="07" enumTypeId="PRDS_PAYSVC"/>
+    
+    
     <ProductStorePaymentSetting productStoreId="9001" paymentMethodTypeId="CREDIT_CARD" paymentServiceTypeEnumId="PRDS_PAY_AUTH" paymentService="alwaysApproveCCProcessor" paymentCustomMethodId="CC_AUTH_ALWAYSAPPROV"/>
     <ProductStorePaymentSetting productStoreId="9001" paymentMethodTypeId="CREDIT_CARD" paymentServiceTypeEnumId="PRDS_PAY_RELEASE" paymentService="testCCRelease" paymentCustomMethodId="CC_RELEASE_TEST"/>
     <ProductStorePaymentSetting productStoreId="9001" paymentMethodTypeId="CREDIT_CARD" paymentServiceTypeEnumId="PRDS_PAY_CAPTURE" paymentService="testCCCapture" paymentCustomMethodId="CC_CAPTURE_TEST"/>
@@ -60,6 +92,7 @@
     <ProductStorePaymentSetting productStoreId="9001" paymentMethodTypeId="EFT_ACCOUNT" paymentServiceTypeEnumId="PRDS_PAY_AUTH" paymentService="alwaysApproveEFTProcessor" paymentCustomMethodId="EFT_AUTH_ALWAYSAPPRO"/>
     <ProductStorePaymentSetting productStoreId="9001" paymentMethodTypeId="GIFT_CARD" paymentServiceTypeEnumId="PRDS_PAY_AUTH" paymentService="alwaysApproveGCProcessor" paymentCustomMethodId="GIFT_AUTH_ALWAYSAPPR"/>
     <ProductStorePaymentSetting productStoreId="9001" paymentMethodTypeId="GIFT_CARD" paymentServiceTypeEnumId="PRDS_PAY_RELEASE" paymentService="testGCRelease" paymentCustomMethodId="GIFT_RELEASE_TEST"/>
+
 
     <ProductStorePaymentSetting productStoreId="9001" paymentMethodTypeId="EXT_PAYPAL" paymentServiceTypeEnumId="PRDS_PAY_EXTERNAL" paymentService="" paymentCustomMethodId="" paymentGatewayConfigId="PAYPAL_CONFIG"/>
     
@@ -101,9 +134,9 @@
     <ProductStoreEmailSetting productStoreId="9001" emailType="UNSUB_CONT_LIST_NOTI" bodyScreenLocation="component://ecommerce/widget/EmailContactListScreens.xml#ContactListUnsubscribeEmail" subject="Unsubscribe Contact List" fromAddress="ofbiztest@example.com"/>
     <ProductStoreEmailSetting productStoreId="9001" emailType="CONT_EMAIL_TEMPLATE" bodyScreenLocation="component://ecommerce/widget/EmailContactListScreens.xml#ContactListEmailTemplate"/>
     
-    
+    <Facility facilityId="WebStoreWarehouse" facilityName="WebStoreWarehouse" />
     <ProductStoreFacility productStoreId="9001" facilityId="WebStoreWarehouse" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductStoreRole partyId="admin" roleTypeId="SALES_REP" productStoreId="9001" fromDate="2001-05-13 12:00:00.0"/>
+   <!--  <ProductStoreRole partyId="admin" roleTypeId="SALES_REP" productStoreId="9001" fromDate="2001-05-13 12:00:00.0"/> -->
     <ProductStoreKeywordOvrd productStoreId="9001" keyword="gizmo" fromDate="2001-05-13 12:00:00.0" target="100" targetTypeEnumId="KOTT_PRODCAT"/>
 
     <WebSite webSiteId="WebStore" siteName="eCommerce Web Site" productStoreId="9001" visualThemeSetId="ECOMMERCE"/>

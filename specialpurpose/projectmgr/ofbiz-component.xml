@@ -38,11 +38,11 @@ under the License.
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>
     <service-resource type="eca" loader="main" location="servicedef/secas.xml"/>
 
-    <webapp name="projectmgr"
+    <!-- <webapp name="projectmgr"
         title="Project"
         server="default-server"
         location="webapp/projectmgr"
         base-permission="PROJECTMGR"
         mount-point="/projectmgr"
-        app-bar-display="true"/>
+        app-bar-display="true"/> -->
 </ofbiz-component>

@@ -800,8 +800,8 @@ under the License.
         <echo>db-User = ${db-User}</echo>
         <echo>db-Password = ${db-Password}</echo>
         <echo>------------------------------------</echo>
-        <echo>database for tenant data will be 'ofbiz_${tenantId}'</echo>
-        <echo>database for tenant olap data will be 'ofbizolap_${tenantId}</echo>
+        <echo>database for tenant data will be 'mint_${tenantId}'</echo>
+        <echo>database for tenant olap data will be 'mint_${tenantId}</echo>
         <echo message="Please make sure that the driver of the platform is installed and that the databases have been created (Check names just above)"/>
         <echo>------------------------------------</echo>
         <input addproperty="continueYN" message="Continue Y or N" validargs="N,n,Y,y"/>
