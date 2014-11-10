@@ -899,13 +899,13 @@
         <value xml:lang="zh_TW">預算專案編號</value>
     </property>
     <property key="HumanResCompanyName">
-        <value xml:lang="en">OFBiz: Human Resources Manager</value>
+        <value xml:lang="en">ShopsMint: Human Resources Manager</value>
         <value xml:lang="fr">OFBiz : gestion de ressources humaines</value>
-        <value xml:lang="it">OFBiz: Gestione Risorse Umane</value>
-        <value xml:lang="pt_BR">OFBiz: Gestão de recursos humanos</value>
-        <value xml:lang="th">OFBiz: การจัดการบุคคล</value>
-        <value xml:lang="zh">OFBiz: 人力资源管理</value>
-        <value xml:lang="zh_TW">OFBiz: 人力資源管理</value>
+        <value xml:lang="it">ShopsMint: Gestione Risorse Umane</value>
+        <value xml:lang="pt_BR">ShopsMint: Gestão de recursos humanos</value>
+        <value xml:lang="th">ShopsMint: การจัดการบุคคล</value>
+        <value xml:lang="zh">ShopsMint: 人力资源管理</value>
+        <value xml:lang="zh_TW">ShopsMint: 人力資源管理</value>
     </property>
     <property key="HumanResCompanySubtitle">
         <value xml:lang="en">Part of the Open For Business Family of Open Source Software</value>

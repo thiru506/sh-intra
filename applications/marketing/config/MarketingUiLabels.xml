@@ -300,18 +300,18 @@
         <value xml:lang="zh_TW">活動摘要</value>
     </property>
     <property key="MarketingCompanyName">
-        <value xml:lang="de">OFBiz: Vermarktungsmanager</value>
-        <value xml:lang="en">OFBiz: Marketing Manager</value>
-        <value xml:lang="es">OFBiz: Gestión de Marketing</value>
-        <value xml:lang="fr">OFBiz: Gestion du Marketing</value>
-        <value xml:lang="it">OFBiz: Gestione vendite</value>
-        <value xml:lang="nl">OFBiz: Marketing Manager</value>
-        <value xml:lang="pt_BR">OFBiz: Gerente de Marketing</value>
-        <value xml:lang="ro">OFBiz: Gestione Vendite</value>
-        <value xml:lang="th">OFBiz: การจัดการทางการตลาด</value>
-        <value xml:lang="vi">OFBiz: Quản lý tiếp thị</value>
-        <value xml:lang="zh">OFBiz: 市场宣传管理</value>
-        <value xml:lang="zh_TW">OFBiz: 行銷管理</value>
+        <value xml:lang="de">ShopsMint: Vermarktungsmanager</value>
+        <value xml:lang="en">ShopsMint: Marketing Manager</value>
+        <value xml:lang="es">ShopsMint: Gestión de Marketing</value>
+        <value xml:lang="fr">ShopsMint: Gestion du Marketing</value>
+        <value xml:lang="it">ShopsMint: Gestione vendite</value>
+        <value xml:lang="nl">ShopsMint: Marketing Manager</value>
+        <value xml:lang="pt_BR">ShopsMint: Gerente de Marketing</value>
+        <value xml:lang="ro">ShopsMint: Gestione Vendite</value>
+        <value xml:lang="th">ShopsMint: การจัดการทางการตลาด</value>
+        <value xml:lang="vi">ShopsMint: Quản lý tiếp thị</value>
+        <value xml:lang="zh">ShopsMint: 市场宣传管理</value>
+        <value xml:lang="zh_TW">ShopsMint: 行銷管理</value>
     </property>
     <property key="MarketingCompanySubtitle">
         <value xml:lang="ar">جزء من عائلة أوفبيز للتطبيقات الحرة للتسيير</value>
@@ -2289,14 +2289,14 @@
         <value xml:lang="zh_TW">關閉日期</value>
     </property>
     <property key="SfaCompanyName">
-        <value xml:lang="en">OFBiz: SFA Manager</value>
+        <value xml:lang="en">ShopsMint: SFA Manager</value>
         <value xml:lang="es">Gestor de fuerzas de ventas</value>
-        <value xml:lang="fr">OFBiz: gestion des ventes</value>
-        <value xml:lang="it">OFBiz: Gestione forze di vendita</value>
-        <value xml:lang="pt_BR">OFBiz: gestor da equipe de vendas</value>
-        <value xml:lang="vi">OFBiz: Quản lý bán hàng</value>
-        <value xml:lang="zh">OFBiz: 销售管理程序</value>
-        <value xml:lang="zh_TW">OFBiz: 銷售管理程式</value>
+        <value xml:lang="fr">ShopsMint: gestion des ventes</value>
+        <value xml:lang="it">ShopsMint: Gestione forze di vendita</value>
+        <value xml:lang="pt_BR">ShopsMint: gestor da equipe de vendas</value>
+        <value xml:lang="vi">ShopsMint: Quản lý bán hàng</value>
+        <value xml:lang="zh">ShopsMint: 销售管理程序</value>
+        <value xml:lang="zh_TW">ShopsMint: 銷售管理程式</value>
     </property>
     <property key="SfaCompetitors">
         <value xml:lang="en">Competitors &amp; Partners </value>

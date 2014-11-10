@@ -42,11 +42,11 @@
         <value xml:lang="zh_TW">設置應用程式</value>
     </property>
     <property key="SetupCompanyName">
-        <value xml:lang="en">OFBiz: Setup Application </value>
-        <value xml:lang="it">OFBiz: componente di configurazione</value>
-        <value xml:lang="pt_BR">OFBiz: Aplicativo de instalação</value>
+        <value xml:lang="en">ShopsMint: Setup Application </value>
+        <value xml:lang="it">ShopsMint: componente di configurazione</value>
+        <value xml:lang="pt_BR">ShopsMint: Aplicativo de instalação</value>
         <value xml:lang="zh">OFBiz：安装程序</value>
-        <value xml:lang="zh_TW">OFBiz: 設置應用程式</value>
+        <value xml:lang="zh_TW">ShopsMint: 設置應用程式</value>
     </property>
     <property key="SetupCompanySubtitle">
         <!--value xml:lang="ar">جزء من عائلة أوفبيز للبرمجيات الحرة</value-->

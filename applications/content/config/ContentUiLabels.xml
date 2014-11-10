@@ -749,15 +749,15 @@
     </property>
     <property key="ContentCompanyName">
         <value xml:lang="ar">أوفبيز: مسير المحتوى</value>
-        <value xml:lang="da">OFBiz: Indholdsadministration</value>
-        <value xml:lang="de">OFBiz: Inhaltsverwaltung</value>
-        <value xml:lang="en">OFBiz: Content Manager</value>
-        <value xml:lang="es">OFBiz: Administración de Contenidos</value>
-        <value xml:lang="fr">OFBiz: gestion de contenu</value>
-        <value xml:lang="it">OFBiz: Gestione contenuti</value>
-        <value xml:lang="pt">OFBiz: Gerenciador de conteúdo</value>
-        <value xml:lang="ro">OFBiz: Gestiune Continut</value>
-        <value xml:lang="th">OFBiz:หัวข้อการจัดการ</value>
+        <value xml:lang="da">ShopsMint: Indholdsadministration</value>
+        <value xml:lang="de">ShopsMint: Inhaltsverwaltung</value>
+        <value xml:lang="en">ShopsMint: Content Manager</value>
+        <value xml:lang="es">ShopsMint: Administración de Contenidos</value>
+        <value xml:lang="fr">ShopsMint: gestion de contenu</value>
+        <value xml:lang="it">ShopsMint: Gestione contenuti</value>
+        <value xml:lang="pt">ShopsMint: Gerenciador de conteúdo</value>
+        <value xml:lang="ro">ShopsMint: Gestiune Continut</value>
+        <value xml:lang="th">ShopsMint:หัวข้อการจัดการ</value>
         <value xml:lang="zh">OFBiz：内容管理</value>
         <value xml:lang="zh_TW">OFBiz：內容管理</value>
     </property>

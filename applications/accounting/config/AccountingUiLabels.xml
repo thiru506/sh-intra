@@ -962,15 +962,15 @@
         <value xml:lang="zh_TW">應付賬戶首頁</value>
     </property>
     <property key="AccountingApCompanyName">
-        <value xml:lang="de">OFBiz: Kreditorenbuchhaltung</value>
-        <value xml:lang="en">OFBiz: AP Manager</value>
+        <value xml:lang="de">ShopsMint: Kreditorenbuchhaltung</value>
+        <value xml:lang="en">ShopsMint: AP Manager</value>
         <value xml:lang="fr">OFBiz : gestion des comptes fourn.</value>
-        <value xml:lang="hi_IN">OFBiz: खाता देय प्रबंधक</value>
-        <value xml:lang="it">OFBiz: Gestione conti debitori</value>
-        <value xml:lang="nl">OFBiz: Credit Manager</value>
-        <value xml:lang="pt">OFBiz: Gestão de Contas a Pagar</value>
-        <value xml:lang="zh">OFBiz: 应付账户管理</value>
-        <value xml:lang="zh_TW">OFBiz: 應付賬戶管理</value>
+        <value xml:lang="hi_IN">ShopsMint: खाता देय प्रबंधक</value>
+        <value xml:lang="it">ShopsMint: Gestione conti debitori</value>
+        <value xml:lang="nl">ShopsMint: Credit Manager</value>
+        <value xml:lang="pt">ShopsMint: Gestão de Contas a Pagar</value>
+        <value xml:lang="zh">ShopsMint: 应付账户管理</value>
+        <value xml:lang="zh_TW">ShopsMint: 應付賬戶管理</value>
     </property>
     <property key="AccountingApManager">
         <value xml:lang="de">Kreditorenbuchhaltung</value>
@@ -1235,15 +1235,15 @@
         <value xml:lang="zh_TW">應收賬戶首頁</value>
     </property>
     <property key="AccountingArCompanyName">
-        <value xml:lang="de">OFBiz: Debitorenbuchhaltung</value>
-        <value xml:lang="en">OFBiz: AR Manager</value>
+        <value xml:lang="de">ShopsMint: Debitorenbuchhaltung</value>
+        <value xml:lang="en">ShopsMint: AR Manager</value>
         <value xml:lang="fr">OFBiz : gestion des comptes clients</value>
-        <value xml:lang="hi_IN">OFBiz: खाता प्राप्य प्रबंधक</value>
-        <value xml:lang="it">OFBiz: Gestione conti creditori</value>
-        <value xml:lang="nl">OFBiz: Debiteuren Manager</value>
-        <value xml:lang="pt">OFBiz: Gestão de contas a receber</value>
-        <value xml:lang="zh">OFBiz: 应收账户管理</value>
-        <value xml:lang="zh_TW">OFBiz: 應收賬戶管理</value>
+        <value xml:lang="hi_IN">ShopsMint: खाता प्राप्य प्रबंधक</value>
+        <value xml:lang="it">ShopsMint: Gestione conti creditori</value>
+        <value xml:lang="nl">ShopsMint: Debiteuren Manager</value>
+        <value xml:lang="pt">ShopsMint: Gestão de contas a receber</value>
+        <value xml:lang="zh">ShopsMint: 应收账户管理</value>
+        <value xml:lang="zh_TW">ShopsMint: 應收賬戶管理</value>
     </property>
     <property key="AccountingArManager">
         <value xml:lang="de">Debitorenbuchhaltung</value>
@@ -2454,20 +2454,20 @@
     </property>
     <property key="AccountingCompanyName">
         <value xml:lang="ar">أوفبيز: مسير المحاسبة</value>
-        <value xml:lang="de">OFBiz: Buchhaltung</value>
-        <value xml:lang="en">OFBiz: Accounting Manager</value>
-        <value xml:lang="es">OFBiz: Administrador de cuentas</value>
-        <value xml:lang="fr">OFBiz: Gestion comptable</value>
-        <value xml:lang="hi_IN">OFBiz: लेखा प्रबंधक</value>
-        <value xml:lang="it">OFBiz: Gestione contabilità</value>
-        <value xml:lang="nl">OFBiz: Boekhouding</value>
-        <value xml:lang="pt_BR">OFBiz: Gerente de Contas</value>
-        <value xml:lang="pt_PT">OFBiz: Gerente de Contas</value>
-        <value xml:lang="ro">OFBiz: Gestiune Contabila </value>
-        <value xml:lang="ru">OFBiz: Менеджер учета</value>
-        <value xml:lang="th">OFBiz: การจัดการบัญชี</value>
-        <value xml:lang="zh">OFBiz: 财务管理</value>
-        <value xml:lang="zh_TW">OFBiz: 財務管理</value>
+        <value xml:lang="de">ShopsMint: Buchhaltung</value>
+        <value xml:lang="en">ShopsMint: Accounting Manager</value>
+        <value xml:lang="es">ShopsMint: Administrador de cuentas</value>
+        <value xml:lang="fr">ShopsMint: Gestion comptable</value>
+        <value xml:lang="hi_IN">ShopsMint: लेखा प्रबंधक</value>
+        <value xml:lang="it">ShopsMint: Gestione contabilità</value>
+        <value xml:lang="nl">ShopsMint: Boekhouding</value>
+        <value xml:lang="pt_BR">ShopsMint: Gerente de Contas</value>
+        <value xml:lang="pt_PT">ShopsMint: Gerente de Contas</value>
+        <value xml:lang="ro">ShopsMint: Gestiune Contabila </value>
+        <value xml:lang="ru">ShopsMint: Менеджер учета</value>
+        <value xml:lang="th">ShopsMint: การจัดการบัญชี</value>
+        <value xml:lang="zh">ShopsMint: 财务管理</value>
+        <value xml:lang="zh_TW">ShopsMint: 財務管理</value>
     </property>
     <property key="AccountingCompanyNameAccount">
         <value xml:lang="ar">اسم الموسسة على الحساب</value>

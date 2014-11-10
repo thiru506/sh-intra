@@ -71,16 +71,16 @@
         <value xml:lang="zh_TW">帳單地址和送貨地址相同</value>
     </property>
     <property key="FacilityCompanyName">
-        <value xml:lang="de">OFBiz: Einrichtungen Verwaltung</value>
-        <value xml:lang="en">OFBiz: Facility Manager</value>
-        <value xml:lang="es">OFBiz: Administrador de Almacén</value>
-        <value xml:lang="fr">OFBiz: Gestion de stock</value>
-        <value xml:lang="it">OFBiz: Gestione stabilimenti</value>
-        <value xml:lang="nl">OFBiz: Faciliteit Manager</value>
-        <value xml:lang="ro">OFBiz: Gestiune Compartimente</value>
-        <value xml:lang="ru">OFBiz: Управление объектами</value>
-        <value xml:lang="th">OFBiz: การจัดการคลังสินค้า</value>
-        <value xml:lang="vi">OFBiz: Facility Manager</value>
+        <value xml:lang="de">ShopsMint: Einrichtungen Verwaltung</value>
+        <value xml:lang="en">ShopsMint: Facility Manager</value>
+        <value xml:lang="es">ShopsMint: Administrador de Almacén</value>
+        <value xml:lang="fr">ShopsMint: Gestion de stock</value>
+        <value xml:lang="it">ShopsMint: Gestione stabilimenti</value>
+        <value xml:lang="nl">ShopsMint: Faciliteit Manager</value>
+        <value xml:lang="ro">ShopsMint: Gestiune Compartimente</value>
+        <value xml:lang="ru">ShopsMint: Управление объектами</value>
+        <value xml:lang="th">ShopsMint: การจัดการคลังสินค้า</value>
+        <value xml:lang="vi">ShopsMint: Facility Manager</value>
         <value xml:lang="zh">OFBiz：场所管理程序</value>
         <value xml:lang="zh_TW">OFBiz：場所管理程式</value>
     </property>
@@ -10757,15 +10757,15 @@
         <value xml:lang="zh_TW">產品目錄分類類型</value>
     </property>
     <property key="ProductCatalogCompanyName">
-        <value xml:lang="de">OFBiz: Katalogverwaltung</value>
-        <value xml:lang="en">OFBiz: Catalog Manager</value>
-        <value xml:lang="es">OFBiz: Administrador del Catálogo</value>
-        <value xml:lang="fr">OFBiz: Gestion des articles</value>
-        <value xml:lang="it">OFBiz: Gestione cataloghi</value>
-        <value xml:lang="ro">OFBiz: Gestiune Catalog</value>
-        <value xml:lang="ru">OFBiz: Управление каталогами</value>
-        <value xml:lang="th">OFBiz: การจัดการหมวดหมู่</value>
-        <value xml:lang="vi">Ofbiz: Quản lý chương mục</value>
+        <value xml:lang="de">ShopsMint: Katalogverwaltung</value>
+        <value xml:lang="en">ShopsMint: Catalog Manager</value>
+        <value xml:lang="es">ShopsMint: Administrador del Catálogo</value>
+        <value xml:lang="fr">ShopsMint: Gestion des articles</value>
+        <value xml:lang="it">ShopsMint: Gestione cataloghi</value>
+        <value xml:lang="ro">ShopsMint: Gestiune Catalog</value>
+        <value xml:lang="ru">ShopsMint: Управление каталогами</value>
+        <value xml:lang="th">ShopsMint: การจัดการหมวดหมู่</value>
+        <value xml:lang="vi">ShopsMint: Quản lý chương mục</value>
         <value xml:lang="zh">OFBiz：目录管理程序</value>
         <value xml:lang="zh_TW">OFBiz：目錄管理程式</value>
     </property>

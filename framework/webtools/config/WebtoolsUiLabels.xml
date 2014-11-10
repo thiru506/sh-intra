@@ -886,16 +886,16 @@
         <value xml:lang="zh_TW">清除這個緩存</value>
     </property>
     <property key="WebtoolsCompanyName">
-        <value xml:lang="de">OFBiz: Web Tools</value>
-        <value xml:lang="en">OFBiz: Web Tools</value>
-        <value xml:lang="es">OFBiz: Herramientas Web</value>
-        <value xml:lang="fr">OFBiz: outils web</value>
-        <value xml:lang="it">OFBiz: Strumenti web</value>
-        <value xml:lang="pt">OFBiz: Web Tools</value>
-        <value xml:lang="ro">OFBiz: Instrumente Web</value>
-        <value xml:lang="th">OFBiz: เครื่องมือจัดการเว็บไซต์</value>
-        <value xml:lang="zh">OFBiz: Web工具</value>
-        <value xml:lang="zh_TW">OFBiz: Web工具</value>
+        <value xml:lang="de">ShopsMint: Web Tools</value>
+        <value xml:lang="en">ShopsMint: Web Tools</value>
+        <value xml:lang="es">ShopsMint: Herramientas Web</value>
+        <value xml:lang="fr">ShopsMint: outils web</value>
+        <value xml:lang="it">ShopsMint: Strumenti web</value>
+        <value xml:lang="pt">ShopsMint: Web Tools</value>
+        <value xml:lang="ro">ShopsMint: Instrumente Web</value>
+        <value xml:lang="th">ShopsMint: เครื่องมือจัดการเว็บไซต์</value>
+        <value xml:lang="zh">ShopsMint: Web工具</value>
+        <value xml:lang="zh_TW">ShopsMint: Web工具</value>
     </property>
     <property key="WebtoolsCompanySubtitle">
         <!--value xml:lang="ar">جزء من عائلة أوفبيز للبرمجيات الحرة</value-->
