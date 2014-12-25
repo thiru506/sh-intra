@@ -24,5 +24,14 @@
         </description>
         <attribute name="products" mode="OUT" type="List"></attribute>
     </service> 
+    <service name="getProductsByKeyWord" engine="java" location="com.shopsmint.party.SearchHelper" invoke="getProductsByKeyWord" validate="false">
+        <description>
+            Get all products by keyword
+        </description>
+        <attribute name="request" mode="IN" type="javax.servlet.http.HttpServletRequest"/>
+        <attribute name="response" mode="IN" type="javax.servlet.http.HttpServletResponse"/>
+        <!-- <attribute name="SEARCH_STRING" mode="IN" type="String"></attribute> -->
+        <attribute name="searchResult" mode="OUT" type="Map"></attribute>
+    </service> 
 
 </services>

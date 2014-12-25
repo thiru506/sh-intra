@@ -17,7 +17,7 @@ import org.ofbiz.service.ServiceUtil;
 
 public class MerchantServices {
 	
-	public static Map<String,Object> getMerchants(DispatchContext dctx,Map<String, ? extends Object> contex){
+	public static Map<String,Object> getMerchants(DispatchContext dctx,Map<String, ? extends Object> context){
 		Map<String, Object> result = FastMap.newInstance();
         Delegator delegator = dctx.getDelegator();
         //String partyId = (String) context.get("partyId");
