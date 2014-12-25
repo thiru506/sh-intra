@@ -3737,6 +3737,8 @@ under the License.
       <field name="itemDeclinedStatus" type="id"></field>
       <field name="headerCancelStatus" type="id"></field>
       <field name="itemCancelStatus" type="id"></field>
+      <field name="domainName" type="long-varchar"></field>
+      <field name="zipCode" type="id"></field>
       <field name="authDeclinedMessage" type="long-varchar"></field>
       <field name="authFraudMessage" type="long-varchar"></field>
       <field name="authErrorMessage" type="long-varchar"></field>
@@ -3852,6 +3854,23 @@ under the License.
       <relation type="one" fk-name="PS_CAT_CATALOG" rel-entity-name="ProdCatalog">
         <key-map field-name="prodCatalogId"/>
       </relation>
+    </entity>
+     <entity entity-name="ProductStoreGeoPoint"
+        package-name="org.ofbiz.party.party"
+        title="Product Store Geo Location with history">
+        <field name="productStoreId" type="id-ne"></field>
+        <field name="geoPointId" type="id-ne"></field>
+        <field name="fromDate" type="date-time"></field>
+        <field name="thruDate" type="date-time"></field>
+        <prim-key field="productStoreId"/>
+        <prim-key field="geoPointId"/>
+        <prim-key field="fromDate"/>
+        <relation type="one" fk-name="PSGEOPT_PS" rel-entity-name="ProductStore">
+            <key-map field-name="productStoreId"/>
+        </relation>
+        <relation type="one" fk-name="PSGEOPT_GEOPT" rel-entity-name="GeoPoint">
+            <key-map field-name="geoPointId"/>
+        </relation>
     </entity>
     <entity entity-name="ProductStoreEmailSetting"
             package-name="org.ofbiz.product.store"
