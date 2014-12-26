@@ -5,17 +5,6 @@
 
     </head>
     <body>
-    <h1>shopsmint<h1>
-
-<table height="150" width="150" border="1">
-<tr>
-<#list resultMap.merchants as merchant>
-<td>
-<a href="/shopsmint/control/products?productStoreId=${merchant.productStoreId}">${merchant.payToPartyId} </a>
-</td>
-</#list>
-</tr>
-<table>
-
+    Shopmsmint Logo
 </dody>
 </html>

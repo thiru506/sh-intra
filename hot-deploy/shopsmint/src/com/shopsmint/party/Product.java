@@ -50,7 +50,7 @@ public class Product {
         		String productCategoryId = (String)val.get("productCategoryId");
         		products.addAll(delegator.findByAnd("ProductCategoryAndMember",UtilMisc.toMap("productCategoryId",productCategoryId)));
         	}
-        	
+        	//ProductAndPriceView
         } catch (GenericEntityException e) {
             return ServiceUtil.returnError(e.getMessage());
         }

@@ -34,7 +34,7 @@
             <widgets>
                 <decorator-screen name="MyDecorator">
                     <decorator-section name="body">
-                    		<!-- <platform-specific><html><html-template location="component://shopsmint/webapp/shopsmint/includes/header.ftl"/> </html> </platform-specific> -->
+                    		<platform-specific><html><html-template location="component://shopsmint/webapp/shopsmint/includes/store.ftl"/> </html> </platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
