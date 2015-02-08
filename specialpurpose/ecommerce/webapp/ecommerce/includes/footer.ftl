@@ -21,15 +21,12 @@ under the License.
 
   <br />
   <div class="footer">
-      <div>
-        <a href="http://jigsaw.w3.org/css-validator/"><img style="border:0;width:88px;height:31px" src="<@ofbizContentUrl>/images/vcss.gif</@ofbizContentUrl>" alt="Valid CSS!"/></a>
-        <a href="http://validator.w3.org/check?uri=referer"><img style="border:0;width:88px;height:31px" src="<@ofbizContentUrl>/images/valid-xhtml10.png</@ofbizContentUrl>" alt="Valid XHTML 1.0!"/></a>
-      </div>
+      
       <br />
       <div class="tabletext">
         <a href="http://ofbiz.apache.org">${uiLabelMap.EcommerceAboutUs}</a>
-        <div class="tabletext">Copyright (c) 2001-${nowTimestamp?string("yyyy")} The Apache Software Foundation - <a href="http://www.apache.org" class="tabletext">www.apache.org</a></div>
-        <div class="tabletext">Powered by <a href="http://ofbiz.apache.org" class="tabletext">Apache OFBiz</a></div>
+        <div class="tabletext">Copyright (c) 2015-${nowTimestamp?string("yyyy")} The ShopsMint - <a href="http://www.shopsmint.com" class="tabletext">www.shopsmint.com</a></div>
+        <div class="tabletext">Powered by <a href="http://www.shopsmint.com" class="tabletext">ShopsMint</a></div>
         
       </div>
       <br />
