@@ -52,5 +52,21 @@
             </widgets>
         </section>
     </screen>
+    <screen name="CreateMarchent" title="Create Marchent">
+        <section>
+            <actions>
+            </actions>
+            <widgets>
+            <decorator-screen name="ShopsMintCommonDecorator" location="${parameters.mainDecoratorLocation}">
+            	<decorator-section name="body">
+                     <screenlet title="Create Marchent">
+                     	<include-form name="CreateMarchent" location="component://shopsmint/widget/ShopsMintForms.xml"/>
+                     </screenlet>
+                </decorator-section>
+            </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
 
 </screens>

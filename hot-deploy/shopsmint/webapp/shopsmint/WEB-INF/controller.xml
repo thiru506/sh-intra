@@ -37,8 +37,24 @@
        <event type="service"  invoke="getMerchants"></event>
 	    <response name="success" type="request" value="json"/>
     </request-map>
+    <request-map uri="CreateMarchent">
+    <security https="true" auth="true"/>
+    <response name="success" type="view" value="CreateMarchent"/>
+    <response name="error" type="view" value="CreateMarchent"/>
+    </request-map>
+    <request-map uri="createMerchant">
+       <event type="service"  invoke="createMerchant"></event>
+	   <response name="success" type="request-redirect-noparam" value="CreateMarchent"/>
+    <response name="error" type="view" value="CreateMarchent"/>
+    </request-map>
+    <request-map uri="createOrUpdateGeoPoint">
+       <event type="service"  invoke="createOrUpdateGeoPoint"></event>
+	   <response name="success" type="request-redirect-noparam" value="CreateMarchent"/>
+    <response name="error" type="view" value="CreateMarchent"/>
+    </request-map>
     <!-- View Mappings -->
     <view-map name="main" type="screen" page="component://shopsmint/widget/ShopsMintScreens.xml#main"/>
     <view-map name="store"  type="screen" page="component://shopsmint/widget/ShopsMintScreens.xml#store"/>
     <view-map name="products" type="screen" page="component://shopsmint/widget/ShopsMintScreens.xml#products"/>
+    <view-map name="CreateMarchent" type="screen" page="component://shopsmint/widget/ShopsMintScreens.xml#CreateMarchent"/>
 </site-conf>

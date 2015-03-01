@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
-
+	<form  name="CreateMarchent" type="single" target="createMerchant">
+		<field name="groupName" title="Organization Name" ><text /></field>
+		<!-- <field name="firstName" title="First Name" ><text /></field>
+		<field name="lastName" title="Last Name" ><text /></field>
+		<field name="firstName" title="First Name" ><text /></field> -->
+		<field name="emailId" title="E-mailId" ><text /></field>
+		<field name="mobileNumber" title="Phone Number" ><text maxlength="10" /></field>
+		<field name="landNumber" title="Land Number"><text></text></field>
+		<field name="address1" title="Address 1" ><text /></field>
+		<field name="address2" title="Address 2" ><text /></field>
+		<field name="city" title="City" ><text /></field>
+		<field name="postalCode" title="Pin Code" ><text /></field>
+		<field name="longitude" title="Longitude" ><text /></field>
+		<field name="latitude" title="Latitude" ><text /></field>
+		<field name="natureOfBussiness" title="Nature Of Bussiness">
+			<drop-down></drop-down>
+		</field>
+		<field name="radius" title="Shipment Radius For The Store"><text/></field>
+		<field name="tinOrTanNo" title="TAN / TIN Number"><text/></field>
+		<field name="domainName" title="Domain Name" tooltip="Ex..domainName.shopsmint.com" ><text /></field>
+		<field name="checkBox" title="Accept Terms And Conditions">
+			<check/>
+		</field>
+		<field name="submitButton" title="${uiLabelMap.CommonCreate}"><submit/></field>  
+	</form>
 
 </forms>
