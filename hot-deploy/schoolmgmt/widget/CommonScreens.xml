@@ -35,6 +35,7 @@
                             </condition>
                             <widgets>
                                 <decorator-section-include name="body"/>
+                                <include-menu location="component://schoolmgmt/widget/SchoolMgmtMenus.xml" name="SchoolAppBar"/>
                             </widgets>
                             <fail-widgets>
                                 <label style="h3">${uiLabelMap.SchoolMgmtViewPermissionError}</label>
