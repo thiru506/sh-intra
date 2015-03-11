@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-engine-xml>
+    <SecurityPermission description="View operations in the SchoolMgmt Component." permissionId="SCHOOLMGMT_VIEW"/>
+    <SecurityPermission description="Create operations in the SchoolMgmt Component." permissionId="SCHOOLMGMT_CREATE"/>
+    <SecurityPermission description="Update operations in the SchoolMgmt Component." permissionId="SCHOOLMGMT_UPDATE"/>
+    <SecurityPermission description="Delete operations in the SchoolMgmt Component." permissionId="SCHOOLMGMT_DELETE"/>
+    <SecurityPermission description="ALL operations in the SchoolMgmt Component." permissionId="SCHOOLMGMT_ADMIN"/>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="SCHOOLMGMT_ADMIN"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="SCHOOLMGMT_CREATE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="SCHOOLMGMT_DELETE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="SCHOOLMGMT_UPDATE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="SCHOOLMGMT_VIEW"/>
+    <SecurityGroupPermission groupId="VIEWADMIN" permissionId="SCHOOLMGMT_VIEW"/>
+    <SecurityGroupPermission groupId="BIZADMIN" permissionId="SCHOOLMGMT_ADMIN"/>
+</entity-engine-xml>
