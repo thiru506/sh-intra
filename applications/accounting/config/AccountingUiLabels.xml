@@ -962,15 +962,15 @@
         <value xml:lang="zh_TW">應付賬戶首頁</value>
     </property>
     <property key="AccountingApCompanyName">
-        <value xml:lang="de">ShopsMint: Kreditorenbuchhaltung</value>
-        <value xml:lang="en">ShopsMint: AP Manager</value>
+        <value xml:lang="de">S-ERP: Kreditorenbuchhaltung</value>
+        <value xml:lang="en">S-ERP: AP Manager</value>
         <value xml:lang="fr">OFBiz : gestion des comptes fourn.</value>
-        <value xml:lang="hi_IN">ShopsMint: खाता देय प्रबंधक</value>
-        <value xml:lang="it">ShopsMint: Gestione conti debitori</value>
-        <value xml:lang="nl">ShopsMint: Credit Manager</value>
-        <value xml:lang="pt">ShopsMint: Gestão de Contas a Pagar</value>
-        <value xml:lang="zh">ShopsMint: 应付账户管理</value>
-        <value xml:lang="zh_TW">ShopsMint: 應付賬戶管理</value>
+        <value xml:lang="hi_IN">S-ERP: खाता देय प्रबंधक</value>
+        <value xml:lang="it">S-ERP: Gestione conti debitori</value>
+        <value xml:lang="nl">S-ERP: Credit Manager</value>
+        <value xml:lang="pt">S-ERP: Gestão de Contas a Pagar</value>
+        <value xml:lang="zh">S-ERP: 应付账户管理</value>
+        <value xml:lang="zh_TW">S-ERP: 應付賬戶管理</value>
     </property>
     <property key="AccountingApManager">
         <value xml:lang="de">Kreditorenbuchhaltung</value>
@@ -1235,15 +1235,15 @@
         <value xml:lang="zh_TW">應收賬戶首頁</value>
     </property>
     <property key="AccountingArCompanyName">
-        <value xml:lang="de">ShopsMint: Debitorenbuchhaltung</value>
-        <value xml:lang="en">ShopsMint: AR Manager</value>
+        <value xml:lang="de">S-ERP: Debitorenbuchhaltung</value>
+        <value xml:lang="en">S-ERP: AR Manager</value>
         <value xml:lang="fr">OFBiz : gestion des comptes clients</value>
-        <value xml:lang="hi_IN">ShopsMint: खाता प्राप्य प्रबंधक</value>
-        <value xml:lang="it">ShopsMint: Gestione conti creditori</value>
-        <value xml:lang="nl">ShopsMint: Debiteuren Manager</value>
-        <value xml:lang="pt">ShopsMint: Gestão de contas a receber</value>
-        <value xml:lang="zh">ShopsMint: 应收账户管理</value>
-        <value xml:lang="zh_TW">ShopsMint: 應收賬戶管理</value>
+        <value xml:lang="hi_IN">S-ERP: खाता प्राप्य प्रबंधक</value>
+        <value xml:lang="it">S-ERP: Gestione conti creditori</value>
+        <value xml:lang="nl">S-ERP: Debiteuren Manager</value>
+        <value xml:lang="pt">S-ERP: Gestão de contas a receber</value>
+        <value xml:lang="zh">S-ERP: 应收账户管理</value>
+        <value xml:lang="zh_TW">S-ERP: 應收賬戶管理</value>
     </property>
     <property key="AccountingArManager">
         <value xml:lang="de">Debitorenbuchhaltung</value>
@@ -2454,20 +2454,20 @@
     </property>
     <property key="AccountingCompanyName">
         <value xml:lang="ar">أوفبيز: مسير المحاسبة</value>
-        <value xml:lang="de">ShopsMint: Buchhaltung</value>
-        <value xml:lang="en">ShopsMint: Accounting Manager</value>
-        <value xml:lang="es">ShopsMint: Administrador de cuentas</value>
-        <value xml:lang="fr">ShopsMint: Gestion comptable</value>
-        <value xml:lang="hi_IN">ShopsMint: लेखा प्रबंधक</value>
-        <value xml:lang="it">ShopsMint: Gestione contabilità</value>
-        <value xml:lang="nl">ShopsMint: Boekhouding</value>
-        <value xml:lang="pt_BR">ShopsMint: Gerente de Contas</value>
-        <value xml:lang="pt_PT">ShopsMint: Gerente de Contas</value>
-        <value xml:lang="ro">ShopsMint: Gestiune Contabila </value>
-        <value xml:lang="ru">ShopsMint: Менеджер учета</value>
-        <value xml:lang="th">ShopsMint: การจัดการบัญชี</value>
-        <value xml:lang="zh">ShopsMint: 财务管理</value>
-        <value xml:lang="zh_TW">ShopsMint: 財務管理</value>
+        <value xml:lang="de">S-ERP: Buchhaltung</value>
+        <value xml:lang="en">S-ERP: Accounting Manager</value>
+        <value xml:lang="es">S-ERP: Administrador de cuentas</value>
+        <value xml:lang="fr">S-ERP: Gestion comptable</value>
+        <value xml:lang="hi_IN">S-ERP: लेखा प्रबंधक</value>
+        <value xml:lang="it">S-ERP: Gestione contabilità</value>
+        <value xml:lang="nl">S-ERP: Boekhouding</value>
+        <value xml:lang="pt_BR">S-ERP: Gerente de Contas</value>
+        <value xml:lang="pt_PT">S-ERP: Gerente de Contas</value>
+        <value xml:lang="ro">S-ERP: Gestiune Contabila </value>
+        <value xml:lang="ru">S-ERP: Менеджер учета</value>
+        <value xml:lang="th">S-ERP: การจัดการบัญชี</value>
+        <value xml:lang="zh">S-ERP: 财务管理</value>
+        <value xml:lang="zh_TW">S-ERP: 財務管理</value>
     </property>
     <property key="AccountingCompanyNameAccount">
         <value xml:lang="ar">اسم الموسسة على الحساب</value>

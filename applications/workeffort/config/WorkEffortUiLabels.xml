@@ -1907,17 +1907,17 @@
         <value xml:lang="zh_TW">評論</value>
     </property>
     <property key="WorkEffortCompanyName">
-        <value xml:lang="de">ShopsMint: Arbeitseinsatz Manager</value>
-        <value xml:lang="en">ShopsMint: WorkEffort Manager</value>
-        <value xml:lang="es">ShopsMint: Administración de tareas</value>
-        <value xml:lang="fr">ShopsMint: Gestion de tâches</value>
-        <value xml:lang="it">ShopsMint: Gestione impegni di lavoro</value>
-        <value xml:lang="nl">ShopsMint: WorkEffort Manager</value>
-        <value xml:lang="ro">ShopsMint: Gestiune Sarcini de Lucru </value>
-        <value xml:lang="ru">ShopsMint: WorkEffort Manager</value>
-        <value xml:lang="th">ShopsMint: การจัดการความพยายามในการทำงาน</value>
-        <value xml:lang="zh">ShopsMint: 人工服务管理程序</value>
-        <value xml:lang="zh_TW">ShopsMint: 工項管理程式</value>
+        <value xml:lang="de">S-ERP: Arbeitseinsatz Manager</value>
+        <value xml:lang="en">S-ERP: WorkEffort Manager</value>
+        <value xml:lang="es">S-ERP: Administración de tareas</value>
+        <value xml:lang="fr">S-ERP: Gestion de tâches</value>
+        <value xml:lang="it">S-ERP: Gestione impegni di lavoro</value>
+        <value xml:lang="nl">S-ERP: WorkEffort Manager</value>
+        <value xml:lang="ro">S-ERP: Gestiune Sarcini de Lucru </value>
+        <value xml:lang="ru">S-ERP: WorkEffort Manager</value>
+        <value xml:lang="th">S-ERP: การจัดการความพยายามในการทำงาน</value>
+        <value xml:lang="zh">S-ERP: 人工服务管理程序</value>
+        <value xml:lang="zh_TW">S-ERP: 工項管理程式</value>
     </property>
     <property key="WorkEffortCompanySubtitle">
         <!--value xml:lang="ar">جزء من عائلة أوفبيز للبرمجيات الحرة</value-->
