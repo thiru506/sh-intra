@@ -8,5 +8,48 @@
     <description>None</description>
     <copyright></copyright>
     <version></version>
-
+    <entity entity-name="Vehicle" package-name="org.ofbiz.schoolmgmt.vehicle "
+		title="Vehicle Entity">
+		<field name="vehicleId" type="id-ne"></field>
+		<field name="vehicleName" type="name"></field>
+		<field name="dateAcquired" type="date-time"></field>
+		<field name="vehicleCapacity" type="fixed-point"></field>
+		<field name="serialNumber" type="long-varchar"></field>
+		<field name="vehicleNumber" type="long-varchar"></field>
+		<field name="createdByUserLogin" type="id-vlong"></field>
+		<field name="lastModifiedByUserLogin" type="id-vlong"></field>
+		<field name="createdDate" type="date-time"></field>      
+      	<field name="lastModifiedDate" type="date-time"></field>
+		<prim-key field="vehicleId" />
+	</entity>
+	<entity entity-name="VehicleRole" package-name="org.ofbiz.schoolmgmt.vehicle "
+		title="Vehicle Entity">
+		<field name="vehicleId" type="id-ne"></field>
+		<field name="roleTypeId" type="id-ne"></field>
+		<field name="partyId" type="id-ne"></field>
+		<field name="facilityId" type="id-ne"></field>
+		<field name="fromDate" type="date-time"></field>
+		<field name="thruDate" type="date-time"></field>
+		<field name="createdByUserLogin" type="id-vlong"></field>
+		<field name="lastModifiedByUserLogin" type="id-vlong"></field>
+		<field name="createdDate" type="date-time"></field>      
+      	<field name="lastModifiedDate" type="date-time"></field>
+		<prim-key field="vehicleId" />
+		<prim-key field="facilityId" />
+		<prim-key field="roleTypeId" />
+		<prim-key field="partyId" />
+		<prim-key field="fromDate" />
+		<relation type="many" fk-name="VEHR_ID" rel-entity-name="Vehicle">
+			<key-map field-name="vehicleId" />
+		</relation>
+		<relation type="one" fk-name="VEHR_RTID" rel-entity-name="RoleType">
+			<key-map field-name="roleTypeId" />
+		</relation>
+		<relation type="one" fk-name="VEHR_FAID" rel-entity-name="Facility">
+			<key-map field-name="facilityId"/>
+		</relation>
+		<relation type="one" fk-name="VEHR_PTID" rel-entity-name="Party">
+			<key-map field-name="partyId" />
+		</relation>
+	</entity>
 </entitymodel>

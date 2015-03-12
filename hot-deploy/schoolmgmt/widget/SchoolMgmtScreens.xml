@@ -15,16 +15,27 @@
             </widgets>
         </section>
     </screen>
-     <screen name="utilities">
+     <screen name="transport">
         <section>
             <actions>
-                <set field="headerItem" value="main"/><!-- this highlights the selected menu-item with name "main" -->
+                <set field="tabButtonItem" value="utilities"/><!-- this highlights the selected menu-item with name "main" -->
+                <script location="component://schoolmgmt/webapp/schoolmgmt/WEB-INF/actions/schoolmgmt/vehicleLookupTable.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="SchoolMgmtCommonDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                          <platform-specific><html><html-template location="component://schoolmgmt/webapp/schoolmgmt/forms/createTranportRoute.ftl"/></html></platform-specific>
-                          <!-- <include-form location="component://schoolmgmt/widget/SchoolMgmtForms.xml" name="createTransPort"/> -->
+                    		<include-menu location="component://schoolmgmt/widget/SchoolMgmtMenus.xml" name="UtilitiesSubTabBar"/>
+                          <container>
+							<screenlet title="Vehicles">
+								<platform-specific>
+									<html>
+										<html-template
+											location="component://schoolmgmt/webapp/schoolmgmt/schoolmgmt/vehicleLookupTable.ftl"></html-template>
+									</html>
+								</platform-specific>
+							</screenlet>
+						</container>
+						<platform-specific><html><html-template location="component://schoolmgmt/webapp/schoolmgmt/forms/createTranportRoute.ftl"/></html></platform-specific>
                      </decorator-section>
                     
                 </decorator-screen>
