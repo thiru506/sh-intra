@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
-
+     <form name="createTransPort" target="createVehicleRoute" type="single">
+        <field name="routeName"><text></text></field>
+        <field name="vehicleNumber"><text></text></field>
+        <field name="startPoint"><text></text></field>
+        <field name="startTime"><text></text></field>
+        <field name="submit"><submit/></field>
+     </form>
 
 </forms>

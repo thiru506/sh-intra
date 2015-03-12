@@ -8,6 +8,9 @@
         <menu-item name="dashBoard" title="Dash Board">
            <link target="dashBoard"></link>
         </menu-item>
+        <menu-item name="enquiry" title="Enquiry">
+           <link target="enquiry"></link>
+        </menu-item>
         <menu-item name="academics" title="Academics">
            <link target="academics"></link>
         </menu-item>
