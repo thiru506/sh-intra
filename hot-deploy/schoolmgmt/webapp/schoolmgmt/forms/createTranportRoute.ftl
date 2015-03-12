@@ -116,8 +116,10 @@ under the License.
 	<form name="createVehicleRoute" id="createVehicleRoute" method="post" action="createVehicleRoute">
 	    <table class="basic-table hover-bar" cellspacing="0">
 	       <tr>
-	         <td><b>Route Name :</b></td>  <td><input type="text" name="routeName" id="routeName" value=""></td>
-	          <td><b>Vehicle Number :</b></td>  <td><input type="text" name="vehicleNumber" id="vehicleNumber" value=""></td>
+	         <td><b>Route Name :</b></td>  <td><b><input type="text" name="routeName" id="routeName" value=""></b></td>
+	       </tr>
+	       <tr>
+	          <td><b>Vehicle Number :</b></td>  <td><b><input type="text" name="vehicleNumber" id="vehicleNumber" value=""></b></td>
 	       </tr>
 	       <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
 	    </table>
