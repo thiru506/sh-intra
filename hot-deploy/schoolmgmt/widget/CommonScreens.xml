@@ -34,8 +34,9 @@
                                 <if-has-permission permission="SCHOOLMGMT" action="_VIEW"/>
                             </condition>
                             <widgets>
+                                 <include-menu location="component://schoolmgmt/widget/SchoolMgmtMenus.xml" name="SchoolAppBar"/>
                                 <decorator-section-include name="body"/>
-                                <include-menu location="component://schoolmgmt/widget/SchoolMgmtMenus.xml" name="SchoolAppBar"/>
+                                
                             </widgets>
                             <fail-widgets>
                                 <label style="h3">${uiLabelMap.SchoolMgmtViewPermissionError}</label>
