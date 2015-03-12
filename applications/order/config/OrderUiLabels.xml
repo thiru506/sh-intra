@@ -2532,20 +2532,20 @@
         <value xml:lang="zh_TW">你可以在這里添加其他逗號分隔的電子郵件位址，這些電子郵件位址僅用于當前訂單</value>
     </property>
     <property key="OrderCompanyName">
-        <value xml:lang="de">ShopsMint: Auftragsverwaltung</value>
-        <value xml:lang="en">ShopsMint: Order Manager</value>
-        <value xml:lang="es">ShopsMint: Gestión de pedidos</value>
+        <value xml:lang="de">S-ERP: Auftragsverwaltung</value>
+        <value xml:lang="en">S-ERP: Order Manager</value>
+        <value xml:lang="es">S-ERP: Gestión de pedidos</value>
         <value xml:lang="fr">OFBiz : Gestion commerciale</value>
-        <value xml:lang="it">ShopsMint: Gestione ordini</value>
-        <value xml:lang="nl">ShopsMint: Bestelling Manager</value>
-        <value xml:lang="pt_BR">ShopsMint: Gestão de Pedidos</value>
-        <value xml:lang="ro">ShopsMint: Gestiune Comanda </value>
-        <value xml:lang="ru">ShopsMint: Управление заказами</value>
-        <value xml:lang="th">ShopsMint: การจัดการรายการสั่งซื้อสินค้าสินค้า</value>
-        <value xml:lang="vi">ShopsMint: Quản lý đặt hàng</value>
-        <value xml:lang="zh">ShopsMint: 订单管理</value>
-        <value xml:lang="zh_CN">ShopsMint: 订单管理</value>
-        <value xml:lang="zh_TW">ShopsMint: 訂單管理</value>
+        <value xml:lang="it">S-ERP: Gestione ordini</value>
+        <value xml:lang="nl">S-ERP: Bestelling Manager</value>
+        <value xml:lang="pt_BR">S-ERP: Gestão de Pedidos</value>
+        <value xml:lang="ro">S-ERP: Gestiune Comanda </value>
+        <value xml:lang="ru">S-ERP: Управление заказами</value>
+        <value xml:lang="th">S-ERP: การจัดการรายการสั่งซื้อสินค้าสินค้า</value>
+        <value xml:lang="vi">S-ERP: Quản lý đặt hàng</value>
+        <value xml:lang="zh">S-ERP: 订单管理</value>
+        <value xml:lang="zh_CN">S-ERP: 订单管理</value>
+        <value xml:lang="zh_TW">S-ERP: 訂單管理</value>
     </property>
     <property key="OrderCompanySubtitle">
         <value xml:lang="ar">جزء من عائلة أوفبيز للتطبيقات الحرة للتسيير</value>
@@ -4859,7 +4859,7 @@
         <value xml:lang="es">Gestión de pedidos</value>
         <value xml:lang="fr">Gestion de Commandes</value>
         <value xml:lang="it">Applicazione gestione ordini</value>
-        <value xml:lang="nl">ShopsMint: Bestelling Manager</value>
+        <value xml:lang="nl">S-ERP: Bestelling Manager</value>
         <value xml:lang="pt_BR">Aplicativo de gestão de pedidos</value>
         <value xml:lang="ro">Aplicatie Gestiune Comenzi</value>
         <value xml:lang="ru">Управление заказами</value>

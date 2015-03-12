@@ -5,7 +5,7 @@
         <value xml:lang="zh">@component-resource-name@应用程序</value>
     </property>
     <property key="@component-resource-name@CompanyName">
-        <value xml:lang="en">ShopsMint: @component-resource-name@</value>
+        <value xml:lang="en">S-ERP: @component-resource-name@</value>
     </property>
     <property key="@component-resource-name@CompanySubtitle">
         <value xml:lang="en">Part of the Open For Business Family of Open Source Software</value>

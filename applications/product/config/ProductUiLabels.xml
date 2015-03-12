@@ -71,16 +71,16 @@
         <value xml:lang="zh_TW">帳單地址和送貨地址相同</value>
     </property>
     <property key="FacilityCompanyName">
-        <value xml:lang="de">ShopsMint: Einrichtungen Verwaltung</value>
-        <value xml:lang="en">ShopsMint: Facility Manager</value>
-        <value xml:lang="es">ShopsMint: Administrador de Almacén</value>
-        <value xml:lang="fr">ShopsMint: Gestion de stock</value>
-        <value xml:lang="it">ShopsMint: Gestione stabilimenti</value>
-        <value xml:lang="nl">ShopsMint: Faciliteit Manager</value>
-        <value xml:lang="ro">ShopsMint: Gestiune Compartimente</value>
-        <value xml:lang="ru">ShopsMint: Управление объектами</value>
-        <value xml:lang="th">ShopsMint: การจัดการคลังสินค้า</value>
-        <value xml:lang="vi">ShopsMint: Facility Manager</value>
+        <value xml:lang="de">S-ERP: Einrichtungen Verwaltung</value>
+        <value xml:lang="en">S-ERP: Facility Manager</value>
+        <value xml:lang="es">S-ERP: Administrador de Almacén</value>
+        <value xml:lang="fr">S-ERP: Gestion de stock</value>
+        <value xml:lang="it">S-ERP: Gestione stabilimenti</value>
+        <value xml:lang="nl">S-ERP: Faciliteit Manager</value>
+        <value xml:lang="ro">S-ERP: Gestiune Compartimente</value>
+        <value xml:lang="ru">S-ERP: Управление объектами</value>
+        <value xml:lang="th">S-ERP: การจัดการคลังสินค้า</value>
+        <value xml:lang="vi">S-ERP: Facility Manager</value>
         <value xml:lang="zh">OFBiz：场所管理程序</value>
         <value xml:lang="zh_TW">OFBiz：場所管理程式</value>
     </property>
@@ -10757,15 +10757,15 @@
         <value xml:lang="zh_TW">產品目錄分類類型</value>
     </property>
     <property key="ProductCatalogCompanyName">
-        <value xml:lang="de">ShopsMint: Katalogverwaltung</value>
-        <value xml:lang="en">ShopsMint: Catalog Manager</value>
-        <value xml:lang="es">ShopsMint: Administrador del Catálogo</value>
-        <value xml:lang="fr">ShopsMint: Gestion des articles</value>
-        <value xml:lang="it">ShopsMint: Gestione cataloghi</value>
-        <value xml:lang="ro">ShopsMint: Gestiune Catalog</value>
-        <value xml:lang="ru">ShopsMint: Управление каталогами</value>
-        <value xml:lang="th">ShopsMint: การจัดการหมวดหมู่</value>
-        <value xml:lang="vi">ShopsMint: Quản lý chương mục</value>
+        <value xml:lang="de">S-ERP: Katalogverwaltung</value>
+        <value xml:lang="en">S-ERP: Catalog Manager</value>
+        <value xml:lang="es">S-ERP: Administrador del Catálogo</value>
+        <value xml:lang="fr">S-ERP: Gestion des articles</value>
+        <value xml:lang="it">S-ERP: Gestione cataloghi</value>
+        <value xml:lang="ro">S-ERP: Gestiune Catalog</value>
+        <value xml:lang="ru">S-ERP: Управление каталогами</value>
+        <value xml:lang="th">S-ERP: การจัดการหมวดหมู่</value>
+        <value xml:lang="vi">S-ERP: Quản lý chương mục</value>
         <value xml:lang="zh">OFBiz：目录管理程序</value>
         <value xml:lang="zh_TW">OFBiz：目錄管理程式</value>
     </property>
