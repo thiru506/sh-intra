@@ -10,4 +10,8 @@
  <RoleType roleTypeId="PARENT" description="Parent"></RoleType>
  <RoleType roleTypeId="HOSTEL_WARDEN" description="Hostel Warden"></RoleType>
  <RoleType roleTypeId="INCHARGE" description="In-charge"></RoleType>
+ 
+ <ProductType productTypeId="CLASS" description="Class"></ProductType>
+ <ProductType productTypeId="SUBJECT" description="Subject"></ProductType>
+  <ProductAssocType description="Actual Product Component" hasTable="N" productAssocTypeId="PRODUCT_COMPONENT"/>
 </entity-engine-xml>
