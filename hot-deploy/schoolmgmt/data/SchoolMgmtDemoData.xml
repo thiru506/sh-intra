@@ -13,4 +13,18 @@
  <FacilityParty facilityId="BOYS_HOSTEL" fromDate="2015-03-13 08:27:41.0" partyId="Company" roleTypeId="HOSTEL_WARDEN"/>
  <FacilityParty facilityId="GIRLS_HOSTEL" fromDate="2015-03-13 08:27:41.0" partyId="Company" roleTypeId="HOSTEL_WARDEN"/>
  
+ <Product productId="CLASS_I" productTypeId="CLASS" productName="Clas -I" description="Clas -I"></Product>
+ <Product productId="CLASS_II" productTypeId="CLASS" productName="Class -II" description="Class-II"></Product>
+ <Product productId="SUBJECT_1" productTypeId="SUBJECT" productName="Mathmatics" description="Mathmatics"></Product>
+ <Product productId="SUBJECT_2" productTypeId="SUBJECT" productName="Engilish" description="Engilish"></Product>
+ <Product productId="SUBJECT_3" productTypeId="SUBJECT" productName="Physics" description="Physics"></Product>
+ <ProductAssoc fromDate="2007-01-01 12:00:00.0" productAssocTypeId="PRODUCT_COMPONENT" productId="SUBJECT_1" productIdTo="CLASS_I" quantity="1.000000"/>
+ <ProductAssoc fromDate="2007-01-01 12:00:00.0" productAssocTypeId="PRODUCT_COMPONENT" productId="SUBJECT_2" productIdTo="CLASS_I" quantity="1.000000"/>
+ <ProductAssoc fromDate="2007-01-01 12:00:00.0" productAssocTypeId="PRODUCT_COMPONENT" productId="SUBJECT_3" productIdTo="CLASS_I" quantity="1.000000"/>
+ 
+ <ProductAssoc fromDate="2007-01-01 12:00:00.0" productAssocTypeId="PRODUCT_COMPONENT" productId="SUBJECT_1" productIdTo="CLASS_II" quantity="1.000000"/>
+ <ProductAssoc fromDate="2007-01-01 12:00:00.0" productAssocTypeId="PRODUCT_COMPONENT" productId="SUBJECT_2" productIdTo="CLASS_II" quantity="1.000000"/>
+ <ProductAssoc fromDate="2007-01-01 12:00:00.0" productAssocTypeId="PRODUCT_COMPONENT" productId="SUBJECT_3" productIdTo="CLASS_II" quantity="1.000000"/>
+ 
+ 
 </entity-engine-xml>
