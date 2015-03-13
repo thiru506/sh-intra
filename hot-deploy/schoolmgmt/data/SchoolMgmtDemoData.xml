@@ -1,4 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <entity-engine-xml>
-
+<!-- Hostels and Rooms -->
+ <Facility defaultInventoryItemTypeId="NON_SERIAL_INV_ITEM" description="Boy's Hostel" facilityId="BOYS_HOSTEL" facilityName="Boy's Hostel" facilityTypeId="BUILDING" ownerPartyId="Company" openedDate="2014-10-11 01:24:43.000" facilitySize="40"/>
+ <Facility parentFacilityId="BOYS_HOSTEL" defaultInventoryItemTypeId="NON_SERIAL_INV_ITEM" description="Boy's Hostel Room-101" facilityId="BOYS_ROOM101" facilityName="Boy's Hostel Room-101" facilityTypeId="ROOM" ownerPartyId="Company" openedDate="2014-10-11 01:24:43.000" facilitySize="20"/>
+ <Facility parentFacilityId="BOYS_HOSTEL" defaultInventoryItemTypeId="NON_SERIAL_INV_ITEM" description="Boy's Hostel Room-102" facilityId="BOYS_ROOM102" facilityName="Boy's Hostel Room-102" facilityTypeId="ROOM" ownerPartyId="Company" openedDate="2014-10-11 01:24:43.000" facilitySize="20"/>
+ 
+ <Facility defaultInventoryItemTypeId="NON_SERIAL_INV_ITEM" description="Girl's Hostel" facilityId="GIRLS_HOSTEL" facilityName="Girl's Hostel" facilityTypeId="BUILDING" ownerPartyId="Company" openedDate="2015-01-11 01:24:43.000" facilitySize="35"/>
+ <Facility parentFacilityId="GIRLS_HOSTEL" defaultInventoryItemTypeId="NON_SERIAL_INV_ITEM" description="Girl's Hostel Room-102" facilityId="GIRLS_ROOM102" facilityName="Girl's Hostel Room-102" facilityTypeId="ROOM" ownerPartyId="Company" openedDate="2015-01-11 01:24:43.000" facilitySize="20"/>
+ <Facility parentFacilityId="GIRLS_HOSTEL" defaultInventoryItemTypeId="NON_SERIAL_INV_ITEM" description="Girl's Hostel Room-101" facilityId="GIRLS_ROOM101" facilityName="Girl's Hostel Room-101" facilityTypeId="ROOM" ownerPartyId="Company" openedDate="2015-01-11 01:24:43.000" facilitySize="15"/>
+ 
+ <PartyRole  partyId="Company" roleTypeId="HOSTEL_WARDEN"></PartyRole>
+ <FacilityParty facilityId="BOYS_HOSTEL" fromDate="2015-03-13 08:27:41.0" partyId="Company" roleTypeId="HOSTEL_WARDEN"/>
+ <FacilityParty facilityId="GIRLS_HOSTEL" fromDate="2015-03-13 08:27:41.0" partyId="Company" roleTypeId="HOSTEL_WARDEN"/>
+ 
 </entity-engine-xml>

@@ -10,7 +10,6 @@ dctx = dispatcher.getDispatchContext();
 
 vehicleList =delegator.findList("Vehicle", null, null, null, null, false );
 JSONArray vehiclesJSON = new JSONArray();
-Debug.logError("vehicleList====================="+vehicleList.size(),"");
 vehicleList.each { vehicle ->
 	JSONArray vehicleJSON = new JSONArray();
 	if(vehicle.vehicleName){
