@@ -42,6 +42,31 @@
             </widgets>
         </section>
     </screen>
-    
+    <screen name="Dormitary">
+        <section>
+            <actions>
+                <set field="tabButtonItem" value="utilities"/><!-- this highlights the selected menu-item with name "main" -->
+                 <set field="tabButtonItem2" value="dormitary"/>
+                <script location="component://schoolmgmt/webapp/schoolmgmt/WEB-INF/actions/schoolmgmt/DormitaryLookupTable.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="SchoolMgmtCommonDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                    		<include-menu location="component://schoolmgmt/widget/SchoolMgmtMenus.xml" name="UtilitiesSubTabBar"/>
+                          <container>
+							<screenlet title="Dormitarys">
+								<platform-specific>
+									<html>
+										<html-template
+											location="component://schoolmgmt/webapp/schoolmgmt/schoolmgmt/DormitaryLookupTable.ftl"></html-template>
+									</html>
+								</platform-specific>
+							</screenlet>
+						</container>
+                     </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 
 </screens>

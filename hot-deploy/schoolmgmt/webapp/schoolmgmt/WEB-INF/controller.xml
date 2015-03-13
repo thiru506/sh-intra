@@ -26,8 +26,12 @@
     	<security https="true" auth="true"/>
     	<response name="success" type="view" value="transport"/>
     </request-map>
-    
+    <request-map uri="Dormitary">
+    	<security https="true" auth="true"/>
+    	<response name="success" type="view" value="Dormitary"/>
+    </request-map>
     <!-- View Mappings -->
     <view-map name="main" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#main"/>
     <view-map name="transport" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#transport"/>
+    <view-map name="Dormitary" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#Dormitary"/>
 </site-conf>

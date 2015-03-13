@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <entity-engine-xml>
 
+ <FacilityType  description="Building" facilityTypeId="BUILDING" hasTable="N" />
+ <FacilityType  description="Room" facilityTypeId="ROOM" hasTable="N" />
+ 
+ <RoleType roleTypeId="EMPLOYEE" description="Employee"></RoleType>
+ <RoleType roleTypeId="STUDENT" description="Student"></RoleType>
+ <RoleType roleTypeId="DRIVER" description="Driver"></RoleType>
+ <RoleType roleTypeId="PARENT" description="Parent"></RoleType>
+ <RoleType roleTypeId="HOSTEL_WARDEN" description="Hostel Warden"></RoleType>
+ <RoleType roleTypeId="INCHARGE" description="In-charge"></RoleType>
 </entity-engine-xml>
