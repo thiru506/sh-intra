@@ -799,6 +799,30 @@ under the License.
         <key-map field-name="emplPositionClassTypeId"/>
       </relation>
     </entity>
+    <entity entity-name="EmplPunch" package-name="org.ofbiz.humanres.position"	title="Empl PUnch Type">
+	  <field name="employeePunchId" type="id-ne"/>
+	  <field name="emplPunchId" type="id-ne"/>
+	  <field name="partyId" type="id-ne"/>
+	  <field name="punchDateTime" type="date-time"/>
+	  <field name="punchdate" type="date"/>
+	  <field name="punchtime" type="time"/>
+	  <field name="PunchType" type="id-ne"/>
+	  <field name="InOut" type="id-ne"/>
+	  <field name="isManual" type="indicator"/>
+	   <field name="sourceId" type="id"/>
+	  <field name="Note" type="description"/>
+	  <field name="createdByUserLogin" type="id-vlong"></field>
+	  <field name="lastModifiedByUserLogin" type="id-vlong"></field>
+	  <field name="createdDate" type="date-time"></field>      
+      <field name="lastModifiedDate" type="date-time"></field>
+	  <prim-key field="employeePunchId"/>
+      <relation type="one" fk-name="EP_CRU" rel-entity-name="UserLogin">
+        <key-map field-name="createdByUserLogin" rel-field-name="userLoginId"/>
+      </relation>
+      <relation type="one" fk-name="EP_LMU" rel-entity-name="UserLogin">
+        <key-map field-name="lastModifiedByUserLogin" rel-field-name="userLoginId"/>
+      </relation>
+    </entity>
     <entity entity-name="ValidResponsibility"
             package-name="org.ofbiz.humanres.position"
             title="Valid Responsibility Entity">

@@ -1163,4 +1163,38 @@ public class UtilDateTime {
         cal.set(Calendar.MILLISECOND, 999);
         return cal.getTime();
     }
+    /**
+     * Converts a timestamp into a java.sql.Date
+     *
+     * @param date The timestamp
+     * @return A java.sql.Date made from the timestamp 
+     */
+    public static java.sql.Date toSqlDate(java.sql.Timestamp stamp) {
+        if (stamp != null) {
+            return new java.sql.Date(stamp.getTime());
+        } else {
+            return null;
+        }
+    }
+    
+    /**
+     * Converts a date into a java.sql.Date
+     *
+     * @param date The date 
+     * @return A java.sql.Date made from the date 
+     */
+    public static java.sql.Date toSqlDate(Date date) {
+        if (date != null) {
+            return new java.sql.Date(date.getTime());
+        } else {
+            return null;
+        }
+    }
+    
+    
+
+    
+   
+
+    
 }

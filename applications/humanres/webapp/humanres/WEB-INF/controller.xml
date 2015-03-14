@@ -1096,7 +1096,12 @@ under the License.
         <response name="success" type="view" value="PublicHoliday"/>
         <response name="error" type="view-last"/>
     </request-map>
-    
+    <request-map uri="emplPunchJson">
+        <security https="true" auth="true"/>
+          <event type="service" invoke="emplPunch"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
+    </request-map>
     <!--==============PayRoll History Requests==================-->
     <request-map uri="PayrollHistory">
         <security https="true" auth="true"/>

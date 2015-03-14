@@ -68,5 +68,73 @@
             </widgets>
         </section>
     </screen>
-
+    <!--  <screen name="EmployeeAttendance">
+        <section>
+            <actions>
+                <set field="tabButtonItem" value="attendance"/>this highlights the selected menu-item with name "main"
+                 <set field="tabButtonItem2" value="EmployeeAttendance"/>
+                <script location="component://schoolmgmt/webapp/schoolmgmt/WEB-INF/actions/schoolmgmt/DormitaryLookupTable.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="SchoolMgmtCommonDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                    		<include-menu location="component://schoolmgmt/widget/SchoolMgmtMenus.xml" name="UtilitiesSubTabBar"/>
+                          <container>
+							<screenlet title="Dormitarys">
+								<platform-specific>
+									<html>
+										<html-template
+											location="component://schoolmgmt/webapp/schoolmgmt/schoolmgmt/DormitaryLookupTable.ftl"></html-template>
+									</html>
+								</platform-specific>
+							</screenlet>
+						</container>
+                     </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen> -->
+    
+    <screen name="DailyAttendanceEntry">
+        <section>
+            <actions>
+				<set field="headerItem" value="attendance" />
+				<set field="tabButtonItem" value="attendance" />
+ 				<set field="tabButtonItem2" value="dailyAttendanceEntry" />                                           				
+				<set field="titleProperty" value="dailyAttendanceEntry" />
+				<set field="ajaxUrl" value="DailyAttendanceEntryInternal" type="String"/>
+				
+				<script location="component://schoolmgmt/webapp/schoolmgmt/WEB-INF/actions/schoolmgmt/employees.groovy"/> 
+            </actions>            
+            <widgets>
+				<decorator-screen name="SchoolMgmtCommonDecorator"
+					location="${parameters.mainDecoratorLocation}">
+					<decorator-section name="body"> 
+                        <include-menu location="component://schoolmgmt/widget/SchoolMgmtMenus.xml" name="AttendanceSubTabBar"/>                                                        					   					
+                        <platform-specific>
+							<html><html-template location="component://schoolmgmt/webapp/schoolmgmt/schoolmgmt/dailyPunchEditTable.ftl"></html-template></html>                         
+                        </platform-specific>  
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>   
+	
+	<screen name="DailyAttendanceEntryInternal">
+        <section>
+            <actions>
+                <entity-and list="punchTypeList" entity-name="Enumeration">
+                   <field-map field-name="enumTypeId" value="PUNCH_TYPE"/>
+                   <order-by field-name="sequenceId"/>
+                </entity-and>
+				<script location="component://schoolmgmt/webapp/schoolmgmt/WEB-INF/actions/schoolmgmt/dailyPunch.groovy"/>  
+            </actions>            
+            <widgets>
+            	 <platform-specific> 
+                		<html><html-template location="component://schoolmgmt/webapp/schoolmgmt/schoolmgmt/dailyPunchEditTableInternal.ftl"/></html>
+                 </platform-specific>  
+            </widgets>
+        </section>
+    </screen>
+    
 </screens>
