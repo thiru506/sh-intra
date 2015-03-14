@@ -62,6 +62,7 @@ under the License.
     <entity-resource type="data" reader-name="seed" loader="main" location="data/CommonPortletData.xml"/>
 
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>
+     <service-resource type="model" loader="main" location="servicedef/services_sms.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_cdyne.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_email.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_olap.xml"/>

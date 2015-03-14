@@ -48,5 +48,6 @@
     <view-map name="Dormitary" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#Dormitary"/>
     <view-map name="DailyAttendanceEntry" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#DailyAttendanceEntry"/>
 	<view-map name="DailyAttendanceEntryInternal" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#DailyAttendanceEntryInternal"/>
+	<view-map name="DailyAttendance" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#DailyAttendance"/>
 	
 </site-conf>

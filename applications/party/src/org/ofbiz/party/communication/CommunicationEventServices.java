@@ -1366,4 +1366,526 @@ public class CommunicationEventServices {
         // return null to not return any view
         return null;
     }
+    public static Map<String, Object> sendCommEventAsSms(DispatchContext ctx, Map<String, ? extends Object> context) {
+        Delegator delegator = ctx.getDelegator();
+        LocalDispatcher dispatcher = ctx.getDispatcher();
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        Locale locale = (Locale) context.get("locale");
+
+        String communicationEventId = (String) context.get("communicationEventId");
+
+        
+        Map<String, Object> result = ServiceUtil.returnSuccess();
+        List<Object> errorMessages = FastList.newInstance(); // used to keep a list of all error messages returned from sending emails to contact list
+
+        try {
+            // find the communication event and make sure that it is actually an sms
+            GenericValue communicationEvent = delegator.findByPrimaryKey("CommunicationEvent", UtilMisc.toMap("communicationEventId", communicationEventId));
+            if (communicationEvent == null) {
+                String errMsg = UtilProperties.getMessage(resource,"commeventservices.communication_event_not_found_failure", locale);
+                return ServiceUtil.returnError(errMsg + " " + communicationEventId);
+            }
+            String communicationEventType = communicationEvent.getString("communicationEventTypeId");
+            if (communicationEventType == null || !"SMS_COMMUNICATION".equals(communicationEventType)) {
+                String errMsg = UtilProperties.getMessage(resource,"commeventservices.communication_event_must_be_sms_for_sms", locale);
+                return ServiceUtil.returnError(errMsg + " " + communicationEventId);
+            }
+
+            if (UtilValidate.isEmpty(communicationEvent.getString("content"))) {
+                communicationEvent.put("content", " ");
+            }
+
+            // prepare the sms
+            Map<String, Object> sendSmsParams = FastMap.newInstance();
+            String partyIdTo = communicationEvent.getString("partyIdTo"); 
+            String partyIdFrom = communicationEvent.getString("partyIdFrom");            
+            
+            sendSmsParams.put("text", communicationEvent.getString("content"));
+            sendSmsParams.put("userLogin", userLogin);
+
+            Debug.logInfo("Sending communicationEvent: " + communicationEventId, module);
+            Map<String, Object> tmpResult = null;
+            // if there is no contact list, then send look for a contactMechIdTo and partyId
+            if ((UtilValidate.isEmpty(communicationEvent.getString("contactListId")))) {
+                // send to address
+                String sendTo = communicationEvent.getString("toString");
+
+                if (UtilValidate.isEmpty(sendTo)) {
+                    try {
+                        Map<String, Object> getTelParams = FastMap.newInstance();
+                    	getTelParams.put("partyId", partyIdTo);
+                        getTelParams.put("userLogin", userLogin);                    	
+                        tmpResult = dispatcher.runSync("getPartyTelephone", getTelParams);
+                    } catch (GenericServiceException e) {
+                        Debug.logError(e, module);
+                        return ServiceUtil.returnError(e.getMessage());
+                    }
+                    if (ServiceUtil.isError(tmpResult)) {
+                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(tmpResult));
+                    }                	
+                    sendTo = (String) tmpResult.get("countryCode") + (String) tmpResult.get("contactNumber");
+                }
+                if (UtilValidate.isEmpty(sendTo)) {
+                    String errMsg = UtilProperties.getMessage(resource,"commeventservices.communication_event_to_contact_mech_missing_contact_number", locale);
+                    return ServiceUtil.returnError(errMsg + " " + communicationEventId);
+                }    
+                // add other parties from roles (including cc and bcc which might be a bit strange for sms..)
+                String sendCc = null;
+                String sendBcc = null;
+                List <GenericValue> commRoles = communicationEvent.getRelated("CommunicationEventRole");
+                if (UtilValidate.isNotEmpty(commRoles)) {
+                    for (GenericValue commRole : commRoles) { // 'from' and 'to' already defined on communication event
+                        if (commRole.getString("partyId").equals(communicationEvent.getString("partyIdFrom")) || commRole.getString("partyId").equals(communicationEvent.getString("partyIdTo"))) {
+                            continue;
+                        }
+                        Map<String, Object> getTelParams = FastMap.newInstance();
+                    	getTelParams.put("partyId", commRole.getString("partyId"));
+                        getTelParams.put("userLogin", userLogin);                    	
+                        tmpResult = dispatcher.runSync("getPartyTelephone", getTelParams);                        
+                        if ("ADDRESSEE".equals(commRole.getString("roleTypeId"))) {
+                            sendTo += "," + (String) tmpResult.get("countryCode") + (String) tmpResult.get("contactNumber");
+                        } else if ("CC".equals(commRole.getString("roleTypeId"))) {
+                            if (sendCc != null) {
+                                sendCc += "," + (String) tmpResult.get("countryCode") + (String) tmpResult.get("contactNumber");
+                            } else {
+                                sendCc = (String) tmpResult.get("countryCode") + (String) tmpResult.get("contactNumber");
+                            }
+                        } else if ("BCC".equals(commRole.getString("roleTypeId"))) {
+                            if (sendBcc != null) {
+                                sendBcc += "," + (String) tmpResult.get("countryCode") +(String) tmpResult.get("contactNumber");
+                            } else {
+                                sendBcc = (String) tmpResult.get("countryCode") + (String) tmpResult.get("contactNumber");
+                            }
+                        }
+                    }
+                }
+                String contactNumberTo = sendTo;
+                if (sendCc != null) {
+                	contactNumberTo += "," + sendCc; 
+                }
+                if (sendBcc != null) {
+                	contactNumberTo += "," + sendBcc; 
+                }                
+                sendSmsParams.put("communicationEventId", communicationEventId);
+                sendSmsParams.put("contactNumberTo", contactNumberTo);
+                sendSmsParams.put("partyIdFrom", partyIdFrom);
+                sendSmsParams.put("partyId", partyIdTo);
+                
+                // send it - using a new transaction
+                tmpResult = dispatcher.runSync("sendSms", sendSmsParams, 360, true);
+
+                if (ServiceUtil.isError(tmpResult)) {
+                	// setup or communication error
+                   errorMessages.add(ServiceUtil.getErrorMessage(tmpResult));
+                } 
+                else {
+                    communicationEvent.set("toString", sendTo);
+                    try {
+                        communicationEvent.store();
+                    } catch (GenericEntityException e) {
+                        Debug.logError(e, module);
+                        return ServiceUtil.returnError(e.getMessage());
+                    }                	
+                    Map<String, Object> completeResult = dispatcher.runSync("setCommEventComplete", UtilMisc.<String, Object>toMap("communicationEventId", communicationEventId, "userLogin", userLogin));
+                    if (ServiceUtil.isError(completeResult)) {
+                        errorMessages.add(ServiceUtil.getErrorMessage(completeResult));
+                    }
+                }
+
+            } 
+            else {
+                // Call the sendSmsToContactList service if there's a contactListId present
+                Map<String, Object> sendSmsToContactListContext = FastMap.newInstance();
+                sendSmsToContactListContext.put("contactListId", communicationEvent.getString("contactListId"));
+                sendSmsToContactListContext.put("communicationEventId", communicationEventId);
+                sendSmsToContactListContext.put("userLogin", userLogin);
+                try {
+                    dispatcher.runAsync("sendSmsToContactList", sendSmsToContactListContext);
+                } catch (GenericServiceException e) {
+                    String errMsg = UtilProperties.getMessage(resource, "commeventservices.errorCallingSendSmsToContactListService", locale);
+                    Debug.logError(e, errMsg, module);
+                    errorMessages.add(errMsg);
+                    errorMessages.addAll(e.getMessageList());
+                }
+            }
+        } catch (GeneralException eez) {
+            return ServiceUtil.returnError(eez.getMessage());
+        } 
+
+        // If there were errors, then the result of this service should be error with the full list of messages
+        if (errorMessages.size() > 0) {
+            result = ServiceUtil.returnError(errorMessages);
+        }
+        return result;
+    }    
+
+    
+    public static Map<String, Object> sendSmsToContactList(DispatchContext ctx, Map<String, ? extends Object> context) {
+        Delegator delegator = ctx.getDelegator();
+        LocalDispatcher dispatcher = ctx.getDispatcher();
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        Locale locale = (Locale) context.get("locale");
+
+        List<Object> errorMessages = FastList.newInstance();
+        String errorCallingUpdateContactListPartyService = UtilProperties.getMessage(resource, "commeventservices.errorCallingUpdateContactListPartyService", locale);
+        String errorCallingSendSmsService = UtilProperties.getMessage(resource, "commeventservices.errorCallingSendSmsService", locale);
+        String errorInSendSmsToContactListService = UtilProperties.getMessage(resource, "commeventservices.errorInSendSmsToContactListService", locale);
+        String skippingInvalidSmsAddress = UtilProperties.getMessage(resource, "commeventservices.skippingInvalidSmsAddress", locale);
+
+        String contactListId = (String) context.get("contactListId");
+        String communicationEventId = (String) context.get("communicationEventId");
+
+        // Any exceptions thrown in this block will cause the service to return error
+        EntityListIterator eli = null;
+        try {
+
+            GenericValue communicationEvent = delegator.findByPrimaryKey("CommunicationEvent", UtilMisc.toMap("communicationEventId", communicationEventId));
+            GenericValue contactList = delegator.findByPrimaryKey("ContactList", UtilMisc.toMap("contactListId", contactListId));
+
+            Map<String, Object> sendSmsParams = FastMap.newInstance();
+            sendSmsParams.put("userLogin", userLogin);
+
+            // Find a list of distinct email addresses from active, ACCEPTED parties in the contact list
+            //      using a list iterator (because there can be a large number)
+            List<EntityCondition> conditionList = UtilMisc.toList(
+                        EntityCondition.makeCondition("contactListId", EntityOperator.EQUALS, contactList.get("contactListId")),
+                        EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "CLPT_ACCEPTED"),
+                        EntityCondition.makeCondition("preferredContactMechId", EntityOperator.NOT_EQUAL, null),
+                        EntityUtil.getFilterByDateExpr(), EntityUtil.getFilterByDateExpr("contactFromDate", "contactThruDate"));
+
+            EntityConditionList<EntityCondition> conditions = EntityCondition.makeCondition(conditionList, EntityOperator.AND);
+            Set<String> fieldsToSelect = UtilMisc.toSet("partyId", "preferredContactMechId", "fromDate", "contactNumber", "countryCode");
+
+            eli = delegator.find("ContactListPartyAndContactMechAndTelecomNumber", conditions, null, fieldsToSelect, null,
+                    new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true));
+
+            // Send an sms to each contact list member
+            List<String> orderBy = UtilMisc.toList("-fromDate");
+
+            // loop through the list iterator
+            for (GenericValue contactListPartyAndContactMech; (contactListPartyAndContactMech = eli.next()) != null;) {
+                Debug.logInfo("Contact info: " + contactListPartyAndContactMech, module);
+                // Any exceptions thrown in this inner block will only relate to a single sms of the list, so should
+                //  only be logged and not cause the service to return an error
+                try {
+
+                    String contactNumberTo = contactListPartyAndContactMech.getString("countryCode") + 
+                    	contactListPartyAndContactMech.getString("contactNumber");
+                    if (UtilValidate.isEmpty(contactNumberTo)) {
+                    	continue;
+                    }
+
+                    // Because we're retrieving contactNumer only above (so as not to pollute the distinctness), we
+                    //      need to retrieve the partyId it's related to. Since this could be multiple parties, get
+                    //      only the most recent valid one via ContactListPartyAndContactMech.
+                    List<EntityCondition> clpConditionList = UtilMisc.makeListWritable(conditionList);
+                    clpConditionList.add(EntityCondition.makeCondition("contactNumber", EntityOperator.EQUALS, contactListPartyAndContactMech.getString("contactNumber")));
+                    EntityConditionList<EntityCondition> clpConditions = EntityCondition.makeCondition(clpConditionList, EntityOperator.AND);
+
+                    List<GenericValue> smsCLPaCMs = delegator.findList("ContactListPartyAndContactMechAndTelecomNumber", clpConditions, null, orderBy, null, true);
+                    GenericValue lastContactListPartyACM = EntityUtil.getFirst(smsCLPaCMs);
+                    if (lastContactListPartyACM == null) {
+                    	continue;
+                    }
+
+                    String partyId = lastContactListPartyACM.getString("partyId");
+
+                    sendSmsParams.put("contactNumberTo", contactNumberTo);
+                    sendSmsParams.put("partyId", partyId);
+                    
+
+                    // Retrieve a record for this contactMechId from ContactListCommStatus
+                    Map<String, String> contactListCommStatusRecordMap = UtilMisc.toMap("contactListId", contactListId, "communicationEventId", communicationEventId, "contactMechId", lastContactListPartyACM.getString("preferredContactMechId"));
+                    GenericValue contactListCommStatusRecord = delegator.findByPrimaryKey("ContactListCommStatus", contactListCommStatusRecordMap);
+                    if (contactListCommStatusRecord == null) {
+
+                        // No attempt has been made previously to send to this number, so create a record to reflect
+                        //  the beginning of the current attempt
+                        Map<String, String> newContactListCommStatusRecordMap = UtilMisc.makeMapWritable(contactListCommStatusRecordMap);
+                        newContactListCommStatusRecordMap.put("statusId", "COM_IN_PROGRESS");
+                        newContactListCommStatusRecordMap.put("partyId", partyId);
+                        contactListCommStatusRecord = delegator.create("ContactListCommStatus", newContactListCommStatusRecordMap);
+                    } else if (contactListCommStatusRecord.get("statusId") != null && contactListCommStatusRecord.getString("statusId").equals("COM_COMPLETE")) {
+
+                        // There was a successful earlier attempt, so skip this address
+                        continue;
+                    }
+                    
+                    // Send sms
+                    Debug.logInfo("Sending sms to contact list [" + contactListId + "] party [" + partyId + "] : " + contactNumberTo, module);
+                    // Make the attempt to send the sms to the address
+                    
+                    Map<String, Object> tmpResult = null;
+                    
+                    // Retrieve a contact list party status
+                    List<GenericValue> contactListPartyStatuses = delegator.findByAnd("ContactListPartyStatus", UtilMisc.toMap("contactListId", contactListId, "partyId", contactListPartyAndContactMech.getString("partyId"), "fromDate", contactListPartyAndContactMech.getTimestamp("fromDate"), "statusId", "CLPT_ACCEPTED"));
+                    GenericValue contactListPartyStatus = EntityUtil.getFirst(contactListPartyStatuses);
+                    if (UtilValidate.isNotEmpty(contactListPartyStatus)) {
+                        sendSmsParams.put("text", communicationEvent.getString("content"));
+                        sendSmsParams.put("partyIdFrom", communicationEvent.getString("partyIdFrom"));                                                
+                        tmpResult = dispatcher.runSync("sendSms", sendSmsParams, 360, true);
+                    }
+
+                    if (tmpResult == null || ServiceUtil.isError(tmpResult)) {
+                    	// If the send attempt fails, just log and skip the phone number
+                        Debug.logError(errorCallingSendSmsService + ": " + ServiceUtil.getErrorMessage(tmpResult), module);
+                        errorMessages.add(errorCallingSendSmsService + ": " + ServiceUtil.getErrorMessage(tmpResult));
+                        continue;
+                    } 
+                    else {
+                        // attach the parent communication event to the new event created when sending the mail
+                        String thisCommEventId = (String) tmpResult.get("communicationEventId");
+                        GenericValue thisCommEvent = delegator.findOne("CommunicationEvent", false, "communicationEventId", thisCommEventId);
+                        if (thisCommEvent != null) {
+                            thisCommEvent.set("contactListId", contactListId);
+                            thisCommEvent.set("parentCommEventId", communicationEventId);
+                            thisCommEvent.store();
+                        }
+                    }
+                    if ("Y".equals(contactList.get("singleUse"))) {
+
+                        // Expire the ContactListParty if the list is single use and sendSms finishes successfully
+                        tmpResult = dispatcher.runSync("updateContactListParty", UtilMisc.toMap("contactListId", lastContactListPartyACM.get("contactListId"),
+                                                                                                "partyId", partyId, "fromDate", lastContactListPartyACM.get("fromDate"),
+                                                                                                "thruDate", UtilDateTime.nowTimestamp(), "userLogin", userLogin));
+                        if (ServiceUtil.isError(tmpResult)) {
+                            // If the expiry fails, just log and skip the sms address
+                            Debug.logError(errorCallingUpdateContactListPartyService + ": " + ServiceUtil.getErrorMessage(tmpResult), module);
+                            errorMessages.add(errorCallingUpdateContactListPartyService + ": " + ServiceUtil.getErrorMessage(tmpResult));
+                            continue;
+                        }
+                    }
+
+                    // All is successful, so update the ContactListCommStatus record
+                    contactListCommStatusRecord.set("statusId", "COM_COMPLETE");
+                    delegator.store(contactListCommStatusRecord);
+
+                // Don't return a service error just because of failure for one number - just log the error and continue
+                } catch (GenericEntityException nonFatalGEE) {
+                    Debug.logError(nonFatalGEE, errorInSendSmsToContactListService, module);
+                    errorMessages.add(errorInSendSmsToContactListService + ": " + nonFatalGEE.getMessage());
+                } catch (GenericServiceException nonFatalGSE) {
+                    Debug.logError(nonFatalGSE, errorInSendSmsToContactListService, module);
+                    errorMessages.add(errorInSendSmsToContactListService + ": " + nonFatalGSE.getMessage());
+                }
+            }
+
+        } catch (GenericEntityException fatalGEE) {
+            return ServiceUtil.returnError(fatalGEE.getMessage());
+        } finally {
+            if (eli != null) {
+                try {
+                    eli.close();
+                } catch (GenericEntityException e) {
+                    Debug.logError(e, module);
+                }
+            }
+        }
+
+        return errorMessages.size() == 0 ? ServiceUtil.returnSuccess() : ServiceUtil.returnError(errorMessages);
+    }    
+ 
+    public static Map<String, Object> sendSmsToContactListNoCommEvent(DispatchContext ctx, Map<String, ? extends Object> context) {
+        Delegator delegator = ctx.getDelegator();
+        LocalDispatcher dispatcher = ctx.getDispatcher();
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        Locale locale = (Locale) context.get("locale");
+
+        List<Object> errorMessages = FastList.newInstance();
+        String errorCallingUpdateContactListPartyService = UtilProperties.getMessage(resource, "commeventservices.errorCallingUpdateContactListPartyService", locale);
+        String errorCallingSendSmsService = UtilProperties.getMessage(resource, "commeventservices.errorCallingSendSmsService", locale);
+        String errorInSendSmsToContactListService = UtilProperties.getMessage(resource, "commeventservices.errorInSendSmsToContactListService", locale);
+        String skippingInvalidSmsAddress = UtilProperties.getMessage(resource, "commeventservices.skippingInvalidSmsAddress", locale);
+
+        String contactListId = (String) context.get("contactListId");
+        String text = (String) context.get("text");
+
+        // Any exceptions thrown in this block will cause the service to return error
+        EntityListIterator eli = null;
+        try {
+            Map<String, Object> sendSmsParams = FastMap.newInstance();
+            sendSmsParams.put("userLogin", userLogin);
+
+            // Find a list of distinct email addresses from active, ACCEPTED parties in the contact list
+            //      using a list iterator (because there can be a large number)
+            List<EntityCondition> conditionList = UtilMisc.toList(
+                        EntityCondition.makeCondition("contactListId", EntityOperator.EQUALS, contactListId),
+                        EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "CLPT_ACCEPTED"),
+                        EntityCondition.makeCondition("preferredContactMechId", EntityOperator.NOT_EQUAL, null),
+                        EntityUtil.getFilterByDateExpr(), EntityUtil.getFilterByDateExpr("contactFromDate", "contactThruDate"));
+
+            EntityConditionList<EntityCondition> conditions = EntityCondition.makeCondition(conditionList, EntityOperator.AND);
+            Set<String> fieldsToSelect = UtilMisc.toSet("partyId", "preferredContactMechId", "fromDate", "contactNumber", "countryCode");
+
+            eli = delegator.find("ContactListPartyAndContactMechAndTelecomNumber", conditions, null, fieldsToSelect, null,
+                    new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true));
+
+            // Send an sms to each contact list member
+            List<String> orderBy = UtilMisc.toList("-fromDate");
+
+            // loop through the list iterator
+            for (GenericValue contactListPartyAndContactMech; (contactListPartyAndContactMech = eli.next()) != null;) {
+                Debug.logInfo("Contact info: " + contactListPartyAndContactMech, module);
+                // Any exceptions thrown in this inner block will only relate to a single sms of the list, so should
+                //  only be logged and not cause the service to return an error
+                try {
+
+                    String contactNumberTo = contactListPartyAndContactMech.getString("countryCode") + 
+                    	contactListPartyAndContactMech.getString("contactNumber");
+                    if (UtilValidate.isEmpty(contactNumberTo)) {
+                    	continue;
+                    }
+
+                    // Because we're retrieving contactNumer only above (so as not to pollute the distinctness), we
+                    //      need to retrieve the partyId it's related to. Since this could be multiple parties, get
+                    //      only the most recent valid one via ContactListPartyAndContactMech.
+                    List<EntityCondition> clpConditionList = UtilMisc.makeListWritable(conditionList);
+                    clpConditionList.add(EntityCondition.makeCondition("contactNumber", EntityOperator.EQUALS, contactListPartyAndContactMech.getString("contactNumber")));
+                    EntityConditionList<EntityCondition> clpConditions = EntityCondition.makeCondition(clpConditionList, EntityOperator.AND);
+
+                    List<GenericValue> smsCLPaCMs = delegator.findList("ContactListPartyAndContactMechAndTelecomNumber", clpConditions, null, orderBy, null, true);
+                    GenericValue lastContactListPartyACM = EntityUtil.getFirst(smsCLPaCMs);
+                    if (lastContactListPartyACM == null) {
+                    	continue;
+                    }
+
+                    String partyId = lastContactListPartyACM.getString("partyId");
+
+                    sendSmsParams.put("contactNumberTo", contactNumberTo);
+                    sendSmsParams.put("partyId", partyId);
+                    
+                    
+                    // Send sms
+                    Debug.logInfo("Sending sms to contact list [" + contactListId + "] party [" + partyId + "] : " + contactNumberTo, module);
+                    // Make the attempt to send the sms to the address
+                    
+                    Map<String, Object> tmpResult = null;
+                    
+                    // Retrieve a contact list party status
+                    List<GenericValue> contactListPartyStatuses = delegator.findByAnd("ContactListPartyStatus", UtilMisc.toMap("contactListId", contactListId, "partyId", contactListPartyAndContactMech.getString("partyId"), "fromDate", contactListPartyAndContactMech.getTimestamp("fromDate"), "statusId", "CLPT_ACCEPTED"));
+                    GenericValue contactListPartyStatus = EntityUtil.getFirst(contactListPartyStatuses);
+                    if (UtilValidate.isNotEmpty(contactListPartyStatus)) {
+                        sendSmsParams.put("text", text);
+                        sendSmsParams.put("partyIdFrom", "_NA_");                                                
+                        tmpResult = dispatcher.runSync("sendSms", sendSmsParams, 360, true);
+                    }
+
+                    if (tmpResult == null || ServiceUtil.isError(tmpResult)) {
+                    	// If the send attempt fails, just log and skip the phone number
+                        Debug.logError(errorCallingSendSmsService + ": " + ServiceUtil.getErrorMessage(tmpResult), module);
+                        errorMessages.add(errorCallingSendSmsService + ": " + ServiceUtil.getErrorMessage(tmpResult));
+                        continue;
+                    } 
+
+                // Don't return a service error just because of failure for one number - just log the error and continue
+                } catch (GenericEntityException nonFatalGEE) {
+                    Debug.logError(nonFatalGEE, errorInSendSmsToContactListService, module);
+                    errorMessages.add(errorInSendSmsToContactListService + ": " + nonFatalGEE.getMessage());
+                } catch (GenericServiceException nonFatalGSE) {
+                    Debug.logError(nonFatalGSE, errorInSendSmsToContactListService, module);
+                    errorMessages.add(errorInSendSmsToContactListService + ": " + nonFatalGSE.getMessage());
+                }
+            }
+
+        } catch (GenericEntityException fatalGEE) {
+            return ServiceUtil.returnError(fatalGEE.getMessage());
+        } finally {
+            if (eli != null) {
+                try {
+                    eli.close();
+                } catch (GenericEntityException e) {
+                    Debug.logError(e, module);
+                }
+            }
+        }
+
+        return errorMessages.size() == 0 ? ServiceUtil.returnSuccess() : ServiceUtil.returnError(errorMessages);
+    }        
+    
+    /*
+     * Store an outgoing sms as a communication event;
+     * runs as a pre-invoke ECA on sendSms service
+     * - service should run as the 'system' user
+     */
+    public static Map<String, Object> createCommEventFromSms(DispatchContext dctx, Map<String, ? extends Object> context) {
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        Delegator delegator = dctx.getDelegator();
+
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        String subject = "Sms";
+        String sendTo = (String) context.get("contactNumberTo");
+        String partyIdTo = (String) context.get("partyId");
+        String partyIdFrom = (String) context.get("partyIdFrom");
+        String contentType = "text/plain";
+        String content = (String) context.get("text");        
+        String statusId = (String) context.get("statusId");
+        String orderId = (String) context.get("orderId");
+        if (statusId == null) {
+            statusId = "COM_PENDING";
+        }
+
+        Timestamp now = UtilDateTime.nowTimestamp();
+
+        Map<String, Object> commEventMap = FastMap.newInstance();
+        commEventMap.put("communicationEventTypeId", "SMS_COMMUNICATION");
+        commEventMap.put("contactMechTypeId", "TELECOM_NUMBER");
+        commEventMap.put("statusId", statusId);
+
+        commEventMap.put("partyIdFrom", partyIdFrom);
+        commEventMap.put("partyIdTo", partyIdTo);
+        commEventMap.put("datetimeStarted", now);
+        commEventMap.put("entryDate", now);
+        commEventMap.put("toString", sendTo);
+        commEventMap.put("subject", subject);
+        commEventMap.put("content", content);        
+        commEventMap.put("userLogin", userLogin);
+        commEventMap.put("contentMimeTypeId", contentType);
+        if (UtilValidate.isNotEmpty(orderId)) {
+            commEventMap.put("orderId", orderId);
+        }
+
+        Map<String, Object> createResult;
+        try {
+            createResult = dispatcher.runSync("createCommunicationEvent", commEventMap);
+        } catch (GenericServiceException e) {
+            Debug.logError(e, module);
+            return ServiceUtil.returnError(e.getMessage());
+        }
+        if (ServiceUtil.isError(createResult)) {
+            return ServiceUtil.returnError(ServiceUtil.getErrorMessage(createResult));
+        }
+        String communicationEventId = (String) createResult.get("communicationEventId");
+
+        Map<String, Object> result = ServiceUtil.returnSuccess();
+        result.put("communicationEventId", communicationEventId);
+        return result;
+    }
+
+    /*
+     * Update the communication event with information from the sms;
+     * runs as a post-commit ECA on sendSms service
+     * - service should run as the 'system' user
+     */
+    public static Map<String, Object> updateCommEventAfterSms(DispatchContext dctx, Map<String, ? extends Object> context) {
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        String communicationEventId = (String) context.get("communicationEventId");
+
+        Map<String, Object> commEventMap = FastMap.newInstance();
+        commEventMap.put("communicationEventId", communicationEventId);
+        commEventMap.put("statusId", "COM_COMPLETE");
+        commEventMap.put("datetimeEnded", UtilDateTime.nowTimestamp());
+        commEventMap.put("entryDate",UtilDateTime.nowDate());
+        commEventMap.put("userLogin", userLogin);
+
+        // save the communication event
+        try {
+            dispatcher.runSync("updateCommunicationEvent", commEventMap);
+        } catch (GenericServiceException e) {
+            return ServiceUtil.returnError(e.getMessage());
+        }
+
+        return ServiceUtil.returnSuccess();
+    }
 }

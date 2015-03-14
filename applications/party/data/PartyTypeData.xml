@@ -131,6 +131,7 @@ under the License.
     <CommunicationEventType communicationEventTypeId="WEB_SITE_COMMUNICATI" description="Web Site" hasTable="N" parentTypeId="" contactMechTypeId="WEB_ADDRESS"/>
     <CommunicationEventType communicationEventTypeId="COMMENT_NOTE" description="Comment/Note" hasTable="N" parentTypeId="" contactMechTypeId="INTERNAL_PARTYID"/>
     <CommunicationEventType communicationEventTypeId="AUTO_EMAIL_COMM" description="Auto Email" hasTable="N" parentTypeId="" contactMechTypeId="EMAIL_ADDRESS"/>
+    <CommunicationEventType communicationEventTypeId="SMS_COMMUNICATION" description="Sms" hasTable="N" parentTypeId="" contactMechTypeId="TELECOM_NUMBER"/>
     
     <!-- party content types -->
     <PartyContentType description="Internal Content" parentTypeId="" partyContentTypeId="INTERNAL"/>

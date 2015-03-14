@@ -231,11 +231,15 @@
         <menu-item name="create-customer" title="${uiLabelMap.PartyCreateNewCustomer}">
             <link target="NewCustomer"/>
         </menu-item>
-        <menu-item name="create-prospect" title="${uiLabelMap.PartyCreateNewProspect}">
+        
+        <!--<menu-item name="create-prospect" title="${uiLabelMap.PartyCreateNewProspect}">
             <link target="NewProspect"/>
-        </menu-item>
-        <menu-item name="create-employee" title="${uiLabelMap.PartyCreateNewEmployee}" >
+        </menu-item>-->
+       <menu-item name="create-employee" title="${uiLabelMap.PartyCreateNewEmployee}" >
             <link target="NewEmployee"/>
+        </menu-item>
+        <menu-item name="create-Vendor" title="Create Vendor">
+            <link target="NewVendor"/>
         </menu-item>
     </menu>
 
@@ -285,10 +289,7 @@
     </menu>
     <menu name="communicationsMenu">
         <menu-item name="newEmail" title="${uiLabelMap.PartyNewEmail}">
-            <condition>
-                <if-has-permission permission="PARTYMGR_CME-EMAIL_CREATE"/>
-            </condition>
-            <link target="${parameters._LAST_VIEW_NAME_}">
+            <link target="MyCommunicationEvents">
                 <parameter param-name="communicationEventTypeId" value="EMAIL_COMMUNICATION"/>
                 <parameter param-name="partyIdFrom" from-field="partyId"/>
                 <parameter param-name="my" value="My"/>
@@ -297,11 +298,19 @@
                 <parameter param-name="portalPageId" from-field="parameters.portalPageId"/>
             </link>
         </menu-item>
+        <menu-item name="newSMS" title="${uiLabelMap.PartyNewSms}">
+            <link target="MyCommunicationEvents">
+                <parameter param-name="communicationEventTypeId" value="SMS_COMMUNICATION"/>
+                <parameter param-name="partyIdFrom" from-field="partyId"/>
+                <parameter param-name="my" value="My"/>
+                <parameter param-name="statusId" value="COM_PENDING"/>
+                <parameter param-name="form" value="new"/>
+                <parameter param-name="portalPageId" from-field="parameters.portalPageId"/>
+            </link>
+        </menu-item>          
         <menu-item name="newNote" title="${uiLabelMap.PartyNewInternalNote}">
-            <condition>
-                <if-has-permission permission="PARTYMGR_CME-NOTE_CREATE"/>
-            </condition>
-            <link target="${parameters._LAST_VIEW_NAME_}">
+            
+            <link target="MyCommunicationEvents">
                 <parameter param-name="communicationEventTypeId" value="COMMENT_NOTE"/>
                 <parameter param-name="partyIdFrom" from-field="partyId"/>
                 <parameter param-name="my" value="My"/>
@@ -310,6 +319,7 @@
                 <parameter param-name="portalPageId" from-field="parameters.portalPageId"/>
             </link>
         </menu-item>
+      
         <menu-item name="openEvents" title="${uiLabelMap.PartyOpenEvents}">
             <condition>
                 <if-compare field="parameters.all" operator="equals" value="true"/>
@@ -345,6 +355,22 @@
             </condition>
             <link target="${parameters._LAST_VIEW_NAME_}">
                 <parameter param-name="communicationEventTypeId" value="EMAIL_COMMUNICATION"/>
+                <parameter param-name="partyIdFrom" from-field="parameters.userLogin.partyId"/>
+                <parameter param-name="my" value="My"/>
+                <parameter param-name="statusId" value="COM_PENDING"/>
+                <parameter param-name="form" value="new"/>
+                <parameter param-name="portalPageId" from-field="parameters.portalPageId"/>
+            </link>
+        </menu-item>
+        <menu-item name="newSms" title="${uiLabelMap.PartyNewSms}">
+            <condition>
+                <and>
+                    <if-has-permission permission="PARTYMGR_CME-SMS_CREATE"/>
+                    <if-empty field="communicationEvent"/>
+                </and>
+            </condition>
+            <link target="${parameters._LAST_VIEW_NAME_}">
+                <parameter param-name="communicationEventTypeId" value="SMS_COMMUNICATION"/>
                 <parameter param-name="partyIdFrom" from-field="parameters.userLogin.partyId"/>
                 <parameter param-name="my" value="My"/>
                 <parameter param-name="statusId" value="COM_PENDING"/>
@@ -432,7 +458,7 @@
                 <parameter param-name="portalPageId" from-field="parameters.portalPageId"/>
             </link>
         </menu-item>
-        <menu-item name="createRequestFromCommEvent" title="${uiLabelMap.PartyCreateRequestFromCommEvent}">
+        <!--<menu-item name="createRequestFromCommEvent" title="${uiLabelMap.PartyCreateRequestFromCommEvent}">
             <condition>
                 <and>
                     <not><if-empty field="communicationEvent"/></not>
@@ -447,7 +473,8 @@
                 <parameter param-name="communicationEventId" from-field="communicationEvent.communicationEventId"/>
                 <parameter param-name="my" from-field="parameters.my"/>
             </link>
-        </menu-item>
+        </menu-item>-->
+        <!--  
         <menu-item name="createRequestFromCommEvent1" title="${uiLabelMap.PartyCreateRequestFromCommEvent}">
             <condition>
                 <and>
@@ -478,6 +505,7 @@
                 <parameter param-name="communicationEventId" from-field="parameters.communicationEventId"/>
             </link>
         </menu-item>
+        -->
         <menu-item name="close" title="${uiLabelMap.CommonClose}">
             <condition>
                 <and>
@@ -522,6 +550,7 @@
                 <parameter param-name="communicationEventId" from-field="parameters.communicationEventId"/>
             </link>
         </menu-item>
+        <!--  
         <menu-item name="CommunicationEvent" title="${uiLabelMap.PartyCommEvent}">
             <condition><not><if-empty field="communicationEvent"/></not></condition>
             <link target="EditCommunicationEvent">
@@ -539,7 +568,7 @@
             <link target="UpdateCommRoles">
                 <parameter param-name="communicationEventId" from-field="parameters.communicationEventId"/>
             </link>
-        </menu-item>
+        </menu-item> 
         <menu-item name="UpdateCommWorkEfforts" title="${uiLabelMap.PartyCommWorkEfforts}">
             <condition><not><if-empty field="communicationEvent"/></not></condition>
             <link target="ListCommWorkEfforts">
@@ -552,6 +581,7 @@
                 <parameter param-name="communicationEventId" from-field="parameters.communicationEventId"/>
             </link>
         </menu-item>
+        -->
         <!-- TODO!
             <menu-item name="ListCommCustRequests" title="CustRequests">
                 <link target="ListCommCustRequests">
@@ -560,6 +590,7 @@
                 </link>
             </menu-item>
         -->
+        <!--  
         <menu-item name="ListUnknownPartyComms" title="${uiLabelMap.PartyEmailFromUnknownParties}">
             <link target="listUnknownPartyComms"/>
         </menu-item>
@@ -578,6 +609,7 @@
                 <parameter param-name="communicationEventId" from-field="parameters.communicationEventId"/>
             </link>
         </menu-item>
+        -->
     </menu>
     <menu name="CommFindTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
         default-menu-item-name="find">
@@ -605,6 +637,46 @@
         <menu-item name="new" title="${uiLabelMap.PartyNewCommunication}" widget-style="buttontext create">
             <link target="EditCommunicationEvent"/>
         </menu-item>
+        <menu-item name="newEmail" title="${uiLabelMap.PartyNewEmail}">
+            <condition>
+                <and>
+                    <if-has-permission permission="PARTYMGR_CME-EMAIL_CREATE"/>
+                    <if-empty field="communicationEvent"/>
+                </and>
+            </condition>
+            <link target="EditCommunicationEvent">
+                <parameter param-name="communicationEventTypeId" value="EMAIL_COMMUNICATION"/>
+                <parameter param-name="my" value="My"/>
+            </link>
+        </menu-item>
+        <menu-item name="newSms" title="${uiLabelMap.PartyNewSms}">
+            <condition>
+                <and>
+                    <if-has-permission permission="PARTYMGR_CME-SMS_CREATE"/>
+                    <if-empty field="communicationEvent"/>
+                </and>
+            </condition>
+            <link target="EditCommunicationEvent">
+                <parameter param-name="communicationEventTypeId" value="SMS_COMMUNICATION"/>
+                <parameter param-name="my" value="My"/>
+            </link>
+        </menu-item>         
+        <menu-item name="newInternalNote" title="${uiLabelMap.PartyNewInternalNote}">
+            <condition>
+                <and>
+                    <if-has-permission permission="PARTYMGR_CME-NOTE_CREATE"/>
+                    <if-empty field="communicationEvent"/>
+                </and>
+            </condition>
+            <link target="${parameters._LAST_VIEW_NAME_}">
+                <parameter param-name="communicationEventTypeId" value="COMMENT_NOTE"/>
+                <parameter param-name="partyIdFrom" from-field="parameters.userLogin.partyId"/>
+                <parameter param-name="my" value="My"/>
+                <parameter param-name="statusId" value="COM_PENDING"/>
+                <parameter param-name="form" value="new"/>
+                <parameter param-name="portalPageId" from-field="parameters.portalPageId"/>
+            </link>
+        </menu-item>        
         <menu-item name="reply" title="${uiLabelMap.PartyReply}">
             <condition>
                 <and>
@@ -632,6 +704,7 @@
                 <parameter param-name="action" value="FORWARD"/>
             </link>
         </menu-item>
+        <!--  
         <menu-item name="createRequestFromCommEvent" title="${uiLabelMap.PartyCreateRequestFromCommEvent}">
             <condition>
                 <and>
@@ -657,6 +730,7 @@
                 <parameter param-name="communicationEventId" from-field="parameters.communicationEventId"/>
             </link>
         </menu-item>
+        -->
         <menu-item name="delete" title="${uiLabelMap.CommonDelete}">
             <condition>
                 <and>
