@@ -329,7 +329,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
                 jdbc-driver="com.mysql.jdbc.Driver"
                 jdbc-uri="jdbc:mysql://127.0.0.1/mint?autoReconnect=true"
                 jdbc-username="root"
-                jdbc-password=""
+                jdbc-password="vbiz"
                 isolation-level="ReadCommitted"
                 pool-minsize="2"
                 pool-maxsize="250"
@@ -365,7 +365,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
                 jdbc-uri="jdbc:mysql://127.0.0.1/mintolap?autoReconnect=true"
                 jdbc-username="root"
 
-                jdbc-password=""
+                jdbc-password="vbiz"
                 isolation-level="ReadCommitted"
                 pool-minsize="2"
 
@@ -403,7 +403,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
                 jdbc-uri="jdbc:mysql://127.0.0.1/minttenant?autoReconnect=true"
                 jdbc-username="root"
 
-                jdbc-password=""
+                jdbc-password="vbiz"
                 isolation-level="ReadCommitted"
                 pool-minsize="2"
 

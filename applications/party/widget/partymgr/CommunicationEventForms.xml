@@ -152,7 +152,7 @@ under the License.
         <field name="portalPageId"><hidden value="${parameters.portalPageId}"/></field>
         <field name="communicationEventId"><hidden/></field>
         <field name="communicationEventTypeId"><hidden value="EMAIL_COMMUNICATION"/></field>
-        <field name="contactMechIdTo"><hidden value="${contactMechIdTo}"/></field>
+        <field name="contactMechIdTo" use-when="communicationEvent!=null"><hidden value="${communicationEvent.contactMechIdTo}"/></field>
         <field name="statusId"><hidden value="COM_IN_PROGRESS"/></field>
         <field name="parentCommEventId" use-when="parentCommEventId != null"><hidden value="${parameters.parentCommEventId}"/></field>
         <field name="parentCommEventId" use-when="origCommEventId != null"><hidden value="${parameters.origCommEventId}"/></field>
@@ -169,14 +169,22 @@ under the License.
         <field name="partyIdTo" position="1" use-when="contactMechTo==null">
             <lookup target-form-name="LookupPartyName" default-value="${partyIdTo}"/>
         </field>
+        <field name="contactMechTypeId"><hidden value="EMAIL_ADDRESS"/></field>
+        <field name="contactListId" position="2">
+            <lookup size="20" target-form-name="LookupContactList" target-parameter="contactMechTypeId">
+                <sub-hyperlink target="/marketing/control/EditContactList" target-type="inter-app" link-style="smallSubmit">
+                <parameter param-name="contactListId" from-field="communicationEvent.contactListId"/>
+            </sub-hyperlink>
+            </lookup>
+        </field>        
         <field name="datetimeStarted" title="${uiLabelMap.CommonSendDate}" position="2"><date-time type="date"/></field>
         <field name="subject"><text size="74" default-value="${parameters.subject}"/></field>
         <field name="contentMimeTypeId"><hidden value="text/plain"/></field>
-        <field name="content" title="${uiLabelMap.CommonContent}" encode-output="false"><textarea cols="72" rows="15" default-value="${parameters.content}"/></field>
-        <field name="send" title=" " position="1" use-when="communicationEvent!=null">
-            <hyperlink also-hidden="false" target-type="plain" description="${uiLabelMap.CommonSend}" target="javascript:(document.EditEmail.form.value='list'),(document.EditEmail.submit())"/>
+        <field name="content" title="${uiLabelMap.CommonContent}"><textarea cols="72" rows="15" default-value="${parameters.content}"/></field>
+        <field name="send" title=" " widget-style="buttontext" position="1" use-when="communicationEvent!=null">
+            <hyperlink also-hidden="false" target-type="plain" description="${uiLabelMap.PartySendEmail}" target="javascript:emailSend();"/>
         </field>
-        <field name="save" title=" " position="2" use-when="communicationEvent!=null">
+        <field name="save" title=" " widget-style="buttontext" position="2" use-when="communicationEvent!=null">
             <hyperlink also-hidden="false" target-type="plain" description="${uiLabelMap.CommonSave}" target="javascript:(document.EditEmail.form.value='list'),(document.EditEmail.statusId.value='COM_PENDING'),(document.EditEmail.submit())"/>
         </field>
         <field name="createButton" use-when="communicationEvent==null"><submit/></field>
@@ -185,7 +193,7 @@ under the License.
     <form name="EditInternalNote" type="single" target="createCommunicationEvent" default-map-name="communicationEvent">
         <actions>
             <set field="nowDate" value="${bsh:org.ofbiz.base.util.UtilDateTime.nowDateString(&quot;yyyy-MM-dd HH:mm:ss.S&quot;)}" type="String"/>
-            <script location="component://party/webapp/partymgr/WEB-INF/actions/communication/recentVisitor.groovy"/>
+            
         </actions>
         <alt-target use-when="communicationEvent!=null" target="updateCommunicationEvent"/>
         <field name="form"><hidden/></field>
@@ -193,30 +201,74 @@ under the License.
         <field name="communicationEventId"><hidden/></field>
         <field name="communicationEventTypeId"><hidden value="COMMENT_NOTE"/></field>
         <field name="parentCommEventId"><hidden value="${parameters.parentCommEventId}"/></field>
-        <field name="statusId"><hidden value="COM_PENDING"/></field>
-        <field name="datetimeStarted"><hidden/></field>
+        <field name="statusId"><hidden value="COM_IN_PROGRESS"/></field>
         <field name="partyIdFrom"><hidden/></field>
         <field name="my"><hidden value="${parameters.my}"/></field>
-        <field name="partyIdTo" title="${uiLabelMap.PartyPartyTo}">
-            <drop-down>
-                <list-options list-name="recentParties" key-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName}"/>
-            </drop-down>
-        </field>
+        <field name="contactMechTypeId"><hidden value="EMAIL_ADDRESS"/></field>          
+        <field name="partyIdTo">
+            <lookup target-form-name="LookupPartyName" default-value="${partyIdTo}"/>
+        </field>      
+        <field name="contactListId" position="2">
+            <lookup size="20" target-form-name="LookupContactList" target-parameter="contactMechTypeId">
+                <sub-hyperlink target="/marketing/control/EditContactList" target-type="inter-app" link-style="smallSubmit">
+                <parameter param-name="contactListId" from-field="communicationEvent.contactListId"/>
+            </sub-hyperlink>
+            </lookup>
+        </field>   
+        <field name="datetimeStarted" title="${uiLabelMap.CommonSendDate}"><date-time type="timestamp"/></field>                     
         <field name="subject"><text size="60"/></field>
         <field name="contentMimeTypeId"><hidden value="text/plain"/></field>
-        <field name="content" title="${uiLabelMap.CommonContent}" encode-output="false"><textarea cols="72" rows="15" default-value="${parameters.content}"/></field>
-        <field name="send" title=" " position="1" use-when="communicationEvent!=null">
+        <field name="content" title="${uiLabelMap.CommonContent}" ><textarea cols="72" rows="15" default-value="${parameters.content}"/></field>
+        <field name="send" title=" " widget-style="buttontext" position="1" use-when="communicationEvent!=null">
             <hyperlink also-hidden="true"
-                target-type="plain" description="${uiLabelMap.CommonSend}"
-                target="javascript:(document.EditInternalNote.form.value='list'),(document.EditInternalNote.statusId.value='COM_ENTERED'),(document.EditInternalNote.datetimeStarted.value='${nowDate}'),(document.EditInternalNote.submit())"/>
+                target-type="plain" description="${uiLabelMap.PartySendNote}"
+                target="javascript:noteSend();"/>        
         </field>
-        <field name="save" title=" " position="2" use-when="communicationEvent!=null">
+        <field name="save" widget-style="buttontext" title=" " position="2" use-when="communicationEvent!=null">
             <hyperlink also-hidden="true" target-type="plain" description="${uiLabelMap.CommonSave}" target="javascript:(document.EditInternalNote.form.value='list'),(document.EditInternalNote.submit())"/>
         </field>
         <field name="createButton" use-when="communicationEvent==null"><submit/></field>
         <field name="dummy" position="320"><hidden/></field>
     </form>
-
+    <form name="EditSms" type="single" target="createCommunicationEvent" default-map-name="communicationEvent">
+        <actions>
+            <set field="nowDate" value="${bsh:org.ofbiz.base.util.UtilDateTime.nowDateString(&quot;yyyy-MM-dd HH:mm:ss.S&quot;)}" type="String"/>
+            <script location="component://party/webapp/partymgr/WEB-INF/actions/communication/recentVisitor.groovy"/>
+        </actions>
+        <alt-target use-when="communicationEvent!=null" target="updateCommunicationEvent"/>
+        <field name="form"><hidden/></field>
+        <field name="portalPageId"><hidden value="${parameters.portalPageId}"/></field>
+        <field name="communicationEventId"><hidden/></field>
+        <field name="communicationEventTypeId"><hidden value="SMS_COMMUNICATION"/></field>
+        <field name="parentCommEventId"><hidden value="${parameters.parentCommEventId}"/></field>
+        <field name="statusId"><hidden value="COM_PENDING"/></field>
+        <field name="partyIdFrom"><hidden/></field>
+        <field name="my"><hidden value="${parameters.my}"/></field>
+        <field name="contactMechTypeId"><hidden value="TELECOM_NUMBER"/></field>          
+        <field name="partyIdTo">
+            <lookup target-form-name="LookupPartyName" default-value="${partyIdTo}"/>
+        </field>              
+        <field name="contactListId" position="2">
+            <lookup size="20" target-form-name="LookupContactList" target-parameter="contactMechTypeId">
+                <sub-hyperlink target="/marketing/control/EditContactList" target-type="inter-app" link-style="smallSubmit">
+                <parameter param-name="contactListId" from-field="communicationEvent.contactListId"/>
+            </sub-hyperlink>
+            </lookup>
+        </field>         
+        <field name="datetimeStarted" title="${uiLabelMap.CommonSendDate}" position="2"><date-time type="timestamp"/></field>        
+        <field name="contentMimeTypeId"><hidden value="text/plain"/></field>
+        <field name="content" title="${uiLabelMap.CommonContent}" ><textarea cols="40" rows="4" default-value="${parameters.content}"/></field>
+        <field name="send" title=" " widget-style="buttontext" position="1" use-when="communicationEvent!=null">
+            <hyperlink also-hidden="true"
+                target-type="plain" description="${uiLabelMap.PartySendSms}"
+                target="javascript:smsSend();"/>
+        </field>
+        <field name="save" title=" " widget-style="buttontext" position="2" use-when="communicationEvent!=null">
+            <hyperlink also-hidden="true" target-type="plain" description="${uiLabelMap.CommonSave}" target="javascript:(document.EditSms.form.value='list'),(document.EditSms.submit())"/>
+        </field>
+        <field name="createButton" use-when="communicationEvent==null"><submit/></field>
+        <field name="dummy" position="320"><hidden/></field>
+    </form>
     <form name="ViewEmail" type="single" default-map-name="communicationEvent">
         <actions>
             <entity-one entity-name="ContactMech"  value-field="contactMechFrom">
@@ -285,6 +337,7 @@ under the License.
     <form name="ViewCommEvent" type="single" default-map-name="communicationEvent"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="communicationEventId"><display/></field>
+        <field name="communicationEventTypeId"><display/></field>        
         <field name="contactListId" use-when="contactListId!=null">
             <display-entity entity-name="ContactList" description="${contactListName}">
                 <sub-hyperlink target="/marketing/control/EditContactList?contactListId=${communicationEvent.contactListId}" description="[${communicationEvent.contactListId}]" target-type="inter-app"/>
@@ -312,16 +365,18 @@ under the License.
         </field>
         <field name="roleTypeIdFrom" use-when="&quot;my&quot;==void"><display-entity description="${description}" entity-name="RoleType" key-field-name="roleTypeId"/></field>
         <field name="roleTypeIdTo" use-when="&quot;my&quot;==void"><display-entity description="${description}" entity-name="RoleType" key-field-name="roleTypeId"/></field>
-        <field name="datetimeStarted" title="${uiLabelMap.CommonStartDate}"><display/></field>
-        <field name="datetimeEnded" title="${uiLabelMap.CommonFinishDate}"><display/></field>
+        <field name="datetimeStarted" title="${uiLabelMap.CommonStartDate}" use-when="!&quot;COMMENT_NOTE&quot;.equals(&quot;${communicationEvent.communicationEventTypeId}&quot;)"><display/></field>
+        <field name="datetimeEnded" title="${uiLabelMap.CommonFinishDate}" use-when="!&quot;COMMENT_NOTE&quot;.equals(&quot;${communicationEvent.communicationEventTypeId}&quot;)"><display/></field>
+        <field name="entryDate" title="${uiLabelMap.CommonFinishDate}" use-when="&quot;COMMENT_NOTE&quot;.equals(&quot;${communicationEvent.communicationEventTypeId}&quot;)"><display/></field>
         <field name="subject"><display/></field>
         <field map-name="subjectMap" name="eventNote" title="${uiLabelMap.CommonNote}"><display/></field>
         <field name="contentMimeTypeId" use-when="&quot;my&quot;==void"><display/></field>
-        <field name="content" title="${uiLabelMap.CommonContent}" encode-output="false"><textarea cols="60" rows="10" read-only="true"/></field>
+        <field name="content" title="${uiLabelMap.CommonContent}"><textarea cols="60" rows="20" read-only="true"/></field>
         
         <sort-order>
             <field-group collapsible="false" initially-collapsed="false">
                 <sort-field name="communicationEventId"/>
+                <sort-field name="communicationEventTypeId"/>                
                 <sort-field name="contactListId"/>
                 <sort-field name="partyIdFrom"/>
                 <sort-field name="partyIdTo"/>
@@ -333,6 +388,7 @@ under the License.
                 <sort-field name="roleTypeIdTo"/>
                 <sort-field name="datetimeStarted"/>
                 <sort-field name="datetimeEnded"/>
+                <sort-field name="entryDate"/>                
                 <sort-field name="subject"/>
             </field-group>
             <field-group title="${uiLabelMap.CommonContent}" collapsible="true" initially-collapsed="false">               
@@ -407,33 +463,33 @@ under the License.
             <set field="subject" from-field="subject" default-value="${uiLabelMap.PartyNoSubject}"/>
         </row-actions>
         <field name="communicationEventId"><hidden/></field>
-        <field name="subject" sort-field="true">
+        <field name="subject">
             <hyperlink description="${subject}[${communicationEventId}]" target="ViewCommunicationEvent">
                 <parameter param-name="communicationEventId"/>
-                <parameter param-name="partyId"/>
+                <parameter param-name="partyIdFrom" from-field="partyId"/>
                 <parameter param-name="roleTypeId"/>
                 <parameter param-name="headerItem" from-field="parameters.headerItem"/>
             </hyperlink>
         </field>
-        <field name="communicationEventTypeId" title="${uiLabelMap.CommonType}" sort-field="true"><display-entity description="${description}" entity-name="CommunicationEventType" key-field-name="communicationEventTypeId"/></field>
-        <field name="statusId" sort-field="true">
+        <field name="communicationEventTypeId" title="${uiLabelMap.CommonType}"><display-entity description="${description}" entity-name="CommunicationEventType" key-field-name="communicationEventTypeId"/></field>
+        <field name="statusId">
             <display-entity description="${description}" entity-name="StatusItem" key-field-name="statusId"/>
         </field>
-        <field name="partyId" title="${uiLabelMap.CommonPartyId}" sort-field="true">
+        <field name="partyId" title="${uiLabelMap.CommonPartyId}">
             <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView" key-field-name="partyId">
                 <sub-hyperlink target="/partymgr/control/viewprofile" description="[${partyIdFrom}]" target-type="inter-app">
                     <parameter param-name="partyId" from-field="partyIdFrom"/>
                 </sub-hyperlink>
             </display-entity>
         </field>
-        <field name="roleTypeId" sort-field="true">
+        <field name="roleTypeId">
             <display-entity description="${description}" entity-name="RoleType"/>
         </field>
-        <field name="roleStatusId" sort-field="true">
+        <field name="roleStatusId">
             <display-entity description="${description}" entity-name="StatusItem" key-field-name="statusId"/>
         </field>
-        <field name="entryDate" title="${uiLabelMap.CommonCreated}" sort-field="true"><display type="date"/></field>
-        <field name="datetimeStarted" title="${uiLabelMap.CommonSent}" sort-field="true"><display type="date"/></field>
+        <field name="entryDate" title="${uiLabelMap.CommonCreated}"><display type="date"/></field>
+        <field name="datetimeStarted" title="${uiLabelMap.CommonSent}"><display type="date"/></field>
     </form>
 
     <form name="FindCommunicationByOrder" type="single" target="FindCommunicationByOrder" paginate="true" focus-field-name="submitButton"
@@ -461,10 +517,10 @@ under the License.
 
     <form name="ListCommunicationByOrder" type="list" list-name="listIt" extends="ListCommEvents" header-row-style="header-row-2">
         <actions>
-            <service service-name="performFind" result-map="result" result-map-list="listIt">
-                <field-map field-name="inputFields" from-field="parameters"/>
-                <field-map field-name="entityName" from-field="entityName"/>
-                <field-map field-name="orderBy" value="-entryDate"/>
+            <service result-map-list="listIt" result-map="result" service-name="performFind">
+                <field-map from-field="parameters" field-name="inputFields"/>
+                <field-map from-field="entityName" field-name="entityName"/>
+                <field-map value="-entryDate" field-name="orderBy"/>
                 <field-map field-name="viewIndex" from-field="viewIndex"/>
                 <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
@@ -480,16 +536,16 @@ under the License.
         <field name="subject">
             <hyperlink description="${subject}" target="ViewCommunicationEvent">
                 <parameter param-name="communicationEventId"/>
-                <parameter param-name="partyId"/>
+                <parameter param-name="partyIdFrom" from-field="partyId"/>
                 <parameter param-name="roleTypeId"/>
             </hyperlink>
         </field>
     </form>
     
-    <form name="ListPartyCommEvents" type="list" target="RemoveCommunicationEventRole" list-name="listIt"
+    <form name="ListPartyCommEvents" type="list" paginate-target="MyCommunicationEvents" target="RemoveCommunicationEventRole" list-name="listIt"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
-            <set field="parameters.sortField" from-field="parameters.sortField" default-value="${groovy: 'true'.equals(parameters.all)?'-entryDate':'entryDate'}"/>
+            <set field="parameters.sortField" from-field="parameters.sortField" default-value="${groovy: &quot;true&quot;.equals(parameters.all)?&quot;-entryDate&quot;:&quot;entryDate&quot;}"/>
             <set field="searchParameters.partyId" from-field="partyId"/>
             <set field="searchParameters.statusId" value="COM_UNKNOWN_PARTY"/>
             <set field="searchParameters.statusId_op" value="notEqual"/>
@@ -512,7 +568,7 @@ under the License.
         <field name="partyId"><hidden/></field>
         <field name="communicationEventId"><hidden/></field>
         <field name="subject" widget-style="buttontext" widget-area-style="fieldWidth300" sort-field="true">
-            <hyperlink description="${subject}[${communicationEventId}] " target="${parameters._LAST_VIEW_NAME_}">
+            <hyperlink description="${subject}[${communicationEventId}] " target="MyCommunicationEvents">
                 <parameter param-name="communicationEventId"/>
                 <parameter param-name="partyId"/>
                 <parameter param-name="roleTypeId"/>
@@ -531,13 +587,17 @@ under the License.
                 </sub-hyperlink>
             </display-entity>
         </field>
-        <field name="partyIdTo" title="${uiLabelMap.CommonPartyId} ${uiLabelMap.CommonTo}" sort-field="true">
+        <field name="partyIdTo" use-when="partyIdTo!=null" title="${uiLabelMap.CommonPartyId} ${uiLabelMap.CommonTo}" sort-field="true">
             <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView" key-field-name="partyId">
                 <sub-hyperlink target="/partymgr/control/viewprofile" description="[${partyIdTo}]" target-type="inter-app">
                     <parameter param-name="partyId" from-field="partyIdTo"/>
                 </sub-hyperlink>
             </display-entity>
         </field>
+        <field name="contactListId"  sort-field="true">
+            <display-entity description="${contactListName}" entity-name="ContactList" key-field-name="contactListId">
+            </display-entity>
+        </field>        
         <field name="statusId" entry-name="roleStatusId" widget-style="buttontext" widget-area-style="fieldWidth300">
             <display-entity entity-name="StatusItem" description="${description}">
                 <sub-hyperlink target="setCommunicationEventRoleStatus"
@@ -574,7 +634,7 @@ under the License.
             <set field="parameters.sortField" from-field="parameters.sortField" default-value="-entryDate"/>
             <entity-and  list="commEvents" entity-name="CommunicationEventAndRole">
                 <field-map field-name="statusId" value="COM_UNKNOWN_PARTY"/>
-                <order-by field-name="${parameters.sortField}"/>
+                <order-by field-name="-entryDate"/>
             </entity-and>
         </actions>
         <field name="delContentDataResource"><hidden value="Y"/></field>
@@ -602,11 +662,10 @@ under the License.
 
     <form name="ListLookupCommEvents" type="list" list-name="listIt" extends="ListCommEvents" header-row-style="header-row-2" target="deleteCommunicationEvent">
         <actions>
-            <set field="parameters.sortField" from-field="parameters.sortField" default-value="-entryDate"/>
-            <service service-name="performFind" result-map="result" result-map-list="listIt">
-                <field-map field-name="inputFields" from-field="parameters"/>
-                <field-map field-name="entityName" from-field="entityName"/>
-                <field-map field-name="orderBy" from-field="parameters.sortField"/>
+            <service result-map-list="listIt" result-map="result" service-name="performFind">
+                <field-map from-field="parameters" field-name="inputFields"/>
+                <field-map from-field="entityName" field-name="entityName"/>
+                <field-map value="-entryDate" field-name="orderBy"/>
                 <field-map field-name="viewIndex" from-field="viewIndex"/>
                 <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
@@ -708,10 +767,12 @@ under the License.
         <field name="subject"><hidden/></field>
         <field name="content"><hidden/></field>
         <field name="partyIdTo"><hidden/></field>
+        <field name="contactListId"><hidden/></field>        
         <field name="datetimeStarted"><hidden/></field>
         <field name="my"><hidden value="${my}"/></field>
         <field name="datetimeStarted"><hidden/></field>
         <field name="communicationEventId"><hidden/></field>
+        <field name="communicationEventTypeId"><hidden value="${communicationEvent.communicationEventTypeId}"/></field>        
         <field name="partyId" title="${uiLabelMap.PartyPartyId}" position="1"><lookup target-form-name="LookupPartyName"/></field>
         <field name="roleTypeId" position="2">
             <drop-down>
@@ -722,10 +783,10 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="submitButton" title=" ">
+        <field name="submitButton" title=" " widget-style="buttontext">
             <hyperlink also-hidden="true"
                 target-type="plain" description="${uiLabelMap.PartyAddRole}"
-                target="javascript:(document.AddEventRole.communicationEventId.value=document.EditEmail.communicationEventId.value),(document.AddEventRole.datetimeStarted.value=document.EditEmail.datetimeStarted.value),(document.AddEventRole.partyIdTo.value=document.EditEmail.partyIdTo.value),(document.AddEventRole.subject.value=document.EditEmail.subject.value),(document.AddEventRole.content.value=document.EditEmail.content.value),(document.AddEventRole.submit())"/>
+                target="javascript:createCommunicationEventRole();"/>
         </field>
     </form>
 
@@ -757,7 +818,7 @@ under the License.
         <field name="contentId"><ignored/></field>
         <field name="contentName"><text/></field>
         <field name="contentTypeId"><hidden value="DOCUMENT"/></field>
-        <field name="dataResourceTypeId"><hidden value=""/></field>
+        <field name="dataResourceTypeId"><hidden value="IMAGE_OBJECT"/></field>
         <field name="fromDate"><date-time default-value="${nowTimestamp}"/></field>
         <field name="thruDate"><date-time/></field>
         <field name="sequenceNum"><text/></field>
@@ -871,6 +932,7 @@ under the License.
     <form name="uploadContent" type="upload" target="uploadAttachFiletoEmail">
         <field name="dataCategoryId"><hidden value="PERSONAL"/></field>
         <field name="contentTypeId"><hidden value="DOCUMENT"/></field>
+        <field name="dataResourceTypeId"><hidden value="IMAGE_OBJECT"/></field>        
         <field name="resourceStatusId"><hidden value="CTNT_PUBLISHED"/></field>
         <field name="partyId"><hidden value="${partyIdFrom}"/></field>
         <field name="partyContentTypeId" ><hidden value="USERDEF"/></field>
@@ -882,15 +944,21 @@ under the License.
         <field name="subject"><hidden/></field>
         <field name="content"><hidden/></field>
         <field name="partyIdTo"><hidden/></field>
+        <field name="contactListId"><hidden/></field>        
         <field name="datetimeStarted"><hidden/></field>
         <field name="my"><hidden value="${my}"/></field>
-        <field name="contentId" title="${uiLabelMap.FormFieldTitle_existContentId}"><lookup target-form-name="LookupTreeContent"/></field>
-        <field name="uploadedFile"><file/></field>
-        <field name="contentIdFrom" title="${uiLabelMap.ContentCompDocParentContentId}"><lookup target-form-name="LookupDetailContentTree"/></field>        
-        <field name="send" title=" ">
+<!--        <field name="contentId" title="${uiLabelMap.FormFieldTitle_existContentId}"><lookup target-form-name="LookupTreeContent"/></field>-->
+        <field name="uploadedFile"><file/></field><!--
+        <field name="mimeTypeId" >
+            <drop-down allow-empty="false">
+                <entity-options description="${description}" entity-name="MimeType"/>
+            </drop-down>
+        </field>        
+--><!--        <field name="contentIdFrom" title="${uiLabelMap.ContentCompDocParentContentId}"><lookup target-form-name="LookupDetailContentTree"/></field>        -->
+        <field name="send" title=" " widget-style="buttontext">
             <hyperlink also-hidden="true"
                 target-type="plain" description="${uiLabelMap.CommonUpload}"
-                target="javascript:(document.uploadContent.datetimeStarted.value=document.EditEmail.datetimeStarted.value),(document.uploadContent.partyIdTo.value=document.EditEmail.partyIdTo.value),(document.uploadContent.subject.value=document.EditEmail.subject.value),(document.uploadContent.content.value=document.EditEmail.content.value),(document.uploadContent.submit())"/>
+				target="javascript:uploadContent();"/>
         </field>
     </form>
     <form name="uploadContent1" type="upload" extends="uploadContent" target="uploadAttachFile">
@@ -910,7 +978,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonSave}"><submit/></field>
     </form>
 
-    <form name="ListMyUnknownPartyEmails" type="multi" use-row-submit="true"
+    <form name="ListMyUnknownPartyMessages" type="multi" use-row-submit="true"
         title="Email List unknown parties" list-name="commEventsUnknown"
         target="deleteCommunicationEvents" default-entity-name="CommunicationEvent"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
@@ -994,11 +1062,11 @@ under the License.
         <field name="updateButton"><submit/></field>
     </form>
 
-    <form name="ListDraftEmails" type="list" extends="ListCommEvents" extends-resource="component://party/widget/partymgr/CommunicationEventForms.xml" target="deleteCommunicationEvent"
+    <form name="ListDraftMessages" type="list" extends="ListCommEvents" extends-resource="component://party/widget/partymgr/CommunicationEventForms.xml" target="deleteCommunicationEvent"
         use-row-submit="true" header-row-style="header-row-2" list-name="commEventDraft">
         <field name="portalPageId"><hidden value="${parameters.portalPageId}"/></field>
-        <field name="subject">
-            <hyperlink description="${subject}" target="${parameters._LAST_VIEW_NAME_}">
+        <field name="subject" use-when="parameters.get(&quot;portalPageId&quot;)!=&quot;MYPORTAL_EMPLOYEE&quot;">
+            <hyperlink description="${subject}" target="MyCommunicationEvents">
                 <parameter param-name="communicationEventId"/>
                 <parameter param-name="partyId"/>
                 <parameter param-name="my"/>
@@ -1008,7 +1076,7 @@ under the License.
         </field>
         <field name="removeLink" title="${uiLabelMap.CommonDelete}" widget-style="smallSubmit"><submit/></field>
     </form>
-    <form name="ListProgressEmails" type="list" extends="ListPartyCommEvents" list-name="commEventProgress">
+    <form name="ListProgressMessages" type="list" extends="ListPartyCommEvents" list-name="commEventProgress">
         <field name="partyIdFrom"><ignored/></field>
         <field name="startDate"><display type="date-time"/></field>
         <field name="removeButton" widget-style="smallSubmit"><submit/></field>

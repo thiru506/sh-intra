@@ -7444,6 +7444,24 @@
         <value xml:lang="zh">新建角色类型</value>
         <value xml:lang="zh_TW">新建角色類型</value>
     </property>
+    <property key="PartyNewSecurityGroup">
+        <value xml:lang="de">Neue Sicherheitsgruppe</value>
+        <value xml:lang="en">New Security Group</value>
+        <value xml:lang="es">Nuevo grupo de seguridad</value>
+        <value xml:lang="fr">Nouveau groupe de sécurité</value>
+        <value xml:lang="hi_IN">नया सुरक्षा समूह</value>
+        <value xml:lang="it">Nuovo gruppo sicurezza</value>
+        <value xml:lang="nl">Nieuwe beveiligingsgroep</value>
+        <value xml:lang="pt_BR">Novo grupo de segurança</value>
+        <value xml:lang="pt_PT">Novo Grupo de Segurança</value>
+        <value xml:lang="ro">Nou Grup De Siguranta</value>
+        <value xml:lang="ru">Новая группа безопасности</value>
+        <value xml:lang="th">กลุ่มความปลอดภัยใหม่</value>
+        <value xml:lang="zh">新建安全组</value>
+    </property>
+    <property key="PartyNewSms">
+        <value xml:lang="en">New Sms</value>
+    </property>    
     <property key="PartyNewTask">
         <value xml:lang="de">Neue Aufgabe</value>
         <value xml:lang="en">New Task</value>
@@ -9854,6 +9872,12 @@
         <value xml:lang="zh">发送电子邮件</value>
         <value xml:lang="zh_TW">發送電子郵件</value>
     </property>
+	<property key="PartySendNote">
+        <value xml:lang="en">Send Internal Note</value>    
+    </property>
+	<property key="PartySendSms">
+        <value xml:lang="en">Send Sms</value>    
+    </property>    
     <property key="PartySequenceId">
         <value xml:lang="de">Folgenummer ID</value>
         <value xml:lang="en">Sequence Id</value>

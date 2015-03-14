@@ -307,6 +307,10 @@ under the License.
                 </and>
             </condition>
             <then>
+                <set field="getEmail.partyId" from-field="parameters.partyIdTo"/>
+                <call-service service-name="getPartyEmail" in-map-name="getEmail">
+                        <result-to-field result-name="contactMechId" field="parameters.contactMechIdTo"/>
+                </call-service>
                 <!-- check if role exist then delete old role -->
                 <if-not-empty field="event.partyIdTo">
                     <entity-one entity-name="CommunicationEventRole" value-field="roleTo">
@@ -512,6 +516,29 @@ under the License.
             <set-service-fields service-name="sendCommEventAsEmail" map="communicationEvent" to-map="inMap"/>
             <call-service service-name="sendCommEventAsEmail" in-map-name="inMap" require-new-transaction="true" break-on-error="false"/>
         </iterate>
+        
+        <!-- sending of internal notes (non-contactlist parties) -->
+        <entity-condition entity-name="CommunicationEvent" list="communicationEvents">
+            <condition-list combine="and">
+                <condition-expr field-name="communicationEventTypeId" operator="equals" value="COMMENT_NOTE"/>
+                <condition-expr field-name="statusId" operator="equals" value="COM_IN_PROGRESS"/>
+                <condition-expr field-name="partyIdTo" operator="not-equals" from-field="nullValue"/>
+                <condition-list combine="or">
+                    <condition-expr field-name="datetimeStarted" operator="less" from-field="nowDate"/>
+                    <condition-expr field-name="datetimeStarted" operator="equals" from-field="nullField"/>
+                </condition-list>
+            </condition-list>
+        </entity-condition>  
+        <iterate entry="communicationEvent" list="communicationEvents">
+            <set field="communicationEventRole.communicationEventId" from-field="communicationEvent.communicationEventId"/>
+            <set field="communicationEventRole.roleTypeId" value="ADDRESSEE"/>
+            <set field="communicationEventRole.partyId" from-field="communicationEvent.partyIdTo"/>
+            <call-service service-name="createCommunicationEventRole" in-map-name="communicationEventRole"/>
+            <set-service-fields service-name="setCommunicationEventStatus" map="communicationEvent" to-map="updCommEventStatus"/>
+            <set field="updCommEventStatus.statusId" value="COM_COMPLETE"/>
+            <call-service service-name="setCommunicationEventStatus" in-map-name="updCommEventStatus"/>
+        </iterate>
+                  
         <!-- sending of internal notes of a contactlist -->
         <entity-condition entity-name="CommunicationEvent" list="communicationEvents">
             <condition-list combine="and">
@@ -539,6 +566,27 @@ under the License.
             <call-service service-name="setCommunicationEventStatus" in-map-name="updCommEventStatus"/>
         </iterate>
     </simple-method>
+    
+    
+	<!-- This service handles sending of email immediately from MyCommunciations -->
+    <simple-method method-name="sendEmailImmediate"
+        short-description="Check if startdate is expired, then send the email">
+        <now-timestamp field="nowDate"/>
+        <!-- sending of email -->
+        <entity-one entity-name="CommunicationEvent" value-field="communicationEvent"/>        
+        <if>
+            <condition>
+                <or>
+                    <if-empty field="communicationEvent.datetimeStarted"/>                
+                    <if-compare-field field="communicationEvent.datetimeStarted" operator="less" to-field="nowDate"/>
+                </or>
+            </condition>
+            <then>
+            	<set-service-fields service-name="sendCommEventAsEmail" map="communicationEvent" to-map="inMap"/>
+            	<call-service service-name="sendCommEventAsEmail" in-map-name="inMap" require-new-transaction="true" break-on-error="false"/>
+            </then>
+         </if>        
+    </simple-method>    
 
     <simple-method method-name="createCustRequestCommEvent" short-description="Create CustRequestCommEvent" >
         <make-value value-field="newEntity" entity-name="CustRequestCommEvent"/>
@@ -686,4 +734,43 @@ under the License.
             <call-service service-name="sendMailFromScreen" in-map-name="emailParams"/>
         </if-not-empty>
     </simple-method>
+    <simple-method method-name="sendSmsDated"
+        short-description="Checks for sms communication events with the status COM_IN_PROGRESS and a startdate which is expired, then send the sms">
+        <now-timestamp field="nowDate"/>
+        <!-- sending of sms -->
+        <entity-condition entity-name="CommunicationEvent" list="communicationEvents">
+            <condition-list combine="and">
+                <condition-expr field-name="communicationEventTypeId" operator="equals" value="SMS_COMMUNICATION"/>
+                <condition-expr field-name="statusId" operator="equals" value="COM_IN_PROGRESS"/>
+                <condition-list combine="or">
+                    <condition-expr field-name="datetimeStarted" operator="less" from-field="nowDate"/>
+                    <condition-expr field-name="datetimeStarted" operator="equals" from-field="nullField"/>
+                </condition-list>
+            </condition-list>
+        </entity-condition>
+        <iterate entry="communicationEvent" list="communicationEvents">
+            <set-service-fields service-name="sendCommEventAsSms" map="communicationEvent" to-map="inMap"/>
+            <call-service service-name="sendCommEventAsSms" in-map-name="inMap" require-new-transaction="true" break-on-error="false"/>
+        </iterate>
+    </simple-method>
+
+	<!-- This service handles sending of sms immediately from MyCommunciations -->
+    <simple-method method-name="sendSmsImmediate"
+        short-description="Check if startdate is expired, then send the sms">
+        <now-timestamp field="nowDate"/>
+        <!-- sending of email -->
+        <entity-one entity-name="CommunicationEvent" value-field="communicationEvent"/>        
+        <if>
+            <condition>
+                <or>
+                    <if-empty field="communicationEvent.datetimeStarted"/>                
+                    <if-compare-field field="communicationEvent.datetimeStarted" operator="less" to-field="nowDate"/>
+                </or>
+            </condition>
+            <then>
+            	<set-service-fields service-name="sendCommEventAsSms" map="communicationEvent" to-map="inMap"/>
+            	<call-service service-name="sendCommEventAsSms" in-map-name="inMap" require-new-transaction="true" break-on-error="false"/>
+            </then>
+         </if>        
+    </simple-method>  
 </simple-methods>

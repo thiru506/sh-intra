@@ -68,7 +68,7 @@
             </widgets>
         </section>
     </screen>
-    <!--  <screen name="EmployeeAttendance">
+     <screen name="DailyAttendance">
         <section>
             <actions>
                 <set field="tabButtonItem" value="attendance"/>this highlights the selected menu-item with name "main"
@@ -93,7 +93,7 @@
                 </decorator-screen>
             </widgets>
         </section>
-    </screen> -->
+    </screen>
     
     <screen name="DailyAttendanceEntry">
         <section>

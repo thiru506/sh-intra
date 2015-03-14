@@ -309,7 +309,7 @@ under the License.
     <form name="AddPublicHoliday" type="single" target="createPublicHoliday" default-map-name="workEffort">
         <alt-target use-when="workEffort!=null" target="updatePublicHoliday"/>
         <field name="workEffortId" use-when="workEffort!=null"><hidden/></field>
-        <field name="partyId"><hidden value="${parameters.userLogin.partyId}"/></field>
+        <field name="partyId"><hidden value="Company"/></field>
         <field name="roleTypeId" use-when="workEffort==null"><hidden value="CAL_OWNER"/></field>
         <field name="statusId" use-when="workEffort==null"><hidden value="PRTYASGN_ASSIGNED"/></field>
         <field name="workEffortTypeId"><hidden value="PUBLIC_HOLIDAY"/></field>

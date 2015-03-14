@@ -1348,4 +1348,115 @@ under the License.
         <attribute name="emailType" type="String" mode="IN" optional="true"/>
         <attribute name="productStoreId" type="String" mode="IN" optional="true"/>
     </service>
+    
+    <service name="createCommEventFromSms" engine="java"
+        location="org.ofbiz.party.communication.CommunicationEventServices" invoke="createCommEventFromSms" auth="true">
+        <description>
+                Creates a CommunicationEvent record based on information before running a sendSms service (to be used via ECA)
+        </description>
+        <attribute name="partyId" type="String" mode="IN" optional="false"/>
+        <attribute name="partyIdFrom" type="String" mode="IN" optional="false"/>        
+        <attribute name="contactNumberTo" type="String" mode="IN" optional="false"/>
+        <attribute name="text" type="String" mode="IN" optional="false"/>        
+        <attribute name="statusId" type="String" mode="IN" optional="true"/>
+        <attribute name="orderId" type="String" mode="IN" optional="true"/>
+        <attribute name="communicationEventId" type="String" mode="OUT"/>
+    </service>
+    <service name="updateCommEventAfterSms" engine="java"
+        location="org.ofbiz.party.communication.CommunicationEventServices" invoke="updateCommEventAfterSms" auth="true">
+        <description>
+                Updates a CommunicationEvent record after running a sendSms service (to be used via ECA)
+        </description>
+        <attribute name="communicationEventId" type="String" mode="IN" optional="false"/>
+    </service>
+    
+    <service name="storeIncomingEmail" engine="java"
+        location="org.ofbiz.party.communication.CommunicationEventServices" invoke="storeIncomingEmail" auth="true">
+        <description>
+            Process incoming email. Try to determine partyIdFrom from the first SendFrom email address. datetimeStarted and datetimeEnded are the
+            sent and received dates respectively, partyIdTo is from the first SendTo email address or the delivered-to address. If the parties are not found,
+            the email addresses are stored in CommunicationEvent.note
+            If however it is detected as spam (external) or when the 'from' email address is missing, the service will not return a communicationEventId.
+            If the party cannot be found the status of the communicationEvent will be set to: COM_UNKNOWN_PARTY.
+            If the parties are found the status is set to COM_ENTERED
+        </description>
+        <attribute name="messageWrapper" type="org.ofbiz.service.mail.MimeMessageWrapper" mode="IN"/>
+        <attribute name="communicationEventId" type="String" mode="OUT" optional="true"/>
+        <attribute name="statusId" type="String" mode="OUT" optional="true"/>
+    </service>
+
+    <service name="sendEmailToContactList" engine="java"
+            location="org.ofbiz.party.communication.CommunicationEventServices" invoke="sendEmailToContactList" auth="true"
+            use-transaction="true" transaction-timeout="300" max-retry="3">  <!-- Individual emails will be wrapped in their own transactions -->
+            <description>Send emails to members of a contact list, wrapping each email in its own transaction and tagging each member
+                that has been sent, so if the whole effort is aborted, it can start over from the middle.  The max-retry is important because if this service is
+                and some emails cannot sent, it will start again later and try again</description>
+        <attribute name="contactListId" type="String" mode="IN" optional="false"/>
+        <attribute name="communicationEventId" type="String" mode="IN" optional="false"/>
+    </service>
+    
+    <service name="sendSmsToContactList" engine="java"
+            location="org.ofbiz.party.communication.CommunicationEventServices" invoke="sendSmsToContactList" auth="true"
+            use-transaction="true" transaction-timeout="300" max-retry="3">  <!-- Individual sms'es will be wrapped in their own transactions -->
+            <description>Send sms'es to members of a contact list, wrapping each sms in its own transaction and tagging each member
+                that has been sent, so if the whole effort is aborted, it can start over from the middle.  The max-retry is important because if this service is
+                and some sms'es cannot sent, it will start again later and try again</description>
+        <attribute name="contactListId" type="String" mode="IN" optional="false"/>
+        <attribute name="communicationEventId" type="String" mode="IN" optional="false"/>
+    </service>    
+
+    <service name="sendSmsToContactListNoCommEvent" engine="java"
+            location="org.ofbiz.party.communication.CommunicationEventServices" invoke="sendSmsToContactListNoCommEvent" auth="true"
+            use-transaction="true" transaction-timeout="300" max-retry="3">  <!-- Individual sms'es will be wrapped in their own transactions -->
+            <description>Send sms'es to members of a contact list.</description>
+        <attribute name="contactListId" type="String" mode="IN" optional="false"/>
+        <attribute name="text" type="String" mode="IN" optional="false"/>
+    </service>  
+    <service name="setCommEventComplete" engine="java"
+        location="org.ofbiz.party.communication.CommunicationEventServices" invoke="setCommEventComplete" auth="true">
+        <description>Sets the status of a communication event to COM_COMPLETE using the updateCommunicationEvent service</description>
+        <attribute name="communicationEventId" type="String" mode="IN" optional="false"/>
+    </service>
+
+    <service name="sendEmailDated" engine="simple" use-transaction="false"
+        location="component://party/script/org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="sendEmailDated" auth="true">
+        <description>Checks for email communication events with the status COM_IN_PROGRESS and a startdate which is expired, then send the email</description>
+    </service>
+
+    <service name="sendCommEventAsSms" engine="java"
+            location="org.ofbiz.party.communication.CommunicationEventServices" invoke="sendCommEventAsSms" auth="true"
+            transaction-timeout="7200">  <!-- set transaction time out for 2 hours, since this sometimes may run as an async service to send sms'es to lots of people -->
+        <description>Sends a communication event as an sms.  All parameters come from CommunicationEvent, which must
+            be of type SMS_COMMUNICATION.</description>
+        <attribute name="communicationEventId" type="String" mode="IN" optional="false"/>
+    </service>
+
+    <service name="sendSmsDated" engine="simple" use-transaction="false"
+        location="component://party/script/org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="sendSmsDated" auth="true">
+        <description>Checks for sms communication events with the status COM_IN_PROGRESS and a startdate which is expired, then send the sms</description>
+    </service>
+
+    <service name="sendEmailImmediate" engine="simple"
+        location="component://party/script/org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="sendEmailImmediate" auth="true">
+        <description>
+                Sends email immediately using the associated communication event
+        </description>
+        <attribute name="communicationEventId" type="String" mode="IN" optional="false"/>
+    </service>
+    
+    <service name="sendSmsImmediate" engine="simple"
+        location="component://party/script/org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="sendSmsImmediate" auth="true">
+        <description>
+                Sends sms immediately using the associated communication event
+        </description>
+        <attribute name="communicationEventId" type="String" mode="IN" optional="false"/>
+    </service>    
+      
+    <service name="sendInternalNoteImmediate" engine="simple"
+        location="component://party/script/org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="sendInternalNoteImmediate" auth="true">
+        <description>
+                Sends internal note immediately using the associated communication event
+        </description>
+        <attribute name="communicationEventId" type="String" mode="IN" optional="false"/>
+    </service> 
 </services>
