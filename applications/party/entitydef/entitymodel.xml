@@ -996,6 +996,33 @@ under the License.
         <key-map field-name="contactMechPurposeTypeId"/>
       </relation>
     </entity>
+    <view-entity entity-name="ContactPersonDetails"
+        package-name="org.ofbiz.party.party"
+        title="Contact Person Entity">
+        <member-entity entity-alias="CNM" entity-name="ContactMech"/>
+        <member-entity entity-alias="PCNM" entity-name="PartyContactMech"/>
+        <member-entity entity-alias="TLN" entity-name="TelecomNumber"/>
+        <member-entity entity-alias="PRN" entity-name="Person"/>
+        <alias entity-alias="PCNM" name="partyId"/>
+    <alias entity-alias="PCNM" name="contactMechId"/>
+    <alias entity-alias="CNM" name="contactMechTypeId"/>
+    <alias entity-alias="CNM" name="infoString"/>
+    <alias entity-alias="TLN" name="countryCode"/>
+    <alias entity-alias="TLN" name="areaCode"/>
+    <alias entity-alias="TLN" name="contactNumber"/>
+    <alias entity-alias="PRN" name="firstName"/>
+    <alias entity-alias="PRN" name="lastName"/>
+    
+           <view-link entity-alias="PCNM" rel-entity-alias="CNM" rel-optional="true">
+            <key-map field-name="contactMechId"/>
+        </view-link>
+            <view-link entity-alias="PCNM" rel-entity-alias="TLN" rel-optional="true">
+            <key-map field-name="contactMechId"/>
+        </view-link>
+         <view-link entity-alias="PCNM" rel-entity-alias="PRN" rel-optional="true">
+            <key-map field-name="partyId"/>
+        </view-link>
+    </view-entity>
     <entity entity-name="EmailAddressVerification"
             package-name="org.ofbiz.party.contact"
             title="Email Address Verification Entity">

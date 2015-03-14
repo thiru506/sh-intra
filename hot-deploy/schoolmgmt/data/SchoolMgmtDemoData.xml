@@ -26,5 +26,20 @@
  <ProductAssoc fromDate="2007-01-01 12:00:00.0" productAssocTypeId="PRODUCT_COMPONENT" productId="SUBJECT_2" productIdTo="CLASS_II" quantity="1.000000"/>
  <ProductAssoc fromDate="2007-01-01 12:00:00.0" productAssocTypeId="PRODUCT_COMPONENT" productId="SUBJECT_3" productIdTo="CLASS_II" quantity="1.000000"/>
  
+ <Party partyId="E100" partyTypeId="PERSON"></Party>
+ <Person partyId="E100" firstName="Praveen" lastName="Prakash" gender="M"></Person>
+ <PartyRole partyId="E100" roleTypeId="EMPLOYEE"></PartyRole>
+ <Employment fromDate="2000-01-30 17:50:15.0" partyIdFrom="Company" partyIdTo="E100" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE"/>
+ <EmplPositionFulfillment emplPositionId="ENGLISH_TEACHER" partyId="E100" fromDate="2009-01-30 17:58:02.745"/>
+ <Party partyId="E101" partyTypeId="PERSON"></Party>
+ <Person partyId="E101" firstName="Padma" lastName="Priya" gender="F"></Person>
+ <PartyRole partyId="E101" roleTypeId="EMPLOYEE"></PartyRole>
+ <Employment fromDate="2000-01-30 17:50:15.0" partyIdFrom="Company" partyIdTo="E101" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE"/>
+ <EmplPositionFulfillment emplPositionId="ENGLISH_TEACHER" partyId="E101" fromDate="2009-01-30 17:58:02.745"/>
  
+ <Party partyId="E102" partyTypeId="PERSON"></Party>
+ <Person partyId="E102" firstName="Jeethendhar" lastName="Singh" gender="M"></Person>
+ <PartyRole partyId="E102" roleTypeId="EMPLOYEE"></PartyRole>
+ <Employment fromDate="2000-01-30 17:50:15.0" partyIdFrom="Company" partyIdTo="E102" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE"/>
+ <EmplPositionFulfillment emplPositionId="ENGLISH_TEACHER" partyId="E102" fromDate="2009-01-30 17:58:02.745"/>
 </entity-engine-xml>

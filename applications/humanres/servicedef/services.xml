@@ -940,4 +940,12 @@ under the License.
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
     
+    <service name="emplPunch" engine="java" default-entity-name="EmplPunch"
+             location="org.ofbiz.humanres.HumanResServices" invoke="emplPunch" auth="true">
+        <description>Add punch</description>
+        <auto-attributes mode="INOUT" include="pk" optional="true"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <attribute name="consolidatedFlag" mode="IN" optional="true" type="String"/>
+    </service>   
+   
 </services>

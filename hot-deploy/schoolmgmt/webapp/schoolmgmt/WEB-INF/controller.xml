@@ -5,7 +5,10 @@
          can be found in the following xml file. A component can override the
          elements found in the common-controller.xml file. -->
     <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>
-
+	<include location="component://product/webapp/facility/WEB-INF/controller.xml"/>
+   <include location="component://commonext/webapp/WEB-INF/controller.xml"/>
+	<include location="component://order/webapp/ordermgr/WEB-INF/controller.xml"/> 
+	<include location="component://humanres/webapp/humanres/WEB-INF/controller.xml"/>
     <description>SchoolMgmt Component Site Configuration File</description>
 
     <!-- Events to run on every request before security (chains exempt) -->
@@ -30,8 +33,20 @@
     	<security https="true" auth="true"/>
     	<response name="success" type="view" value="Dormitary"/>
     </request-map>
+    <request-map uri="Attendance">
+    	<security https="true" auth="true"/>
+    	<response name="success" type="view" value="DailyAttendanceEntry"/>
+    </request-map>
+    <request-map uri="DailyAttendanceEntryInternal">
+    	<security https="true" auth="true"/>
+    	<response name="success" type="view" value="DailyAttendanceEntryInternal"/>
+    </request-map>
+    
     <!-- View Mappings -->
     <view-map name="main" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#main"/>
     <view-map name="transport" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#transport"/>
     <view-map name="Dormitary" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#Dormitary"/>
+    <view-map name="DailyAttendanceEntry" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#DailyAttendanceEntry"/>
+	<view-map name="DailyAttendanceEntryInternal" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#DailyAttendanceEntryInternal"/>
+	
 </site-conf>

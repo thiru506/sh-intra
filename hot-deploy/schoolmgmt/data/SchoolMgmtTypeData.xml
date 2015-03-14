@@ -13,5 +13,13 @@
  
  <ProductType productTypeId="CLASS" description="Class"></ProductType>
  <ProductType productTypeId="SUBJECT" description="Subject"></ProductType>
-  <ProductAssocType description="Actual Product Component" hasTable="N" productAssocTypeId="PRODUCT_COMPONENT"/>
+ <ProductAssocType description="Actual Product Component" hasTable="N" productAssocTypeId="PRODUCT_COMPONENT"/>
+  
+  <EmplPositionType description="Teacher" hasTable="N" parentTypeId="" emplPositionTypeId="TEACHER"/>
+  <EmplPositionType description="Non Teaching Staff" hasTable="N" parentTypeId="" emplPositionTypeId="NON_TEACHING"/>
+  <EmplPosition emplPositionId="ENGLISH_TEACHER" statusId="EMPL_POS_ACTIVE" partyId="Company" emplPositionTypeId="TEACHER" salaryFlag="Y" exemptFlag="Y" fulltimeFlag="Y" temporaryFlag="Y"/>
+  <EnumerationType description="Punch Type" enumTypeId="PUNCH_TYPE" hasTable="N" parentTypeId=""/>
+    <Enumeration description="Normal" enumCode="NORMAL" enumId="Normal" sequenceId="01" enumTypeId="PUNCH_TYPE"/>
+    <Enumeration description="Break" enumCode="BREAK" enumId="Break" sequenceId="02" enumTypeId="PUNCH_TYPE"/>
+    
 </entity-engine-xml>
