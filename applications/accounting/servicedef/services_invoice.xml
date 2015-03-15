@@ -325,7 +325,12 @@ under the License.
         <attribute name="organizationPartyId" type="String" mode="IN" optional="true"/>
         <attribute name="invoiceRunningTotal" type="String" mode="OUT" optional="false"/>
     </service>
-    
+    <service name="getInvoiceTotal" engine="java"
+            location="org.ofbiz.accounting.invoice.InvoiceServices" invoke="getInvoiceTotal" auth="true">
+        <description>calculate running total for selected Invoices</description>
+        <attribute name="invoiceId" type="String" mode="IN" optional="false"/>       
+        <attribute name="amountTotal" type="BigDecimal" mode="OUT" optional="false"/>
+    </service>
     <service name="addtax" engine="simple" 
         location="component://accounting/script/org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="addtax">
         <description>Call Tax Calculate Service</description>

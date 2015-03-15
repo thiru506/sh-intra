@@ -69,6 +69,7 @@ under the License.
                     <field-map field-name="orderBy" value="invoiceDate DESC"/>
                 </service>
                 <set field="invoices" from-field="result.listIt"/>
+                 <script location="component://accounting/webapp/ap/WEB-INF/actions/invoices/voucherPaymentMethod.groovy"/> 
             </actions>
             <widgets>
                 <decorator-screen name="CommonInvoiceDecorator" location="${parameters.mainDecoratorLocation}">
@@ -85,9 +86,43 @@ under the License.
                                         <include-form name="FindArInvoices" location="component://accounting/widget/ar/forms/InvoiceForms.xml"/>
                                     </decorator-section>
                                     <decorator-section name="search-results">
-                                        <platform-specific>
-                                            <html><html-template location="component://accounting/webapp/ar/invoice/ListInvoices.ftl"/></html>
-                                        </platform-specific>
+            							<screenlet title="Invoices List"> 
+            								<section>   
+            									<condition>
+            										<not><if-empty field="invoices" /></not>
+            									</condition>
+            									<widgets>              							                                   
+		            								<link text="${uiLabelMap.AccountingExportAsCsv}" style="buttontext"
+														target="InvoiceSearchResultsCsv.csv">
+														<parameter param-name="parentTypeId" from-field="parameters.parentTypeId"/>
+														<parameter param-name="invoiceId_op" from-field="parameters.invoiceId_op"/>
+														<parameter param-name="invoiceId" from-field="parameters.invoiceId"/>
+														<parameter param-name="invoiceId_ic" from-field="parameters.invoiceId_ic"/>
+														<parameter param-name="description_op" from-field="parameters.description_op"/>
+														<parameter param-name="description" from-field="parameters.description"/>
+														<parameter param-name="description_ic" from-field="parameters.description_ic"/>
+														<parameter param-name="invoiceTypeId" from-field="parameters.invoiceTypeId"/>
+														<parameter param-name="statusId" from-field="parameters.statusId"/>
+														<parameter param-name="partyIdFrom" from-field="parameters.partyIdFrom"/>
+														<parameter param-name="partyId" from-field="parameters.partyId"/>
+														<parameter param-name="invoiceDate_fld0_value" from-field="parameters.invoiceDate_fld0_value"/>
+														<parameter param-name="invoiceDate_fld0_op" from-field="parameters.invoiceDate_fld0_op"/>
+														<parameter param-name="invoiceDate_fld1_value" from-field="parameters.invoiceDate_fld1_value"/>
+														<parameter param-name="invoiceDate_fld1_op" from-field="parameters.invoiceDate_fld1_op"/>
+														<parameter param-name="dueDate_fld0_value" from-field="parameters.dueDate_fld0_value"/>
+														<parameter param-name="dueDate_fld0_op" from-field="parameters.dueDate_fld0_op"/>
+														<parameter param-name="dueDate_fld1_value" from-field="parameters.dueDate_fld1_value"/>
+														<parameter param-name="dueDate_fld1_op" from-field="parameters.dueDate_fld1_op"/>
+													</link>	  
+												</widgets>
+											</section> 
+											<platform-specific>
+                                        	<html><html-template location="component://accounting/webapp/accounting/invoice/massPayments.ftl"/></html>
+											</platform-specific>
+                                        	<platform-specific>
+                                            	<html><html-template location="component://accounting/webapp/accounting/invoice/ListSearchInvoices.ftl"/></html>
+                                        	</platform-specific>
+                                        </screenlet>
                                     </decorator-section>
                                 </decorator-screen>
                             </widgets>
