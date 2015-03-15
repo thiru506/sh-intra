@@ -2743,6 +2743,7 @@ under the License.
       <field name="roleTypeIdTo" type="id-ne"></field>
       <field name="statusId" type="id"></field>
       <field name="effectiveDate" type="date-time"></field>
+      <field name="paymentDate" type="date-time"></field>
       <field name="paymentRefNum" type="short-varchar"></field>
       <field name="amount" type="currency-amount"></field>
       <field name="currencyUomId" type="id"></field>
@@ -2751,6 +2752,10 @@ under the License.
       <field name="overrideGlAccountId" type="id"></field>
       <field name="actualCurrencyAmount" type="currency-amount"><!-- The ActualCurrency amount and uomId are for the values coming from the bank (if known) and are to be used for reconciliation and such later, and not for PaymentApplication. --></field>
       <field name="actualCurrencyUomId" type="id"></field>
+      <field name="createdByUserLogin" type="id-vlong"></field>
+		<field name="lastModifiedByUserLogin" type="id-vlong"></field>
+		<field name="createdDate" type="date-time"></field>      
+      	<field name="lastModifiedDate" type="date-time"></field>
       <prim-key field="paymentId"/>
       <relation type="one" fk-name="PAYMENT_PMTYP" rel-entity-name="PaymentType">
         <key-map field-name="paymentTypeId"/>

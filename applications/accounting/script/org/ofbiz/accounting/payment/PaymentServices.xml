@@ -71,6 +71,15 @@ under the License.
                 <fail-property resource="AccountingUiLabels" property="AccountingPaymentMethodIdPaymentMethodTypeIdNullError"/>
             </add-error>
         </if-empty>
+         <!-- set the currency if none is already set -->
+        <if-empty field="payment.currencyUomId">
+            <property-to-field resource="general" property="currency.uom.id.default" field="defaultCurrency"/>
+            <set field="payment.currencyUomId" from-field="defaultCurrency"/>
+        </if-empty>
+        <if-empty field="payment.actualCurrencyUomId">
+            <property-to-field resource="general" property="currency.uom.id.default" field="defaultCurrency"/>
+            <set field="payment.actualCurrencyUomId" from-field="defaultCurrency"/>
+        </if-empty>
 
         <set-nonpk-fields map="parameters" value-field="payment"/>
         <if-empty field="payment.effectiveDate">
@@ -178,6 +187,7 @@ under the License.
             <!-- get the invoice and do some further validation against it -->
             <entity-one entity-name="Invoice" value-field="invoice"/>
             <!-- check the currencies if they are compatible -->
+            <log message="${payment.actualCurrencyUomId}=====***********=======${payment.currencyUomId}" level="always"/>
             <if>
                 <condition>
                     <and>

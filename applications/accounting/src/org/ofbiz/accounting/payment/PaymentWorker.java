@@ -21,18 +21,31 @@ package org.ofbiz.accounting.payment;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
-
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import javax.servlet.ServletRequest;
+
+
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
+import org.ofbiz.accounting.AccountingException;
+import org.ofbiz.accounting.util.UtilAccounting;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilNumber;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.UtilDateTime;
+import org.ofbiz.base.util.UtilHttp;	
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -40,6 +53,11 @@ import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.service.DispatchContext;
+import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.service.ServiceUtil;
+import org.ofbiz.product.product.ProductEvents;
+
 
 
 /**
@@ -332,4 +350,472 @@ public class PaymentWorker {
         }
         return payment.getBigDecimal("amount").subtract(getPaymentApplied(delegator,paymentId, actual)).setScale(decimals,rounding);
     }
+    
+    public static Map<String, Object>  sendPaymentSms(DispatchContext dctx, Map<String, Object> context)  {
+        String paymentId = (String) context.get("paymentId");
+        GenericValue userLogin = (GenericValue) context.get("userLogin");      
+        Delegator delegator = dctx.getDelegator();
+        LocalDispatcher dispatcher = dctx.getDispatcher();        
+        Map<String, Object> serviceResult;
+		try {
+			GenericValue payment = delegator.findByPrimaryKey("Payment", UtilMisc.toMap("paymentId", paymentId));
+            if (payment == null) {
+                Debug.logError("Invalid payment id  " + paymentId, module);
+                return ServiceUtil.returnSuccess();
+                //return ServiceUtil.returnError("Invalid payment id  " + paymentId);            	
+            }
+            GenericValue paymentType=delegator.findOne("PaymentType",UtilMisc.toMap("paymentTypeId",payment.getString("paymentTypeId")) , false);
+        	String destinationPartyId = "";
+            if (paymentType.getString("parentTypeId").equals("RECEIPT")) {
+                destinationPartyId = payment.getString("partyIdFrom");
+            }
+            if (paymentType.getString("parentTypeId").equals("DISBURSEMENT")) {
+                destinationPartyId = payment.getString("partyIdTo");
+            }
+            if (UtilValidate.isEmpty(destinationPartyId)) {
+                Debug.logError("Invalid destination party id for payment " + paymentId, module);
+                return ServiceUtil.returnSuccess();             
+            }
+            
+            Map<String, Object> getTelParams = FastMap.newInstance();
+        	getTelParams.put("partyId", destinationPartyId);
+            getTelParams.put("userLogin", userLogin);                    	
+            serviceResult = dispatcher.runSync("getPartyTelephone", getTelParams);
+            if (ServiceUtil.isError(serviceResult)) {
+            	 Debug.logError(ServiceUtil.getErrorMessage(serviceResult), module);
+                return ServiceUtil.returnSuccess();
+            } 
+            String contactNumberTo ="";
+            if(!UtilValidate.isEmpty(serviceResult.get("contactNumber"))){
+            	contactNumberTo = (String) serviceResult.get("contactNumber");
+            	if(!UtilValidate.isEmpty(serviceResult.get("countryCode"))){
+            		contactNumberTo = (String) serviceResult.get("countryCode") + (String) serviceResult.get("contactNumber");
+            	}
+            	
+            }
+            String text =   "Received your ";
+            	if(UtilValidate.isNotEmpty(payment.get("paymentMethodTypeId"))){
+                	if((payment.getString("paymentMethodTypeId")).contains("CHALLAN") || (payment.getString("paymentMethodTypeId")).contains("AXISHTOH_PAYIN")){
+                		text += "challan payment(ref#"+payment.getString("paymentId") +") amount of Rs. "+payment.get("amount");
+                	}
+                	if((payment.getString("paymentMethodTypeId")).contains("CASH")){
+                		text += "cash payment(ref#"+payment.getString("paymentId") +") amount of Rs. "+payment.get("amount");
+                	}
+                	if((payment.getString("paymentMethodTypeId")).contains("CHEQUE")){
+                		text += "cheque payment(ref#"+payment.getString("paymentId") +") amount of Rs. "+payment.get("amount")+"(subj to realisation)";
+                	}
+                }
+            text += ". Automated message from Mother Dairy.";
+            Map<String, Object> sendSmsParams = FastMap.newInstance();      
+            sendSmsParams.put("contactNumberTo", contactNumberTo);                     
+            sendSmsParams.put("text",text);  
+            serviceResult  = dispatcher.runSync("sendSms", sendSmsParams);       
+            if (ServiceUtil.isError(serviceResult)) {
+                Debug.logError(ServiceUtil.getErrorMessage(serviceResult), module);               
+            }             
+        } catch (Exception e) {
+            Debug.logError(e, "Problem getting Invoice", module);
+           
+        }
+        
+        return ServiceUtil.returnSuccess();
+    }
+    /**
+     * Method to return the List  payment which is  un applied  amount (open amount ) >0
+     * @param payment GenericValue object of the Payment     
+     */
+    public static List<GenericValue> getNotAppliedPaymentsForParty(DispatchContext dctx, Map<String, Object> context) {
+    	Delegator delegator = dctx.getDelegator();
+        
+    	Map result = getNotAppliedPaymentDetailsForParty(dctx, context);
+    	
+    	List<GenericValue> paymentsNotAppliedList = FastList.newInstance();
+    	
+    	if(UtilValidate.isNotEmpty(result.get("unAppliedPaymentList"))){
+    		paymentsNotAppliedList = (List) result.get("unAppliedPaymentList");
+    	}
+        return paymentsNotAppliedList;
+    }
+    public static Map<String, Object> getNotAppliedPaymentDetailsForParty(DispatchContext dctx, Map<String, Object> context) {
+    	Delegator delegator = dctx.getDelegator();
+        List<GenericValue> paymentsNotAppliedList = FastList.newInstance();
+        Map paymentDetails = FastMap.newInstance();
+        try {
+        	List condList = FastList.newInstance();
+        	condList.add(EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, (String)context.get("partyIdFrom")));
+        	condList.add(EntityCondition.makeCondition("partyIdTo", EntityOperator.EQUALS, (String)context.get("partyIdTo")));
+        	condList.add(EntityCondition.makeCondition(EntityCondition.makeCondition("isFullyApplied", EntityOperator.EQUALS,null),EntityOperator.OR,EntityCondition.makeCondition("isFullyApplied", EntityOperator.EQUALS,"N")));
+        	condList.add(EntityCondition.makeCondition("statusId", EntityOperator.NOT_IN, UtilMisc.toList("PMNT_VOID","PMNT_CANCELLED" ,"PMNT_CONFIRMED")));
+        	EntityCondition cond = EntityCondition.makeCondition(condList ,EntityOperator.AND);
+            List<GenericValue> tempPaymentsNotAppliedList = delegator.findList("Payment", cond, null, null, null, false);
+            Map paymentUnApplied = FastMap.newInstance();
+            BigDecimal unAppliedTotalAmt = BigDecimal.ZERO;
+            for (GenericValue payment : tempPaymentsNotAppliedList) {            	
+	        	BigDecimal paymentNotAppliedAmount = PaymentWorker.getPaymentNotApplied(payment);
+	        	if(paymentNotAppliedAmount.compareTo(BigDecimal.ZERO) == 0){
+	        		// for now change  the payment to confirm directly through the delegator , since no bank reconciliation 
+	        		payment.set("isFullyApplied", "Y");	        		
+	        		delegator.store(payment);
+	        		continue;	        		
+	        	}
+	        	unAppliedTotalAmt = unAppliedTotalAmt.add(paymentNotAppliedAmount);
+	        	paymentUnApplied.put(payment.getString("paymentId"), paymentNotAppliedAmount);
+	        	paymentsNotAppliedList.add(payment);
+               
+            }
+            paymentDetails.put("unAppliedPaymentTotalAmt", unAppliedTotalAmt);
+            paymentDetails.put("UnAppliedPaymentDetails", paymentUnApplied);
+            paymentDetails.put("unAppliedPaymentList", paymentsNotAppliedList);
+      
+        } catch (GenericEntityException e) {
+            Debug.logWarning(e, module);
+        }
+        return paymentDetails;
+    }
+    
+    public static Map<String, Object> createVoucherPayment(DispatchContext dctx, Map<String, ? extends Object> context){
+        Delegator delegator = dctx.getDelegator();
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        String facilityId = (String) context.get("facilityId");
+        String invoiceId = (String) context.get("invoiceId");
+        String orderId = (String) context.get("orderId");
+        BigDecimal paymentAmount = ProductEvents.parseBigDecimalForEntity((String) context.get("amount"));
+        String paymentMethodType = (String) context.get("paymentMethodTypeId");
+        String paymentMethodId = (String) context.get("paymentMethodId");
+        String instrumentDateStr=(String) context.get("instrumentDate");
+        String paymentDateStr=(String) context.get("paymentDate");
+        String paymentType = (String) context.get("paymentTypeId");
+        String invParentTypeId = (String) context.get("parentTypeId");
+        String comments = (String) context.get("comments");
+        String paymentRefNum = (String) context.get("paymentRefNum");
+        String finAccountId = (String) context.get("finAccountId");
+        String inFavourOf = (String) context.get("inFavourOf");//to be stored in PaymentAttribute
+        String paymentPurposeType=(String)context.get("paymentPurposeType");
+        String issuingAuthority=(String)context.get("issuingAuthority");
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        
+        Map<String, Object> result = ServiceUtil.returnSuccess();
+        boolean useFifo = Boolean.FALSE;       
+        if(UtilValidate.isNotEmpty(context.get("useFifo"))){
+        	useFifo = (Boolean)context.get("useFifo");
+        }
+        //String paymentType = "SALES_PAYIN";
+        String partyIdTo =(String)context.get("partyIdTo") ;   //"Company";
+        String partyIdFrom =(String)context.get("partyIdFrom");
+        
+        String paymentId = "";
+        boolean roundingAdjustmentFlag =Boolean.TRUE;
+       
+        List exprListForParameters = FastList.newInstance();
+        List boothOrdersList = FastList.newInstance();
+        Timestamp paymentTimestamp = UtilDateTime.nowTimestamp();
+      
+        Timestamp instrumentDate=UtilDateTime.nowTimestamp();
+        //Timestamp instrumentDate = null;
+        if (UtilValidate.isNotEmpty(instrumentDateStr)) {
+			SimpleDateFormat sdf = new SimpleDateFormat("dd MMMMM, yyyy");
+			try {
+				instrumentDate = new java.sql.Timestamp(sdf.parse(instrumentDateStr).getTime());
+			} catch (ParseException e) {
+				Debug.logError(e, "Cannot parse date string: "+ instrumentDateStr, module);
+			} catch (NullPointerException e) {
+				Debug.logError(e, "Cannot parse date string: "	+ instrumentDateStr, module);
+			}
+		}
+        Timestamp paymentDate=UtilDateTime.nowTimestamp();
+        if (UtilValidate.isNotEmpty(paymentDateStr)) {
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+			try {
+				paymentDate = new java.sql.Timestamp(sdf.parse(paymentDateStr).getTime());
+			} catch (ParseException e) {
+				Debug.logError(e, "Cannot parse date string: "+ paymentDateStr, module);
+			} catch (NullPointerException e) {
+				Debug.logError(e, "Cannot parse date string: "	+ paymentDateStr, module);
+			}
+		}
+        try {
+        Map<String, Object> paymentCtx = UtilMisc.<String, Object>toMap("paymentTypeId", paymentType);
+       // Debug.log("===paymentMethodType===="+paymentMethodType+"===partyIdFrom==="+partyIdFrom+"===partyId=="+partyIdTo+"==paymentMethodType=="+paymentMethodType+"===paymentType=="+paymentType);
+        paymentCtx.put("paymentMethodTypeId", paymentMethodType);//from AR mandatory
+        paymentCtx.put("paymentMethodId", paymentMethodId);//from AP mandatory
+        paymentCtx.put("organizationPartyId", partyIdTo);
+        paymentCtx.put("partyId", partyIdFrom);
+        paymentCtx.put("facilityId", facilityId);
+        paymentCtx.put("comments", comments);
+        paymentCtx.put("paymentPurposeType", paymentPurposeType);
+        /*if (!UtilValidate.isEmpty(paymentLocationId) ) {
+            paymentCtx.put("paymentLocationId", paymentLocationId);                        	
+        }   */         
+        if (!UtilValidate.isEmpty(paymentRefNum) ) {
+            paymentCtx.put("paymentRefNum", paymentRefNum);                        	
+        }
+        paymentCtx.put("issuingAuthority", issuingAuthority);  
+       // paymentCtx.put("issuingAuthorityBranch", issuingAuthorityBranch);  
+        paymentCtx.put("instrumentDate", instrumentDate);
+        paymentCtx.put("paymentDate", paymentDate);
+        
+        paymentCtx.put("statusId", "PMNT_NOT_PAID");
+        if (UtilValidate.isNotEmpty(finAccountId) ) {
+            paymentCtx.put("finAccountId", finAccountId);                        	
+        }
+        paymentCtx.put("amount", paymentAmount);
+        paymentCtx.put("userLogin", userLogin); 
+        paymentCtx.put("invoices", UtilMisc.toList(invoiceId));
+		
+        Map<String, Object> paymentResult = dispatcher.runSync("createPaymentAndApplicationForInvoices", paymentCtx);
+        if (ServiceUtil.isError(paymentResult)) {
+        	Debug.logError(paymentResult.toString(), module);
+            return ServiceUtil.returnError(null, null, null, paymentResult);
+        }
+        paymentId = (String)paymentResult.get("paymentId");
+        /*try {
+        	GenericValue payment = delegator.findOne("Payment",UtilMisc.toMap("paymentId",paymentId) , false);
+        	String statusId = null;
+        	if(UtilValidate.isNotEmpty(payment)){
+        		if(UtilAccounting.isReceipt(payment)){
+        			statusId = "PMNT_RECEIVED";
+        		}
+        		if(UtilAccounting.isDisbursement(payment)){
+        			statusId = "PMNT_SENT";
+        		}
+        	}
+        	
+        	Map<String, Object> setPaymentStatusMap = UtilMisc.<String, Object>toMap("userLogin", userLogin);
+        	setPaymentStatusMap.put("paymentId", paymentId);
+        	setPaymentStatusMap.put("statusId", statusId);
+        	if(UtilValidate.isNotEmpty(finAccountId)){
+        		setPaymentStatusMap.put("finAccountId", finAccountId);
+        	}
+            Map<String, Object> pmntResults = dispatcher.runSync("setPaymentStatus", setPaymentStatusMap);
+            if (ServiceUtil.isError(pmntResults)) {
+            	Debug.logError(pmntResults.toString(), module);    			
+                return ServiceUtil.returnError(null, null, null, pmntResults);
+            }
+        } catch (Exception e) {
+            Debug.logError(e, "Unable to change Payment Status", module);
+        }*/
+        
+        //store attribute
+	        GenericValue paymentAttribute = delegator.makeValue("PaymentAttribute", UtilMisc.toMap("paymentId", paymentId, "attrName", "INFAVOUR_OF"));
+	        paymentAttribute.put("attrValue",inFavourOf);
+	        paymentAttribute.create();
+        }catch (Exception e) {
+        Debug.logError(e, e.toString(), module);
+        return ServiceUtil.returnError(e.toString());
+        }
+         result = ServiceUtil.returnSuccess("Payment successfully done for Party "+partyIdTo+" ..!");
+         result.put("invoiceId",invoiceId);
+         result.put("parentTypeId",invParentTypeId);
+         result.put("paymentId",paymentId);
+         result.put("noConditionFind","Y");
+         result.put("hideSearch","Y");
+        return result; 
+   }
+    
+    public static String makeMassInvoicePayments(HttpServletRequest request, HttpServletResponse response) {
+		Delegator delegator = (Delegator) request.getAttribute("delegator");
+	  	  LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
+	  	  Locale locale = UtilHttp.getLocale(request);
+	  	  Map<String, Object> result = ServiceUtil.returnSuccess();
+	  	  HttpSession session = request.getSession();
+	  	  GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
+	      Timestamp nowTimeStamp = UtilDateTime.nowTimestamp();	 
+	      Timestamp todayDayStart = UtilDateTime.getDayStart(nowTimeStamp);
+	  	  Map<String, Object> paramMap = UtilHttp.getParameterMap(request);
+	  	  BigDecimal totalAmount = BigDecimal.ZERO;
+	  	  int rowCount = UtilHttp.getMultiFormRowCount(paramMap);
+	  	  if (rowCount < 1) {
+	  		  Debug.logError("No rows to process, as rowCount = " + rowCount, module);
+			  request.setAttribute("_ERROR_MESSAGE_", "No rows to process");	  		  
+	  		  return "error";
+	  	  }
+	  	  String paymentId = "";
+	  	  String inFavourOf = "";
+	  	  String paymentMethodId = "";
+	  	  String paymentType = "";
+	  	  String finAccountId = "";
+	  	  String instrumentDateStr = "";
+	  	  String paymentDateStr = "";
+	  	  String paymentRefNum = "";
+	  	  String invoiceId = "";
+	  	  String partyIdTo = "";
+	  	  String partyIdFrom = "";
+	  	  String comments = "";
+  	
+		  	Map invoiceAmountMap = FastMap.newInstance();
+		  	List invoicesList = FastList.newInstance();
+			
+			  	for (int i = 0; i < rowCount; i++){
+		  		  
+			  	  Map paymentMap = FastMap.newInstance();
+		  		  String thisSuffix = UtilHttp.MULTI_ROW_DELIMITER + i;
+		  		  
+		  		  BigDecimal amount = BigDecimal.ZERO;
+		  		  String amountStr = "";
+		  		  
+		  		  if (paramMap.containsKey("invoiceId" + thisSuffix)) {
+		  			invoiceId = (String) paramMap.get("invoiceId"+thisSuffix);
+		  		  }
+		  		  if (paramMap.containsKey("amt" + thisSuffix)) {
+		  			amountStr = (String) paramMap.get("amt"+thisSuffix);
+		  		  }
+		  		  if(UtilValidate.isNotEmpty(amountStr)){
+					  try {
+			  			  amount = new BigDecimal(amountStr);
+			  		  } catch (Exception e) {
+			  			  Debug.logError(e, "Problems parsing amount string: " + amountStr, module);
+			  			  request.setAttribute("_ERROR_MESSAGE_", "Problems parsing amount string: " + amountStr);
+			  			  return "error";
+			  		  }
+		  		  }
+			  	  invoiceAmountMap.put(invoiceId,amount);
+			  	  invoicesList.add(invoiceId);
+			  	  totalAmount = totalAmount.add(amount);
+			  	}
+			  	paymentType = (String) paramMap.get("paymentTypeId");
+			  	inFavourOf = (String) paramMap.get("partyIdName");
+			  	partyIdTo = (String) paramMap.get("fromPartyId");
+			  	partyIdFrom = (String) paramMap.get("partyId");
+			  	paymentMethodId = (String) paramMap.get("paymentMethodId");
+			  	finAccountId = (String) paramMap.get("finAccountId");
+			  	instrumentDateStr = (String) paramMap.get("instrumentDate");
+			  	paymentDateStr = (String) paramMap.get("paymentDate");
+			  	paymentRefNum = (String) paramMap.get("paymentRefNum");
+			  	comments = (String) paramMap.get("comments");
+		  	
+			  	Timestamp instrumentDate=UtilDateTime.nowTimestamp();
+			  	//Timestamp instrumentDate = null;
+		        if (UtilValidate.isNotEmpty(instrumentDateStr)) {
+					SimpleDateFormat sdf = new SimpleDateFormat("dd MMMMM, yyyy");
+					try {
+						instrumentDate = new java.sql.Timestamp(sdf.parse(instrumentDateStr).getTime());
+					} catch (ParseException e) {
+						Debug.logError(e, "Cannot parse date string: "+ instrumentDateStr, module);
+					} catch (NullPointerException e) {
+						Debug.logError(e, "Cannot parse date string: "	+ instrumentDateStr, module);
+					}
+				} 
+		        Timestamp paymentDate=UtilDateTime.nowTimestamp();
+		        if (UtilValidate.isNotEmpty(paymentDateStr)) {
+					SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+					try {
+						paymentDate = new java.sql.Timestamp(sdf.parse(paymentDateStr).getTime());
+					} catch (ParseException e) {
+						Debug.logError(e, "Cannot parse date string: "+ paymentDateStr, module);
+					} catch (NullPointerException e) {
+						Debug.logError(e, "Cannot parse date string: "	+ paymentDateStr, module);
+					}
+				}
+			       
+		  		try {
+		  			if(UtilValidate.isNotEmpty(totalAmount) && totalAmount.compareTo(BigDecimal.ZERO) > 0){
+		  				Map<String, Object> paymentCtx = UtilMisc.<String, Object>toMap("paymentTypeId", paymentType);
+			  	        paymentCtx.put("paymentMethodId", paymentMethodId);//from AP mandatory
+			  	        paymentCtx.put("organizationPartyId", partyIdTo);
+			            paymentCtx.put("partyId", partyIdFrom);
+			  	        if (!UtilValidate.isEmpty(paymentRefNum) ) {
+			  	            paymentCtx.put("paymentRefNum", paymentRefNum);                        	
+			  	        }
+			  	        paymentCtx.put("instrumentDate", instrumentDate);
+			  	        paymentCtx.put("paymentDate", paymentDate);
+			  	        paymentCtx.put("statusId", "PMNT_NOT_PAID");
+			  	        if (UtilValidate.isNotEmpty(finAccountId) ) {
+			  	            paymentCtx.put("finAccountId", finAccountId);                        	
+			  	        }
+			  	        paymentCtx.put("userLogin", userLogin);
+			  	        paymentCtx.put("amount", totalAmount);
+			  	        paymentCtx.put("comments", comments);
+			  	        paymentCtx.put("invoices", invoicesList);
+			  	        paymentCtx.put("invoiceAmountMap", invoiceAmountMap);
+			  			try{
+			  				Map<String, Object> paymentResult = dispatcher.runSync("createPaymentAndApplicationForInvoices", paymentCtx);
+			  	  	        if (ServiceUtil.isError(paymentResult)) {
+			  	  	            Debug.logError("Problems in service createPaymentAndApplicationForInvoices", module);
+			  		  			request.setAttribute("_ERROR_MESSAGE_", "Error in service createPaymentAndApplicationForInvoices");
+			  		  			return "error";
+			  	  	        }
+			  	  	        paymentId = (String)paymentResult.get("paymentId");
+				  	  	    /*try {
+					  	  	    GenericValue payment = delegator.findOne("Payment",UtilMisc.toMap("paymentId",paymentId) , false);
+					        	String statusId = null;
+					        	if(UtilValidate.isNotEmpty(payment)){
+					        		if(UtilAccounting.isReceipt(payment)){
+					        			statusId = "PMNT_RECEIVED";
+					        		}
+					        		if(UtilAccounting.isDisbursement(payment)){
+					        			statusId = "PMNT_SENT";
+					        		}
+					        	}
+					        	Map<String, Object> setPaymentStatusMap = UtilMisc.<String, Object>toMap("userLogin", userLogin);
+					        	setPaymentStatusMap.put("paymentId", paymentId);
+					        	setPaymentStatusMap.put("statusId", statusId);
+					        	if(UtilValidate.isNotEmpty(finAccountId)){
+					        		setPaymentStatusMap.put("finAccountId", finAccountId);
+					        	}
+					            Map<String, Object> pmntResults = dispatcher.runSync("setPaymentStatus", setPaymentStatusMap);
+					            if (ServiceUtil.isError(pmntResults)) {
+				  	            	Debug.logError(pmntResults.toString(), module);
+				  	            	request.setAttribute("_ERROR_MESSAGE_", "Error in service setPaymentStatus");
+				  	                return "error";
+				  	            }
+				  	        } catch (Exception e) {
+				  	            Debug.logError(e, "Unable to change Payment Status", module);
+				  	        }*/
+			  			}catch (Exception e) {
+			  		        Debug.logError(e, e.toString(), module);
+			  		        return "error";
+			  		        }
+			  	        //store attribute
+			  	        GenericValue paymentAttribute = delegator.makeValue("PaymentAttribute", UtilMisc.toMap("paymentId", paymentId, "attrName", "INFAVOUR_OF"));
+			  	        paymentAttribute.put("attrValue",inFavourOf);
+			  	        paymentAttribute.create();
+		  			}
+		  		}catch (Exception e) {
+	  		        Debug.logError(e, e.toString(), module);
+	  		        return "error";
+	  		    }
+		  		 result = ServiceUtil.returnSuccess("Payment successfully done for Party "+partyIdTo+" ..!");
+		         request.setAttribute("_EVENT_MESSAGE_", "Payment successfully done for Party "+partyIdTo);
+		         request.setAttribute("paymentId",paymentId);
+		         return "success"; 
+	}
+    
+    
+    public static Map<String, Object> depositReceiptPayment(DispatchContext dctx, Map<String, ? extends Object> context){
+        Delegator delegator = dctx.getDelegator();
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        String paymentId = (String) context.get("paymentId");
+        String finAccountId = (String) context.get("finAccountId");
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        Map<String, Object> result = ServiceUtil.returnSuccess();
+        try {
+			GenericValue payment = delegator.findByPrimaryKey("Payment", UtilMisc.toMap("paymentId", paymentId));
+			/*if(!UtilAccounting.isPaymentType(payment, "RECEIPT")){
+				return result; 
+			}*/
+			List<EntityExpr> condList = FastList.newInstance();
+			
+			if(UtilValidate.isEmpty(finAccountId)){
+				return result;  
+			}
+			Map depositWithdrawPaymentCtx = UtilMisc.toMap("userLogin", userLogin);
+			depositWithdrawPaymentCtx.put("paymentIds", UtilMisc.toList(paymentId));
+			depositWithdrawPaymentCtx.put("transactionDate",payment.getTimestamp("transactionDate"));
+			if(UtilValidate.isEmpty(payment.getString("transactionDate"))){
+				depositWithdrawPaymentCtx.put("transactionDate",payment.getTimestamp("effectiveDate"));
+			}
+			depositWithdrawPaymentCtx.put("finAccountId",finAccountId);
+			Map<String, Object> depositResult = dispatcher.runSync("depositWithdrawPayments", depositWithdrawPaymentCtx);
+			if (ServiceUtil.isError(depositResult)) {
+				Debug.logError(depositResult.toString(), module);
+				return ServiceUtil.returnError(null, null, null, depositResult);
+			}
+        }catch(Exception e){
+        	 Debug.logError(e, e.toString(), module);
+             return ServiceUtil.returnError(e.toString());
+        }
+        return result; 
+   }
+    
+    
 }
