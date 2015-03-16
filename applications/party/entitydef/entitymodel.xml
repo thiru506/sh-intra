@@ -2739,6 +2739,9 @@ under the License.
       <field name="monthsWithEmployer" type="numeric"></field>
       <field name="existingCustomer" type="indicator"></field>
       <field name="cardId" type="id-long" ></field>
+      <field name="bloodGroup" type="id-long" ></field>
+      <field name="fatherName" type="name"></field>
+      <field name="motherName" type="name"></field>
       <prim-key field="partyId"/>
       <relation type="one" fk-name="PERSON_PARTY" rel-entity-name="Party">
         <key-map field-name="partyId"/>

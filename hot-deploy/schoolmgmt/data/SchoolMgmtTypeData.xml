@@ -22,4 +22,10 @@
     <Enumeration description="Normal" enumCode="NORMAL" enumId="Normal" sequenceId="01" enumTypeId="PUNCH_TYPE"/>
     <Enumeration description="Break" enumCode="BREAK" enumId="Break" sequenceId="02" enumTypeId="PUNCH_TYPE"/>
     
+    <PaymentMethodType  defaultGlAccountId="122000" description="Cash Receipt"  paymentMethodTypeId="CASH_PAYIN"/>
+    <PaymentMethodType  defaultGlAccountId="122000" description="Card Receipt" paymentMethodTypeId="CARD_PAYIN"/>
+    
+    <PaymentMethodType  defaultGlAccountId="122000" description="Cash Payment"  paymentMethodTypeId="CASH_PAYIN"/>
+    <PaymentMethodType  defaultGlAccountId="122000" description="Cheque Payment" paymentMethodTypeId="CHEQUE_PAYOUT"/>
+    
 </entity-engine-xml>

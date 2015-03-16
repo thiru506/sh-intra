@@ -2,6 +2,7 @@
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
     <menu name="MainAppBar" title="${uiLabelMap.SchoolMgmtApplication}" extends="CommonAppBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="main" title="${uiLabelMap.CommonMain}"><link target="main"/></menu-item>
+    	<menu-item name="mycomm" title="${uiLabelMap.PartyMyCommunications}"><link target="MyCommunicationEvents"/></menu-item>
     </menu>
      <menu name="SchoolAppBar" default-menu-item-name="dashBoard" default-selected-style="selected"
         type="simple" menu-container-style="button-bar tab-bar" selected-menuitem-context-field-name="tabButtonItem">
@@ -15,15 +16,15 @@
            <link target="academics"></link>
         </menu-item>
         <menu-item name="admission" title="Admission">
-           <link target="admission"></link>
+           <link target="StudentLookUpTable"></link>
         </menu-item>
         <menu-item name="attendance" title="Attendance">
            <link target="Attendance"></link>
         </menu-item>
-       <menu-item name="communication" title="Communication">
+       <!-- <menu-item name="communication" title="Communication">
            <link target="communication"></link>
         </menu-item>
-        <!-- <menu-item name="humanres" title="Humanres">
+        <menu-item name="humanres" title="Humanres">
            <link target="communication"></link>
         </menu-item> -->
         <menu-item name="knowledge" title="Knowledge">
@@ -59,17 +60,26 @@
             </link>
         </menu-item>
         </menu>
-         <menu name="AttendanceSubTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
-          default-menu-item-name="transport" selected-menuitem-context-field-name="tabButtonItem2" >
-		<actions> 
-		</actions> 
-		<menu-item name="dailyAttendance" title="Daily Attendance">
-            <link target="dailyAttendance">
-            </link>
-        </menu-item>         
-         <menu-item name="dailyAttendanceEntry" title="DailyAttendance Entry">
-            <link target="dailyAttendanceEntry">
-            </link>
-        </menu-item>
+       <menu name="AttendanceSubTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+          default-menu-item-name="dailyAttendanceEntry" selected-menuitem-context-field-name="tabButtonItem2" >
+			<actions> 
+			</actions> 
+			<menu-item name="dailyAttendance" title="Daily Attendance">
+	            <link target="dailyAttendance">
+	            </link>
+	        </menu-item>         
+	         <menu-item name="dailyAttendanceEntry" title="DailyAttendance Entry">
+	            <link target="dailyAttendanceEntry">
+	            </link>
+	        </menu-item>
+        </menu>
+        <menu name="AdmissionSubTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+          default-menu-item-name="admission" selected-menuitem-context-field-name="tabButtonItem2" >
+			<actions> 
+			</actions> 
+			<menu-item name="studentLookUpTable" title="Student Lookup">
+	            <link target="StudentLookUpTable">
+	            </link>
+	        </menu-item>         
         </menu>
 </menus>
