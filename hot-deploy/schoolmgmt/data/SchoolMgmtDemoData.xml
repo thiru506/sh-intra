@@ -42,4 +42,23 @@
  <PartyRole partyId="E102" roleTypeId="EMPLOYEE"></PartyRole>
  <Employment fromDate="2000-01-30 17:50:15.0" partyIdFrom="Company" partyIdTo="E102" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE"/>
  <EmplPositionFulfillment emplPositionId="ENGLISH_TEACHER" partyId="E102" fromDate="2009-01-30 17:58:02.745"/>
+  
+  <!-- Student Data -->
+ <Party partyId="S100" partyTypeId="PERSON"></Party>
+ <Person partyId="S100" firstName="Niranjan" lastName="K" gender="M" birthDate="2000-01-30" bloodGroup="O+"></Person>
+ <PartyRole partyId="S100" roleTypeId="STUDENT"></PartyRole>
+ <Subscription partyId="S100" productId="CLASS_I" subscriptionId="S100" fromDate="2013-06-01 00:00:00" thruDate="2014-04-30 00:00:00" customeTimePeriodId=""/>
+ 
+ <Party partyId="S101" partyTypeId="PERSON"></Party>
+ <Person partyId="S101" firstName="Gayathri" lastName="P" gender="F" birthDate="2001-01-30" bloodGroup="AB+"></Person>
+ <PartyRole partyId="S101" roleTypeId="STUDENT"></PartyRole>
+ <Subscription partyId="S101" productId="CLASS_I" subscriptionId="S101" fromDate="2013-06-01 00:00:00" thruDate="2014-04-30 00:00:00" customeTimePeriodId=""/>
+ 
+ <Party partyId="S102" partyTypeId="PERSON"></Party>
+ <Person partyId="S102" firstName="Gangadhar" lastName="K" gender="M" birthDate="2001-01-30" bloodGroup="O-"></Person>
+ <PartyRole partyId="S102" roleTypeId="STUDENT"></PartyRole>
+<Subscription partyId="S102" productId="CLASS_II" subscriptionId="S102" fromDate="2013-06-01 00:00:00" thruDate="2014-04-30 00:00:00" customeTimePeriodId=""/>
+ 
+  
+  
 </entity-engine-xml>

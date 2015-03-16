@@ -4450,6 +4450,7 @@ under the License.
         <field name="needTypeId" type="id"></field>
         <field name="orderId" type="id"></field>
         <field name="orderItemSeqId" type="id"></field>
+        <field name="customTimePeriodId" type="id"></field>
         <field name="productId" type="id"></field>
         <field name="productCategoryId" type="id"></field>
         <field name="inventoryItemId" type="id"></field>
@@ -4474,6 +4475,10 @@ under the License.
         <relation type="one" fk-name="SUBSC_SRESRC" rel-entity-name="SubscriptionResource">
             <key-map field-name="subscriptionResourceId"/>
         </relation>
+        <relation type="one" fk-name="SUBSC_CTP"
+			rel-entity-name="CustomTimePeriod">
+			<key-map field-name="customTimePeriodId" />
+	  </relation>
         <relation type="one" fk-name="SUBSC_CONT_MECH" rel-entity-name="ContactMech">
             <key-map field-name="contactMechId"/>
         </relation>

@@ -35,9 +35,36 @@
 								</platform-specific>
 							</screenlet>
 						</container>
-						<platform-specific><html><html-template location="component://schoolmgmt/webapp/schoolmgmt/forms/createTranportRoute.ftl"/></html></platform-specific>
+						<!-- <platform-specific><html><html-template location="component://schoolmgmt/webapp/schoolmgmt/forms/createTranportRoute.ftl"/></html></platform-specific> -->
                      </decorator-section>
                     
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="StudentLookUpTable">
+        <section>
+            <actions>
+                <set field="tabButtonItem" value="admission"/><!-- this highlights the selected menu-item with name "main" -->
+                <set field="tabButtonItem2" value="studentLookUpTable"/>
+                
+                <script location="component://schoolmgmt/webapp/schoolmgmt/WEB-INF/actions/schoolmgmt/studentLookupTable.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="SchoolMgmtCommonDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                    		<include-menu location="component://schoolmgmt/widget/SchoolMgmtMenus.xml" name="AdmissionSubTabBar"/>
+                          <container>
+							<screenlet title="Vehicles">
+								<platform-specific>
+									<html>
+										<html-template
+											location="component://schoolmgmt/webapp/schoolmgmt/schoolmgmt/studentLookupTable.ftl"></html-template>
+									</html>
+								</platform-specific>
+							</screenlet>
+						</container>
+                     </decorator-section>
                 </decorator-screen>
             </widgets>
         </section>
@@ -71,7 +98,7 @@
      <screen name="DailyAttendance">
         <section>
             <actions>
-                <set field="tabButtonItem" value="attendance"/>this highlights the selected menu-item with name "main"
+                <set field="tabButtonItem" value="attendance"/>
                  <set field="tabButtonItem2" value="EmployeeAttendance"/>
                 <script location="component://schoolmgmt/webapp/schoolmgmt/WEB-INF/actions/schoolmgmt/DormitaryLookupTable.groovy"/>
             </actions>
