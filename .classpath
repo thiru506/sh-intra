@@ -171,48 +171,15 @@
 	<classpathentry kind="lib" path="specialpurpose/ebaystore/lib/ebaysdkcore.jar"/>
 	<classpathentry kind="lib" path="specialpurpose/ebaystore/lib/helper.jar"/>
 	<classpathentry excluding="org/ofbiz/accounting/thirdparty/cybersource/**|org/ofbiz/accounting/thirdparty/verisign/**|org/ofbiz/accounting/thirdparty/worldpay/**|org/ofbiz/accounting/thirdparty/paypal/PayPalServices.java|org/ofbiz/accounting/thirdparty/orbital/**|org/ofbiz/accounting/thirdparty/securepay/**|org/ofbiz/accounting/thirdparty/ideal/**" kind="src" path="applications/accounting/src"/>
-	<classpathentry kind="src" path="hot-deploy/shopsmint/src"/>
 	<classpathentry excluding="org/ofbiz/content/openoffice/|org/ofbiz/content/report/" kind="src" path="applications/content/src"/>
-	<classpathentry kind="src" path="applications/manufacturing/src"/>
 	<classpathentry kind="src" path="applications/marketing/src"/>
 	<classpathentry excluding="org/ofbiz/order/thirdparty/taxware/**" kind="src" path="applications/order/src"/>
 	<classpathentry kind="src" path="applications/party/src"/>
 	<classpathentry excluding="ShipmentScaleApplet.java" kind="src" path="applications/product/src"/>
-	<classpathentry excluding="org/ofbiz/securityext/thirdparty/truition/TruitionCoReg.java" kind="src" path="applications/securityext/src"/>
 	<classpathentry kind="src" path="applications/humanres/src"/>
 	<classpathentry kind="src" path="applications/workeffort/src"/>
-	<classpathentry kind="src" path="framework/appserver/src"/>
-	<classpathentry kind="src" path="framework/base/build/gen-src/javacc"/>
-	<classpathentry excluding="org/ofbiz/base/config/CoberturaInstrumenter.java" kind="src" path="framework/base/src"/>
-	<classpathentry kind="src" path="framework/bi/src"/>
-	<classpathentry kind="src" path="framework/birt/src"/>
-	<classpathentry kind="src" path="framework/catalina/src"/>
-	<classpathentry kind="src" path="framework/common/src"/>
-	<classpathentry kind="src" path="framework/datafile/src"/>
-	<classpathentry excluding="org/ofbiz/entity/connection/XaPoolConnectionFactory.java" kind="src" path="framework/entity/src"/>
-	<classpathentry kind="src" path="framework/entityext/src"/>
-	<classpathentry kind="src" path="framework/geronimo/src"/>
-	<classpathentry kind="src" path="framework/jetty/src"/>
-	<classpathentry kind="src" path="framework/minilang/src"/>
-	<classpathentry kind="src" path="framework/security/src"/>
-	<classpathentry kind="src" path="framework/service/src"/>
-	<classpathentry kind="src" path="framework/sql/src"/>
-	<classpathentry kind="src" path="framework/sql/build/gen-src/javacc"/>
-	<classpathentry kind="src" path="framework/start/src"/>
-	<classpathentry excluding="org/ofbiz/testtools/seleniumxml/**" kind="src" path="framework/testtools/src"/>
-	<classpathentry excluding="org/ofbiz/webapp/ftl/FreeMarkerViewRenderer.java|org/ofbiz/webapp/ftl/JpCacheIncludeTransform.java|org/ofbiz/webapp/view/FopPdfViewHandler.java|org/ofbiz/webapp/view/GenericViewRenderer.java|org/ofbiz/webapp/view/JPublishViewHandler.java|org/ofbiz/webapp/view/JPublishWrapper.java|org/ofbiz/webapp/view/JasperReportsPdfViewHandler.java|org/ofbiz/webapp/view/JasperReportsXmlViewHandler.java|org/ofbiz/webapp/view/JasperReportsJXlsViewHandler.java|org/ofbiz/webapp/view/JasperReportsPoiXlsViewHandler.java" kind="src" path="framework/webapp/src"/>
-	<classpathentry kind="src" path="specialpurpose/ldap/src"/>
-	<classpathentry kind="src" path="specialpurpose/oagis/src"/>
-	<classpathentry kind="src" path="specialpurpose/pos/src"/>
-	<classpathentry kind="src" path="specialpurpose/projectmgr/src"/>
-	<classpathentry excluding="org/enhydra/|org/ofbiz/" kind="src" path="specialpurpose/shark/src"/>
-	<classpathentry kind="src" path="specialpurpose/webpos/src"/>
-	<classpathentry kind="src" path="specialpurpose/workflow/src"/>
 	<classpathentry exported="true" kind="con" path="GROOVY_DSL_SUPPORT"/>
 	<classpathentry kind="lib" path="applications/party/build/lib/ofbiz-party.jar"/>
-	<classpathentry kind="output" path="bin"/>
-
-
 	<classpathentry kind="lib" path="framework/service/build/lib/ofbiz-service-rmi.raj"/>
 	<classpathentry kind="lib" path="framework/service/build/lib/ofbiz-service.jar"/>
 	<classpathentry kind="lib" path="framework/common/build/lib/ofbiz-common.jar"/>
@@ -222,4 +189,5 @@
 	<classpathentry kind="lib" path="framework/sql/build/lib/ofbiz-sql.jar"/>
 	<classpathentry kind="lib" path="framework/start/build/lib/ofbiz.jar"/>
 	<classpathentry kind="lib" path="framework/webapp/build/lib/ofbiz-webapp.jar"/>
+	<classpathentry kind="output" path="bin"/>
 </classpath>
