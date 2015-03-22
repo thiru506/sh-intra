@@ -61,7 +61,7 @@ $(document).ready(function() {
 		"iDisplayLength" : 20,		
      	"fnRowCallback": function(nRow, aData, iDisplayIndex ) {
      		<#if security.hasEntityPermission("SCHOOLMGMT", "_ADMIN", session)>
-		    $('td:eq(0)', nRow).html('<a href="VehicleView?facilityId=' + aData[8] + '">' +
+		    $('td:eq(0)', nRow).html('<a href="SelectedView?facilityId=' + aData[8] + '">' +
                 aData[0] + '</a>');
             </#if> 
             return nRow;

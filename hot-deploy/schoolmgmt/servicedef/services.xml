@@ -10,5 +10,37 @@
             Dummy service to prevent empty files and syntax error - Remove when the 1st real service will be added here 
         </description>
     </service> 
-    
+    <service name="CreateStudent" engine="java" location="org.ofbiz.schoolmgmt.SchoolMgmtServices" invoke="createStudent" auth="true">
+	<description>Create Student</description>
+	<attribute name="productId" mode="IN" type="String" optional="false"/>
+	<attribute name="customTimePeriodId" mode="IN" type="String" optional="false"/>
+	<attribute name="firstName" mode="IN" type="String" optional="false"/>
+	<attribute name="middleName" mode="IN" type="String" optional="true"/>
+	<attribute name="lastName" mode="IN" type="String" optional="false"/>
+	<attribute name="externalId" mode="IN" type="String" optional="true"/>
+	<attribute name="gender" mode="IN" type="String" optional="true"/>
+	<attribute name="birthDate" mode="IN" type="java.sql.Date" optional="false"/>
+	<attribute name="fatherName" mode="IN" type="String" optional="false"/>
+	<attribute name="motherName" mode="IN" type="String" optional="false"/>
+	<attribute name="placeOfBirth" mode="IN" type="String" optional="true"/>
+	<attribute name="religion" mode="IN" type="String" optional="true"/>
+	<attribute name="caste" mode="IN" type="String" optional="true"/>
+	<attribute name="nationality" mode="IN" type="String" optional="true"/>
+	<attribute name="emailAddress" mode="IN" type="String" optional="true"/>
+	<attribute name="mobileNumber" mode="IN" type="String" optional="true"/>
+	<attribute name="occupation" mode="IN" type="String" optional="true"/>
+	<attribute name="residentialNumber" mode="IN" type="String" optional="true"/>
+	<attribute name="presentAddress1" mode="IN" type="String" optional="true"/>
+	<attribute name="presentAddress2" mode="IN" type="String" optional="true"/>
+	<attribute name="presentCity" mode="IN" type="String" optional="true"/>
+	<attribute name="presentPostalCode" mode="IN" type="String" optional="true"/>
+	<attribute name="presentState" mode="IN" type="String" optional="true"/>
+	<attribute name="presentCuntry" mode="IN" type="String" optional="true"/>
+	<attribute name="address1" mode="IN" type="String" optional="true"/>
+	<attribute name="address2" mode="IN" type="String" optional="true"/>
+	<attribute name="city" mode="IN" type="String" optional="true"/>
+	<attribute name="postalCode" mode="IN" type="String" optional="true"/>
+	<attribute name="stateProvinceGeoId" mode="IN" type="String" optional="true"/>
+	<attribute name="countryGeoId" mode="IN" type="String" optional="true"/>
+	</service>
 </services>

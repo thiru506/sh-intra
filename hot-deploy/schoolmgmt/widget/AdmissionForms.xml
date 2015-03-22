@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
+    <form name="addStudent" type="single" target="CreateStudent">
+    	<field name="productId" title="Class">
+    		<drop-down><entity-options description="${description}" entity-name="Product">
+    		<entity-constraint name="productTypeId" value="CLASS"/>
+    		</entity-options></drop-down>
+    	</field>
+    	<field name="customTimePeriodId" title="Academic Year">
+    	<drop-down>
+                <entity-options entity-name="CustomTimePeriod" key-field-name="customTimePeriodId" description="${periodName}: ${fromDate} - ${thruDate}" filter-by-date="false">
+                    <entity-constraint name="periodTypeId" operator="equals" value="ACADEMIC_YEAR"/>
+                    <entity-order-by field-name="-thruDate"/>
+                </entity-options>
+            </drop-down>
+    	</field>
+    	<field name="firstName"><text></text></field>
+    	<field name="middleName"><text></text></field>
+    	<field name="lastName"><text></text></field>
+    	<field name="externalId" title="Role No"><text></text></field>
+    	<field name="gender" title="Gender">
+		<drop-down allow-empty="false" no-current-selected-key="M">
+			<option key="F"></option>
+			<option key="M" />
+		</drop-down>		
+		</field>
+		<field name="birthDate" title="Date Of Birth"><date-time type="date"/></field>
+		<field name="fatherName"><text></text></field>
+		<field name="motherName"><text></text></field>
+		<field name="placeOfBirth"><text></text></field>
+		<field name="bloodGroup" title="${uiLabelMap.BloodGroup}">
+			<drop-down allow-empty="true">
+			<entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
+				<entity-constraint name="enumTypeId" value="BLOOD_TYPE" />
+				<entity-order-by field-name="sequenceId" />
+			</entity-options>
+			</drop-down>
+		</field>
+		<field name="religion" title="${uiLabelMap.Religion}">
+		     <drop-down allow-empty="true">
+				<entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
+					<entity-constraint name="enumTypeId" value="EMPL_REC_RE" />
+					<entity-order-by field-name="sequenceId" />
+				</entity-options>
+			</drop-down>
+		</field>
+		<field name="caste" title="${uiLabelMap.Caste}" >
+			<drop-down allow-empty="true">
+				<entity-options entity-name="PartyClassificationGroup" key-field-name="partyClassificationGroupId" description="${description}">
+					<entity-constraint name="partyClassificationTypeId" value="PCG_REC_CA"/>
+					<entity-order-by field-name="partyClassificationGroupId"/>
+				</entity-options>
+			</drop-down>
+		</field>
+		<field name="nationality" title="${uiLabelMap.Nationality}">
+			<drop-down allow-empty="true">
+				<entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
+					<entity-constraint name="enumTypeId" value="PERSON_REC_NA" />
+					<entity-order-by field-name="sequenceId" />
+				</entity-options>
+			</drop-down>
+		</field>
+		
+		<field name="emailAddress" title="${uiLabelMap.Email}"><text></text></field>
+		<field name="mobileNumber" title="${uiLabelMap.Mobile}"><text></text></field>
+		<field name="residentialNumber" title="${uiLabelMap.Residential}"><text></text></field>
+		<field name="occupation" title="Father Occupation"><text></text></field>
+		<field name="presentAddress1" title="Present Address"><text></text></field>
+		<field name="presentAddress2" title=" "><text></text></field>
+		<field name="presentCity" title="City"><text></text></field>
+		<field name="presentPostalCode" title="PostalCode"><text></text></field>
+		<field name="presentCuntry" title="Country"><drop-down><entity-options description="${geoName}" key-field-name="geoId" entity-name="Geo"><entity-constraint name="geoTypeId" operator="equals" value="COUNTRY"/></entity-options></drop-down></field>
+		<field name="presentState" title="State"><drop-down allow-empty="true"></drop-down></field>
+		<field name="address1" title="Permanent Address"><text></text></field>
+		<field name="address2" title=" "><text></text></field>
+		<field name="city"><text></text></field>
+		<field name="postalCode"><text></text></field>
+		<field name="countryGeoId" title="Country"><drop-down><entity-options description="${geoName}" key-field-name="geoId" entity-name="Geo"><entity-constraint name="geoTypeId" operator="equals" value="COUNTRY"/></entity-options></drop-down></field>
+		<field name="stateProvinceGeoId" title="State"><text></text></field>
+		<field name="submitButton" title="Add Student" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+</forms>
