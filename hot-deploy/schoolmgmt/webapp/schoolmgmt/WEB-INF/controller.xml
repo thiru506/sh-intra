@@ -50,7 +50,10 @@
     	<security https="true" auth="true"/>
     	<response name="success" type="view" value="FindFeeInvoice"/>
     </request-map>
-    
+    <request-map uri="FindFeePayment">
+    	<security https="true" auth="true"/>
+    	<response name="success" type="view" value="FindFeePayment"/>
+    </request-map>
     <!-- View Mappings -->
     <view-map name="main" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#main"/>
     <view-map name="transport" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#transport"/>
@@ -60,6 +63,6 @@
 	<view-map name="DailyAttendanceEntryInternal" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#DailyAttendanceEntryInternal"/>
 	<view-map name="DailyAttendance" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#DailyAttendance"/>
 	<view-map name="FindFeeInvoice" type="screen" page="component://schoolmgmt/widget/FinanceScreens.xml#FindFeeInvoice"/>
-	
+	<view-map name="FindFeePayment" type="screen" page="component://schoolmgmt/widget/FinanceScreens.xml#FindFeePayment"/>
 	
 </site-conf>

@@ -87,7 +87,6 @@
             </widgets>
         </section>
     </screen>
-
     <screen name="NewFeeInvoice">
         <section>
             <actions>
@@ -105,6 +104,45 @@
                         </section>
                     </decorator-section>
                 </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="FindFeePayment">
+        <section>
+            <actions>
+                <set field="tabButtonItem" value="finance"/><!-- this highlights the selected menu-item with name "main" -->
+                <set field="tabButtonItem2" value="findFeePayment"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="SchoolMgmtCommonDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                    		<include-menu location="component://schoolmgmt/widget/SchoolMgmtMenus.xml" name="FinanceSubTabBar"/>
+                    		<include-screen name="FindFeePaymentInternal"/>
+                     </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+       <screen name="FindFeePaymentInternal">
+        <section>
+            <widgets>
+                   <section>
+                       <widgets>
+                           <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                               <decorator-section name="menu-bar">
+                                   <container style="button-bar">
+                                       <link target="newPayment" text="${uiLabelMap.CommonCreateNew}" style="buttontext create"/>
+                                   </container>
+                               </decorator-section>
+                               <decorator-section name="search-options">
+                                   <include-form name="FindFeePayment" location="component://schoolmgmt/widget/FinanceForms.xml"/>
+                               </decorator-section>
+                               <decorator-section name="search-results">
+                                   <include-form name="ListPayments"  location="component://accounting/widget/PaymentForms.xml"/>
+                               </decorator-section>
+                           </decorator-screen>
+                       </widgets>
+                   </section>
             </widgets>
         </section>
     </screen>

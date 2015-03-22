@@ -89,6 +89,10 @@
 			<menu-item name="findFeeInvoice" title="Find Fee Invoice">
 	            <link target="FindFeeInvoice">
 	            </link>
+	        </menu-item>
+	        <menu-item name="findFeePayment" title="Find Fee Payments">
+	            <link target="FindFeePayment">
+	            </link>
 	        </menu-item>         
         </menu>
 </menus>
