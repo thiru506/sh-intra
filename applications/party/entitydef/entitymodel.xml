@@ -2742,6 +2742,9 @@ under the License.
       <field name="bloodGroup" type="id-long" ></field>
       <field name="fatherName" type="name"></field>
       <field name="motherName" type="name"></field>
+      <field name="placeOfBirth" type="name"></field>
+      <field name="religion" type="short-varchar"></field>
+      <field name="nationality" type="short-varchar"></field>
       <prim-key field="partyId"/>
       <relation type="one" fk-name="PERSON_PARTY" rel-entity-name="Party">
         <key-map field-name="partyId"/>

@@ -54,6 +54,45 @@
     	<security https="true" auth="true"/>
     	<response name="success" type="view" value="FindFeePayment"/>
     </request-map>
+    <request-map uri="academics">
+    	<security https="true" auth="true"/>
+    	<response name="success" type="view" value="academics"/>
+    </request-map>
+    <request-map uri="createAcademicYear">
+    	<security https="true" auth="true"/>
+    	<event type="service" invoke="createCustomTimePeriod"/>
+    	<response name="success" type="view" value="academics"/>
+    	<response name="Error" type="view" value="academics"/>
+    </request-map>
+    <request-map uri="UpdateAcademicYear">
+    	<security https="true" auth="true"/>
+    	<event type="service" invoke="updateCustomTimePeriod"/>
+    	<response name="success" type="view" value="academics"/>
+    	<response name="Error" type="view" value="academics"/>
+    </request-map>
+    <request-map uri="DeleteAcademicYear">
+    	<security https="true" auth="true"/>
+    	<event type="service" invoke="deleteCustomTimePeriod"/>
+    	<response name="success" type="view" value="academics"/>
+    	<response name="Error" type="view" value="academics"/>
+    </request-map>
+    <request-map uri="CreateStudent">
+    	<security https="true" auth="true"/>
+    	<event type="service" invoke="CreateStudent"/>
+    	<response name="success" type="view" value="admission"/>
+    	<response name="Error" type="view" value="admission"/>
+    </request-map>
+    <request-map uri="admission">
+    	<security https="true" auth="true"/>
+    	<response name="success" type="view" value="admission"/>
+    </request-map>
+    <request-map uri="SelectedView">
+    	<security https="true" auth="true"/>
+    	<response name="success" type="view" value="SelectedView"/>
+    	<response name="Error" type="view" value="SelectedView"/>
+    </request-map>
+    
+    
     <!-- View Mappings -->
     <view-map name="main" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#main"/>
     <view-map name="transport" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#transport"/>
@@ -64,5 +103,7 @@
 	<view-map name="DailyAttendance" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#DailyAttendance"/>
 	<view-map name="FindFeeInvoice" type="screen" page="component://schoolmgmt/widget/FinanceScreens.xml#FindFeeInvoice"/>
 	<view-map name="FindFeePayment" type="screen" page="component://schoolmgmt/widget/FinanceScreens.xml#FindFeePayment"/>
-	
+	<view-map name="SelectedView" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#SelectedView"/>
+    <view-map name="academics" type="screen" page="component://schoolmgmt/widget/AcademicsScreens.xml#academics"/>
+    <view-map name="admission" type="screen" page="component://schoolmgmt/widget/AdmissionScreens.xml#admission"/>
 </site-conf>

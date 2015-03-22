@@ -10,13 +10,14 @@
             Dummy service to prevent empty files and syntax error - Remove when the 1st real service will be added here 
         </description>
     </service> 
-    <service name="CreateStudent" engine="java" location="org.ofbiz.schoolmgmt.SchoolMgmtServices" invoke="createStudent" auth="true">
+    <service name="CreateStudent" engine="java" location="com.serp.SchoolMgmtServices" invoke="createStudent" auth="true">
 	<description>Create Student</description>
 	<attribute name="productId" mode="IN" type="String" optional="false"/>
 	<attribute name="customTimePeriodId" mode="IN" type="String" optional="false"/>
 	<attribute name="firstName" mode="IN" type="String" optional="false"/>
 	<attribute name="middleName" mode="IN" type="String" optional="true"/>
 	<attribute name="lastName" mode="IN" type="String" optional="false"/>
+	<attribute name="roleTypeId" mode="IN" type="String" optional="false"/>
 	<attribute name="externalId" mode="IN" type="String" optional="true"/>
 	<attribute name="gender" mode="IN" type="String" optional="true"/>
 	<attribute name="birthDate" mode="IN" type="java.sql.Date" optional="false"/>

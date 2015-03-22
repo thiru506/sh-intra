@@ -19,6 +19,7 @@
     	<field name="middleName"><text></text></field>
     	<field name="lastName"><text></text></field>
     	<field name="externalId" title="Role No"><text></text></field>
+    	<field name="roleTypeId"><hidden value="STUDENT"/></field>
     	<field name="gender" title="Gender">
 		<drop-down allow-empty="false" no-current-selected-key="M">
 			<option key="F"></option>
