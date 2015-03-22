@@ -9,6 +9,7 @@
    <include location="component://commonext/webapp/WEB-INF/controller.xml"/>
 	<include location="component://order/webapp/ordermgr/WEB-INF/controller.xml"/> 
 	<include location="component://humanres/webapp/humanres/WEB-INF/controller.xml"/>
+	<include location="component://accounting/webapp/accounting/WEB-INF/controller.xml"/>
     <description>SchoolMgmt Component Site Configuration File</description>
 
     <!-- Events to run on every request before security (chains exempt) -->
@@ -45,6 +46,10 @@
     	<security https="true" auth="true"/>
     	<response name="success" type="view" value="StudentLookUpTable"/>
     </request-map>
+    <request-map uri="FindFeeInvoice">
+    	<security https="true" auth="true"/>
+    	<response name="success" type="view" value="FindFeeInvoice"/>
+    </request-map>
     
     <!-- View Mappings -->
     <view-map name="main" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#main"/>
@@ -54,5 +59,7 @@
     <view-map name="DailyAttendanceEntry" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#DailyAttendanceEntry"/>
 	<view-map name="DailyAttendanceEntryInternal" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#DailyAttendanceEntryInternal"/>
 	<view-map name="DailyAttendance" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#DailyAttendance"/>
+	<view-map name="FindFeeInvoice" type="screen" page="component://schoolmgmt/widget/FinanceScreens.xml#FindFeeInvoice"/>
+	
 	
 </site-conf>

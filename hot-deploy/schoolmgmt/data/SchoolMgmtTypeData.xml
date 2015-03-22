@@ -28,4 +28,8 @@
     <PaymentMethodType  defaultGlAccountId="122000" description="Cash Payment"  paymentMethodTypeId="CASH_PAYIN"/>
     <PaymentMethodType  defaultGlAccountId="122000" description="Cheque Payment" paymentMethodTypeId="CHEQUE_PAYOUT"/>
     
+    <InvoiceType description="Student Fee Invoice" hasTable="N" invoiceTypeId="STUDENT_FEE_INV" parentTypeId="SALES_INVOICE"/>
+    <InvoiceType description="Hostel Fee Invoice" hasTable="N" invoiceTypeId="HOSTEL_FEE_INV" parentTypeId="SALES_INVOICE"/>
+    <InvoiceType description="Bus Fee Invoice" hasTable="N" invoiceTypeId="STD_BUS_FEE_INV" parentTypeId="SALES_INVOICE"/>
+    
 </entity-engine-xml>

@@ -2592,7 +2592,7 @@ under the License.
    <request-map uri="makeMassInvoicePayments">
      	<security https="true" auth="true"/>
      	<event type="java"  path="org.ofbiz.accounting.payment.PaymentWorker"  invoke="makeMassInvoicePayments" global-transaction="true"/>
-     	<response name="success" type="request-redirect" value="paymentOverview">
+     	<response name="success" type="view-last-noparam">
         	<redirect-parameter name="paymentId"/>
         </response>     	
         <response name="error" type="request-redirect" value="paymentOverview">
