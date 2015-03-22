@@ -632,6 +632,7 @@ public class PaymentWorker {
 	  	  String paymentId = "";
 	  	  String inFavourOf = "";
 	  	  String paymentMethodId = "";
+	  	  String paymentMethodTypeId = "";
 	  	  String paymentType = "";
 	  	  String finAccountId = "";
 	  	  String instrumentDateStr = "";
@@ -677,6 +678,7 @@ public class PaymentWorker {
 			  	partyIdTo = (String) paramMap.get("fromPartyId");
 			  	partyIdFrom = (String) paramMap.get("partyId");
 			  	paymentMethodId = (String) paramMap.get("paymentMethodId");
+			  	paymentMethodTypeId = (String) paramMap.get("paymentMethodTypeId");
 			  	finAccountId = (String) paramMap.get("finAccountId");
 			  	instrumentDateStr = (String) paramMap.get("instrumentDate");
 			  	paymentDateStr = (String) paramMap.get("paymentDate");
@@ -711,6 +713,8 @@ public class PaymentWorker {
 		  			if(UtilValidate.isNotEmpty(totalAmount) && totalAmount.compareTo(BigDecimal.ZERO) > 0){
 		  				Map<String, Object> paymentCtx = UtilMisc.<String, Object>toMap("paymentTypeId", paymentType);
 			  	        paymentCtx.put("paymentMethodId", paymentMethodId);//from AP mandatory
+			  	        paymentCtx.put("paymentMethodTypeId", paymentMethodTypeId);// this for AR
+			  	      
 			  	        paymentCtx.put("organizationPartyId", partyIdTo);
 			            paymentCtx.put("partyId", partyIdFrom);
 			  	        if (!UtilValidate.isEmpty(paymentRefNum) ) {
@@ -735,32 +739,7 @@ public class PaymentWorker {
 			  		  			return "error";
 			  	  	        }
 			  	  	        paymentId = (String)paymentResult.get("paymentId");
-				  	  	    /*try {
-					  	  	    GenericValue payment = delegator.findOne("Payment",UtilMisc.toMap("paymentId",paymentId) , false);
-					        	String statusId = null;
-					        	if(UtilValidate.isNotEmpty(payment)){
-					        		if(UtilAccounting.isReceipt(payment)){
-					        			statusId = "PMNT_RECEIVED";
-					        		}
-					        		if(UtilAccounting.isDisbursement(payment)){
-					        			statusId = "PMNT_SENT";
-					        		}
-					        	}
-					        	Map<String, Object> setPaymentStatusMap = UtilMisc.<String, Object>toMap("userLogin", userLogin);
-					        	setPaymentStatusMap.put("paymentId", paymentId);
-					        	setPaymentStatusMap.put("statusId", statusId);
-					        	if(UtilValidate.isNotEmpty(finAccountId)){
-					        		setPaymentStatusMap.put("finAccountId", finAccountId);
-					        	}
-					            Map<String, Object> pmntResults = dispatcher.runSync("setPaymentStatus", setPaymentStatusMap);
-					            if (ServiceUtil.isError(pmntResults)) {
-				  	            	Debug.logError(pmntResults.toString(), module);
-				  	            	request.setAttribute("_ERROR_MESSAGE_", "Error in service setPaymentStatus");
-				  	                return "error";
-				  	            }
-				  	        } catch (Exception e) {
-				  	            Debug.logError(e, "Unable to change Payment Status", module);
-				  	        }*/
+				  	  	    
 			  			}catch (Exception e) {
 			  		        Debug.logError(e, e.toString(), module);
 			  		        return "error";
