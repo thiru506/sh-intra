@@ -6,7 +6,7 @@
         <section>
             <actions>
                 <set field="tabButtonItem" value="admission"/><!-- this highlights the selected menu-item with name "main" -->
-                <set field="tabButtonItem2" value="admission"/>
+                <set field="tabButtonItem2" value="addStudent"/>
                 <entity-condition list="academicYearsList" entity-name="CustomTimePeriod">
                 	<condition-expr field-name="periodTypeId" value="ACADEMIC_YEAR"/>
                 </entity-condition>
