@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
+    
+     <screen name="academics">
+        <section>
+            <actions>
+                <set field="tabButtonItem" value="academics"/><!-- this highlights the selected menu-item with name "main" -->
+                <set field="tabButtonItem2" value="academics"/>
+                <entity-condition list="academicYearsList" entity-name="CustomTimePeriod">
+                	<condition-expr field-name="periodTypeId" value="ACADEMIC_YEAR"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <decorator-screen name="SchoolMgmtCommonDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                    <include-menu location="component://schoolmgmt/widget/SchoolMgmtMenus.xml" name="AcademicSubTabBar"/>
+                          <container>
+                          	<screenlet title="Add Academic Year" >
+                          		<include-form location="component://schoolmgmt/widget/AcademicsForms.xml" name="AddAcademicYear"/>
+                          	</screenlet>
+							<screenlet title="Academics Years">
+							<include-form location="component://schoolmgmt/widget/AcademicsForms.xml" name="listAcadamicYears"/>	
+							</screenlet>
+						</container>
+                     </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+</screens>

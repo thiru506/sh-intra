@@ -8,5 +8,20 @@
         <field name="startTime"><text></text></field>
         <field name="submit"><submit/></field>
      </form>
+     <form name="listFacilityParties" type="list" list-name="facilityPartyList" separate-columns="true" odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" >
+     <row-actions>
+     	<entity-one value-field="personName" entity-name="Person">
+     		<field-map field-name="partyId"  from-field="partyId"/>
+     	</entity-one>
+     	<set field="name" value="${personName.firstName} ${personName.lastName} ${personName.middleName}"></set>
+     </row-actions>
+     <field name="partyId" title="Student No"><display/></field>
+     <field name="name"><display/></field>
+     <field name="roleTypeId"><display></display></field>
+     <field name="fromDate"><display></display></field>
+      </form>
+      <form name="AddStudent" type="single">
+      	<field name=""></field>
+      </form>
 
 </forms>

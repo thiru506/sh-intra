@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
+    <form name="AddAcademicYear" type="single" target="createAcademicYear">
+    	<field name="fromDate" title="From Date"><date-time type="date"/></field>
+    	<field name="thruDate" title="Thru Date"><date-time type="date"/></field>
+    	<field name="periodName"><text></text></field>
+    	<field name="periodTypeId"><hidden value="ACADEMIC_YEAR"/></field>
+    	<field name="organizationPartyId"><hidden value="PERSION"/></field>
+    	<field name="submitButton" title="${uiLabelMap.Create}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>    
+   <form name="academicYears" type="list">
+   </form>  
+   <form name="listAcadamicYears" type="list" list-name="academicYearsList" separate-columns="true" 
+   odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" target="UpdateAcademicYear">
+   	<field name="customTimePeriodId"><display></display></field>
+   	<field name="fromDate"><date-time type="date"/></field>
+   	<field name="thruDate"><date-time type="date"/></field>
+   	<field name="periodName"><text></text></field>
+   	<field name="updateAcademicYear" title="Update" widget-style="buttontext">
+   	<submit/>
+   	</field>
+   	<field name="delete" title="Delete" widget-style="buttontext">
+   		<hyperlink target="DeleteAcademicYear" description="Delete">
+   			<parameter param-name="customTimePeriodId"/>
+   		</hyperlink>	
+   	</field>
+   </form>
+</forms>
