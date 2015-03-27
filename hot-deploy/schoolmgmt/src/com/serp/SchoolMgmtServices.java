@@ -100,13 +100,24 @@ public class SchoolMgmtServices {
             input.put("occupation",occupation);
             input.put("religion",religion);
             input.put("nationality",nationality);
-            input.put("roleTypeId", roleTypeId);
             Map resultctx = dispatcher.runSync("createPerson", input);
             if(ServiceUtil.isError(resultctx)){
            	 	Debug.logError("Error while create person:"+ServiceUtil.getErrorMessage(resultctx), module);
            	 	return ServiceUtil.returnError(ServiceUtil.getErrorMessage(resultctx));
             }
             partyId = (String)resultctx.get("partyId");
+            
+            GenericValue subScription = delegator.makeValue("Subscription");
+            subScription.set("partyId", partyId);
+            subScription.set("productId", productId);
+            subScription.set("customTimePeriodId",customTimePeriodId);
+            delegator.createSetNextSeqId(subScription);
+            
+            GenericValue partyRole = delegator.makeValue("PartyRole");
+            partyRole.set("partyId", partyId);
+            partyRole.set("roleTypeId",roleTypeId);
+            delegator.create(partyRole);
+            
             String postalContactId=null;
             if (UtilValidate.isNotEmpty(address1)){
             	input.clear();
@@ -194,6 +205,82 @@ public class SchoolMgmtServices {
             return ServiceUtil.returnError(e.getMessage());
         }
 		result = ServiceUtil.returnSuccess("Student Successfully added..!");
+		return result;
+	}
+	public static Map<String, Object> addStudentToHostel(DispatchContext dctx, Map<String, ? extends Object> context) {
+		Map<String, Object> result = FastMap.newInstance();
+        Delegator delegator = dctx.getDelegator();
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        Locale locale = (Locale) context.get("locale");
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        
+        String roleTypeId = (String) context.get("roleTypeId");
+        String partyId = (String) context.get("partyId");
+        Date fromDate = (Date) context.get("fromDate");
+        Date thruDate = (Date) context.get("thruDate");
+        Timestamp fromDateTime = UtilDateTime.toTimestamp(fromDate);
+        Timestamp thruDateTime = UtilDateTime.toTimestamp(thruDate);
+        String facilityId = (String) context.get("facilityId");
+        
+        try {
+	        	List conList= FastList.newInstance();
+	        	conList.add(EntityCondition.makeCondition("partyId", EntityOperator.EQUALS ,partyId));
+	        	conList.add(EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null));
+	        	EntityCondition cond=EntityCondition.makeCondition(conList,EntityOperator.AND);
+	        	List<GenericValue> facilityPartys = delegator.findList("FacilityParty", cond, null,null, null, false);
+	        	if(UtilValidate.isNotEmpty(facilityPartys)){    
+	        		return ServiceUtil.returnError("This Student Already Existed..!");
+	        	}else{	
+	        		GenericValue facilityParty = delegator.makeValue("FacilityParty");
+	        		facilityParty.set("partyId",partyId);
+	        		facilityParty.set("facilityId",facilityId);
+	        		facilityParty.set("roleTypeId",roleTypeId);
+	        		facilityParty.set("fromDate",UtilDateTime.getDayStart(fromDateTime));
+	        		if(UtilValidate.isNotEmpty(thruDateTime)){
+	        			facilityParty.set("thruDate", UtilDateTime.getDayEnd(thruDateTime));
+	        		}
+	        		delegator.create(facilityParty);
+	        	}
+        }catch (Exception e) {
+            return ServiceUtil.returnError(e.getMessage());
+        }
+		result = ServiceUtil.returnSuccess("Student Added Succefully..!");
+		return result;
+	}
+	public static Map<String, Object> updateStudentToHostel(DispatchContext dctx, Map<String, ? extends Object> context) {
+		Map<String, Object> result = FastMap.newInstance();
+        Delegator delegator = dctx.getDelegator();
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        Locale locale = (Locale) context.get("locale");
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        
+        String roleTypeId = (String) context.get("roleTypeId");
+        String partyId = (String) context.get("partyId");
+        Date thruDate = (Date) context.get("thruDate");
+        Timestamp fromDateTime = (Timestamp) context.get("fromDate");
+        Timestamp thruDateTime = UtilDateTime.toTimestamp(thruDate);
+        String facilityId = (String) context.get("facilityId");
+        try {
+        	List conList= FastList.newInstance();
+        	conList.add(EntityCondition.makeCondition("roleTypeId", EntityOperator.EQUALS ,roleTypeId));
+        	conList.add(EntityCondition.makeCondition("partyId", EntityOperator.EQUALS ,partyId));
+        	conList.add(EntityCondition.makeCondition("facilityId", EntityOperator.EQUALS ,facilityId));
+        	conList.add(EntityCondition.makeCondition("fromDate", EntityOperator.EQUALS ,fromDateTime));
+        	EntityCondition cond=EntityCondition.makeCondition(conList,EntityOperator.AND);
+        	List<GenericValue> facilityPartys = delegator.findList("FacilityParty", cond, null,null, null, false);
+        	
+        	if(UtilValidate.isNotEmpty(facilityPartys)){
+        		GenericValue facilityParty = EntityUtil.getFirst(facilityPartys);
+        		if(UtilValidate.isNotEmpty(thruDateTime)){
+        			facilityParty.set("thruDate", UtilDateTime.getDayEnd(thruDateTime));
+        		}
+        		facilityParty.store();
+        	}
+        	
+        }catch (Exception e) {
+            return ServiceUtil.returnError(e.getMessage());
+        }
+		result = ServiceUtil.returnSuccess("Student Updated Succefully..!");
 		return result;
 	}
 }
