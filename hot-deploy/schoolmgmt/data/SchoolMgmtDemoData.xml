@@ -65,5 +65,138 @@
    <Vehicle vehicleId="004" vehicleNumber="AP 27 BT 5666" vehicleName="Route-4"/>
   <Vehicle vehicleId="005" vehicleNumber="AP 27 BT 0588" vehicleName="Route-5"/>
   
+    <EnumerationType  enumTypeId="BLOOD_TYPE" />
+     <Enumeration  description="O+" enumId="BG01" enumTypeId="BLOOD_TYPE" />
+      <Enumeration  description="A+" enumId="BG02" enumTypeId="BLOOD_TYPE" />
+       <Enumeration  description="B+" enumId="BG03" enumTypeId="BLOOD_TYPE" />
+      <Enumeration  description="O-" enumId="BG05" enumTypeId="BLOOD_TYPE" />
+     <Enumeration  description="A-" enumId="BG06" enumTypeId="BLOOD_TYPE" /> 
+  <Enumeration  description="B-" enumId="BG07" enumTypeId="BLOOD_TYPE" />
+  <Enumeration  description="AB-" enumId="BG08" enumTypeId="BLOOD_TYPE" />
+  <Enumeration  description="AB+" enumId="BG04" enumTypeId="BLOOD_TYPE" />
+  
+    <PartyClassificationGroup partyClassificationGroupId="10020" isInvoicable="Y" description="Wholesaler " />
+    <PartyClassificationGroup partyClassificationGroupId="10021" isInvoicable="Y" description="Retailer " />
+    <PartyClassificationGroup partyClassificationGroupId="10022" isInvoicable="Y" description="Retailer Special Price " />
+    <PartyClassificationGroup partyClassificationGroupId="CA01" partyClassificationTypeId="PCG_REC_CA" description="ACHARI" />
+    <PartyClassificationGroup partyClassificationGroupId="CA02" partyClassificationTypeId="PCG_REC_CA" description="AGNIKULA KSHATA" />
+    <PartyClassificationGroup partyClassificationGroupId="CA03" partyClassificationTypeId="PCG_REC_CA" description="BILLAVA" />
+    <PartyClassificationGroup partyClassificationGroupId="CA04" partyClassificationTypeId="PCG_REC_CA" description="BALAJIGA" />
+    <PartyClassificationGroup partyClassificationGroupId="CA05" partyClassificationTypeId="PCG_REC_CA" description="BANAJIGA" />
+    <PartyClassificationGroup partyClassificationGroupId="CA06" partyClassificationTypeId="PCG_REC_CA" description="BANJARA" />
+    <PartyClassificationGroup partyClassificationGroupId="CA07" partyClassificationTypeId="PCG_REC_CA" description="BARBAR" />
+    <PartyClassificationGroup partyClassificationGroupId="CA08" partyClassificationTypeId="PCG_REC_CA" description="BESTA" />
+    <PartyClassificationGroup partyClassificationGroupId="CA09" partyClassificationTypeId="PCG_REC_CA" description="BHOVI"/>
+    <PartyClassificationGroup partyClassificationGroupId="CA10" partyClassificationTypeId="PCG_REC_CA" description="BOGAR" />
+    <PartyClassificationGroup partyClassificationGroupId="CA11" partyClassificationTypeId="PCG_REC_CA" description="BRAHMIN" />
+    <PartyClassificationGroup partyClassificationGroupId="CA12" description="BRMHIN" lastUpdatedStamp="2014-03-12 17:39:02.0" />
+    <PartyClassificationGroup partyClassificationGroupId="CA13" partyClassificationTypeId="PCG_REC_CA" description="BUNTS" />
+    <PartyClassificationGroup partyClassificationGroupId="CA14" partyClassificationTypeId="PCG_REC_CA" description="CHETTY SADHU" />
+    <PartyClassificationGroup partyClassificationGroupId="CA15" description="CHRISTIAN" lastUpdatedStamp="2014-03-12 17:39:02.0" />
+    <PartyClassificationGroup partyClassificationGroupId="CA16" partyClassificationTypeId="PCG_REC_CA" description="COORGI" />
+    <PartyClassificationGroup partyClassificationGroupId="CA17" partyClassificationTypeId="PCG_REC_CA" description="DASA BANAJIGA" />
+    <PartyClassificationGroup partyClassificationGroupId="CA18" partyClassificationTypeId="PCG_REC_CA" description="DEVANGA" />
+    <PartyClassificationGroup partyClassificationGroupId="CA19" partyClassificationTypeId="PCG_REC_CA" description="DOMBI DASA" />
+    <PartyClassificationGroup partyClassificationGroupId="CA20" partyClassificationTypeId="PCG_REC_CA" description="GANIGA" />
+    <PartyClassificationGroup partyClassificationGroupId="CA21" partyClassificationTypeId="PCG_REC_CA" description="GOLLA" />
+    <PartyClassificationGroup partyClassificationGroupId="CA22" description="JAIN" lastUpdatedStamp="2014-03-12 17:39:02.0" />
+    <PartyClassificationGroup partyClassificationGroupId="CA23" partyClassificationTypeId="PCG_REC_CA" description="JETTY" />
+    <PartyClassificationGroup partyClassificationGroupId="CA24" partyClassificationTypeId="PCG_REC_CA" description="JYOGI" />
+    <PartyClassificationGroup partyClassificationGroupId="CA25" partyClassificationTypeId="PCG_REC_CA" description="KSHATRIYA" />
+    <PartyClassificationGroup partyClassificationGroupId="CA26" partyClassificationTypeId="PCG_REC_CA" description="KUR.SETTY" />
+    <PartyClassificationGroup partyClassificationGroupId="CA27" partyClassificationTypeId="PCG_REC_CA" description="KURUBA" />
+    <PartyClassificationGroup partyClassificationGroupId="CA28" partyClassificationTypeId="PCG_REC_CA" description="LINGAYAT" />
+    <PartyClassificationGroup partyClassificationGroupId="CA29" partyClassificationTypeId="PCG_REC_CA" description="MARATHA" />
+    <PartyClassificationGroup partyClassificationGroupId="CA30" partyClassificationTypeId="PCG_REC_CA" description="MUDALIYAR" />
+    <PartyClassificationGroup partyClassificationGroupId="CA31" description="MUSLIM" lastUpdatedStamp="2014-03-12 17:39:02.0" />
+    <PartyClassificationGroup partyClassificationGroupId="CA32" partyClassificationTypeId="PCG_REC_CA" description="NAIDU" />
+    <PartyClassificationGroup partyClassificationGroupId="CA33" partyClassificationTypeId="PCG_REC_CA" description="NAIR" />
+    <PartyClassificationGroup partyClassificationGroupId="CA34" partyClassificationTypeId="PCG_REC_CA" description="NAYANDA" />
+    <PartyClassificationGroup partyClassificationGroupId="CA35" partyClassificationTypeId="PCG_REC_CA" description="PADMASHALI" />
+    <PartyClassificationGroup partyClassificationGroupId="CA36" partyClassificationTypeId="PCG_REC_CA" description="RAWATH" />
+    <PartyClassificationGroup partyClassificationGroupId="CA37" partyClassificationTypeId="PCG_REC_CA" description="RAYARATH" />
+    <PartyClassificationGroup partyClassificationGroupId="CA38" partyClassificationTypeId="PCG_REC_CA" description="REDDY" />
+    <PartyClassificationGroup partyClassificationGroupId="CA39" partyClassificationTypeId="PCG_REC_CA" description="S C" />
+    <PartyClassificationGroup partyClassificationGroupId="CA40" partyClassificationTypeId="PCG_REC_CA" description="S T" />
+    <PartyClassificationGroup partyClassificationGroupId="CA41" partyClassificationTypeId="PCG_REC_CA" description="SC (BOVI)" />
+    <PartyClassificationGroup partyClassificationGroupId="CA42" partyClassificationTypeId="PCG_REC_CA" description="SC(KORAMA)" />
+    <PartyClassificationGroup partyClassificationGroupId="CA43" partyClassificationTypeId="PCG_REC_CA" description="THIGALA" />
+    <PartyClassificationGroup partyClassificationGroupId="CA44" partyClassificationTypeId="PCG_REC_CA" description="UPPARA" />
+    <PartyClassificationGroup partyClassificationGroupId="CA45" partyClassificationTypeId="PCG_REC_CA" description="URS" />
+    <PartyClassificationGroup partyClassificationGroupId="CA46" partyClassificationTypeId="PCG_REC_CA" description="VALMIKI" />
+    <PartyClassificationGroup partyClassificationGroupId="CA47" partyClassificationTypeId="PCG_REC_CA" description="VANNIAR" />
+    <PartyClassificationGroup partyClassificationGroupId="CA48" partyClassificationTypeId="PCG_REC_CA" description="VIS.KARMA" />
+    <PartyClassificationGroup partyClassificationGroupId="CA49" partyClassificationTypeId="PCG_REC_CA" description="VOKKALIGA" />
+    <PartyClassificationGroup partyClassificationGroupId="CA50" partyClassificationTypeId="PCG_REC_CA" description="VYSHAS" />
+    <PartyClassificationGroup partyClassificationGroupId="CA51" partyClassificationTypeId="PCG_REC_CA" description="VYSHNAVA" />
+    <PartyClassificationGroup partyClassificationGroupId="CA52" partyClassificationTypeId="PCG_REC_CA" description="VYSYA" />
+    <PartyClassificationGroup partyClassificationGroupId="CA53" partyClassificationTypeId="PCG_REC_CA" description="NAYAKA" />
+    <PartyClassificationGroup partyClassificationGroupId="CA54" description="NAIK" lastUpdatedStamp="2014-03-12 17:39:02.0" />
+    <PartyClassificationGroup partyClassificationGroupId="CA55" partyClassificationTypeId="PCG_REC_CA" description="EEDIGA" />
+    <PartyClassificationGroup partyClassificationGroupId="CA56" partyClassificationTypeId="PCG_REC_CA" description="SADARU" />
+    <PartyClassificationGroup partyClassificationGroupId="CA57" partyClassificationTypeId="PCG_REC_CA" description="MADIVALA" />
+    <PartyClassificationGroup partyClassificationGroupId="CA58" partyClassificationTypeId="PCG_REC_CA" description="KORACHA" />
+    <PartyClassificationGroup partyClassificationGroupId="CA59" partyClassificationTypeId="PCG_REC_CA" description="ARYA VYSYA" />
+    <PartyClassificationGroup partyClassificationGroupId="PCG_REC_CA" description="CASTE PARENT" lastUpdatedStamp="2014-07-09 16:18:03.0" />
+    <PartyClassificationType partyClassificationTypeId="CA01" description="ACHARI" />
+    <PartyClassificationType partyClassificationTypeId="CA02" description="AGNIKULA KSHATA" />
+    <PartyClassificationType partyClassificationTypeId="CA03" description="BILLAVA" />
+    <PartyClassificationType partyClassificationTypeId="CA04" description="BALAJIGA" />
+    <PartyClassificationType partyClassificationTypeId="CA05" description="BANAJIGA" />
+    <PartyClassificationType partyClassificationTypeId="CA06" description="BANJARA" />
+    <PartyClassificationType partyClassificationTypeId="CA07" description="BARBAR" />
+    <PartyClassificationType partyClassificationTypeId="CA08" description="BESTA" />
+    <PartyClassificationType partyClassificationTypeId="CA09" description="BHOVI" />
+    <PartyClassificationType partyClassificationTypeId="CA10" description="BOGAR" />
+    <PartyClassificationType partyClassificationTypeId="CA11" description="BRAHMIN" />
+    <PartyClassificationType partyClassificationTypeId="CA12" description="BRMHIN" />
+    <PartyClassificationType partyClassificationTypeId="CA13" description="BUNTS" />
+    <PartyClassificationType partyClassificationTypeId="CA14" description="CHETTY SADHU" />
+    <PartyClassificationType partyClassificationTypeId="CA15" description="CHRISTIAN" />
+    <PartyClassificationType partyClassificationTypeId="CA16" description="COORGI" />
+    <PartyClassificationType partyClassificationTypeId="CA17" description="DASA BANAJIGA" />
+    <PartyClassificationType partyClassificationTypeId="CA18" description="DEVANGA" />
+    <PartyClassificationType partyClassificationTypeId="CA19" description="DOMBI DASA" />
+    <PartyClassificationType partyClassificationTypeId="CA20" description="GANIGA" />
+    <PartyClassificationType partyClassificationTypeId="CA21" description="GOLLA" />
+    <PartyClassificationType partyClassificationTypeId="CA22" description="JAIN" />
+    <PartyClassificationType partyClassificationTypeId="CA23" description="JETTY" />
+    <PartyClassificationType partyClassificationTypeId="CA24" description="JYOGI" />
+    <PartyClassificationType partyClassificationTypeId="CA25" description="KSHATRIYA" />
+    <PartyClassificationType partyClassificationTypeId="CA26" description="KUR.SETTY" />
+    <PartyClassificationType partyClassificationTypeId="CA27" description="KURUBA" />
+    <PartyClassificationType partyClassificationTypeId="CA28" description="LINGAYAT" />
+    <PartyClassificationType partyClassificationTypeId="CA29" description="MARATHA" />
+    <PartyClassificationType partyClassificationTypeId="CA30" description="MUDALIYAR" />
+    <PartyClassificationType partyClassificationTypeId="CA31" description="MUSLIM" />
+    <PartyClassificationType partyClassificationTypeId="CA32" description="NAIDU" />
+    <PartyClassificationType partyClassificationTypeId="CA33" description="NAIR" />
+    <PartyClassificationType partyClassificationTypeId="CA34" description="NAYANDA" />
+    <PartyClassificationType partyClassificationTypeId="CA35" description="PADMASHALI" />
+    <PartyClassificationType partyClassificationTypeId="CA36" description="RAWATH" />
+    <PartyClassificationType partyClassificationTypeId="CA37" description="RAYARATH" />
+    <PartyClassificationType partyClassificationTypeId="CA38" description="REDDY" />
+    <PartyClassificationType partyClassificationTypeId="CA39" description="S C" />
+    <PartyClassificationType partyClassificationTypeId="CA40" description="S T" />
+    <PartyClassificationType partyClassificationTypeId="CA41" description="SC (BOVI)" />
+    <PartyClassificationType partyClassificationTypeId="CA42" description="SC(KORAMA)" />
+    <PartyClassificationType partyClassificationTypeId="CA43" description="THIGALA" />
+    <PartyClassificationType partyClassificationTypeId="CA44" description="UPPARA" />
+    <PartyClassificationType partyClassificationTypeId="CA45" description="URS" />
+    <PartyClassificationType partyClassificationTypeId="CA46" description="VALMIKI" />
+    <PartyClassificationType partyClassificationTypeId="CA47" description="VANNIAR" />
+    <PartyClassificationType partyClassificationTypeId="CA48" description="VIS.KARMA" />
+    <PartyClassificationType partyClassificationTypeId="CA49" description="VOKKALIGA" />
+    <PartyClassificationType partyClassificationTypeId="CA50" description="VYSHAS" />
+    <PartyClassificationType partyClassificationTypeId="CA51" description="VYSHNAVA" />
+    <PartyClassificationType partyClassificationTypeId="CA52" description="VYSYA" />
+    <PartyClassificationType partyClassificationTypeId="CA53" description="NAYAKA" />
+    <PartyClassificationType partyClassificationTypeId="CA54" description="NAIK" />
+    <PartyClassificationType partyClassificationTypeId="CA55" description="EEDIGA" />
+    <PartyClassificationType partyClassificationTypeId="CA56" description="SADARU" />
+    <PartyClassificationType partyClassificationTypeId="CA57" description="MADIVALA" />
+    <PartyClassificationType partyClassificationTypeId="CA58" description="KORACHA" />
+    <PartyClassificationType partyClassificationTypeId="CA59" description="ARYA VYSYA" />
+    <PartyClassificationType partyClassificationTypeId="PCG_REC_CA" description="CASTE PARENT" lastUpdatedStamp="2014-07-10 16:57:24.0" lastUpdatedTxStamp="2014-07-10 16:57:24.0" createdStamp="2014-07-10 16:57:24.0" createdTxStamp="2014-07-10 16:57:24.0"/>
   
 </entity-engine-xml>
