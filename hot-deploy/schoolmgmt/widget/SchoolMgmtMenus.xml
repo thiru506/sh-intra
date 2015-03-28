@@ -80,7 +80,11 @@
 			<menu-item name="studentLookUpTable" title="Student Lookup">
 	            <link target="StudentLookUpTable">
 	            </link>
-	        </menu-item>         
+	        </menu-item>
+	        <menu-item name="addStudent" title="Add Student">
+            	<link target="admission">
+            </link>
+        </menu-item>         
         </menu>
         <menu name="FinanceSubTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
           default-menu-item-name="finance" selected-menuitem-context-field-name="tabButtonItem2" >
@@ -105,17 +109,5 @@
         </menu-item>         
         
         </menu>
-        <menu name="AdmissionSubTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
-          default-menu-item-name="transport" selected-menuitem-context-field-name="tabButtonItem2" >
-		<actions> 
-		</actions> 
-		<menu-item name="admission" title="Student OverView">
-            <link target="StudentLookUpTable">
-            </link>
-        </menu-item>         
-         <menu-item name="addStudent" title="Add Student">
-            <link target="admission">
-            </link>
-        </menu-item>
-        </menu>
+        
 </menus>
