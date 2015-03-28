@@ -46,7 +46,7 @@
         <section>
             <actions>
                 <set field="tabButtonItem" value="admission"/><!-- this highlights the selected menu-item with name "main" -->
-                <set field="tabButtonItem2" value="admission"/>
+                <set field="tabButtonItem2" value="studentLookUpTable"/>
                 
                 <script location="component://schoolmgmt/webapp/schoolmgmt/WEB-INF/actions/schoolmgmt/studentLookupTable.groovy"/>
             </actions>
@@ -55,11 +55,35 @@
                     <decorator-section name="body">
                     		<include-menu location="component://schoolmgmt/widget/SchoolMgmtMenus.xml" name="AdmissionSubTabBar"/>
                           <container>
-							<screenlet title="Vehicles">
+							<screenlet title="Students">
 								<platform-specific>
 									<html>
 										<html-template
 											location="component://schoolmgmt/webapp/schoolmgmt/schoolmgmt/studentLookupTable.ftl"></html-template>
+									</html>
+								</platform-specific>
+							</screenlet>
+						</container>
+                     </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="TimeTableLookUpTable">
+        <section>
+            <actions>
+                <set field="tabButtonItem" value="timeTable"/><!-- this highlights the selected menu-item with name "main" -->
+                <script location="component://schoolmgmt/webapp/schoolmgmt/WEB-INF/actions/schoolmgmt/timeTableLookupTable.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="SchoolMgmtCommonDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                          <container>
+							<screenlet title="Time Table LookUp">
+								<platform-specific>
+									<html>
+										<html-template
+											location="component://schoolmgmt/webapp/schoolmgmt/schoolmgmt/timeTableLookupTable.ftl"></html-template>
 									</html>
 								</platform-specific>
 							</screenlet>

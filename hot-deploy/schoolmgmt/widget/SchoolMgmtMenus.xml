@@ -33,8 +33,8 @@
         <menu-item name="finance" title="Finance">
            <link target="FindFeeInvoice"></link>
         </menu-item>
-       <menu-item name="timetable" title="TimeTable">
-           <link target="timetable"></link>
+       <menu-item name="timeTable" title="TimeTable">
+           <link target="TimeTableLookUpTable"></link>
         </menu-item>
         <menu-item name="utilities" title="Utilities">
            <link target="transport"></link>
