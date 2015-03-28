@@ -57,7 +57,7 @@ $(document).ready(function() {
 		"iDisplayLength" : 25,		
      	"fnRowCallback": function(nRow, aData, iDisplayIndex ) {
      		<#if security.hasEntityPermission("SCHOOLMGMT", "_ADMIN", session)>
-		    $('td:eq(0)', nRow).html('<a href="PartyView?partyId=' + aData[1] + '">' +
+		    $('td:eq(0)', nRow).html('<a href="timeTableOverView?workEffortId=' + aData[3] + '">' +
                 aData[0] + '</a>');
             </#if> 
             return nRow;

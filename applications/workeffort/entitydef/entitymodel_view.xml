@@ -37,6 +37,9 @@ under the License.
         <alias entity-alias="WEP" name="workEffortParentId"/>
         <alias entity-alias="WEP" name="currentStatusId"/>
         <alias entity-alias="WEPH" field="workEffortId" name="childWorkEffortId"/>
+        <alias entity-alias="WEPH" field="estimatedStartDate" name="childEstimatedStartDate"/>
+        <alias entity-alias="WEPH" field="estimatedCompletionDate" name="childEstimatedCompletionDate"/>
+        <alias entity-alias="WEPH" field="description" name="childDescription"/>
         <alias entity-alias="WEPH" field="workEffortName" name="childWorkEffortName"/>
         <alias entity-alias="WEPH" field="workEffortTypeId" name="childWorkEffortTypeId"/>
         <alias entity-alias="WEPH" field="currentStatusId" name="childCurrentStatusId"/>

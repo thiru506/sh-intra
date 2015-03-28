@@ -9,9 +9,9 @@
  <Facility parentFacilityId="GIRLS_HOSTEL" defaultInventoryItemTypeId="NON_SERIAL_INV_ITEM" description="Girl's Hostel Room-102" facilityId="GIRLS_ROOM102" facilityName="Girl's Hostel Room-102" facilityTypeId="ROOM" ownerPartyId="Company" openedDate="2015-01-11 01:24:43.000" facilitySize="20"/>
  <Facility parentFacilityId="GIRLS_HOSTEL" defaultInventoryItemTypeId="NON_SERIAL_INV_ITEM" description="Girl's Hostel Room-101" facilityId="GIRLS_ROOM101" facilityName="Girl's Hostel Room-101" facilityTypeId="ROOM" ownerPartyId="Company" openedDate="2015-01-11 01:24:43.000" facilitySize="15"/>
  
- <PartyRole  partyId="Company" roleTypeId="HOSTEL_WARDEN"></PartyRole>
- <FacilityParty facilityId="BOYS_HOSTEL" fromDate="2015-03-13 08:27:41.0" partyId="Company" roleTypeId="HOSTEL_WARDEN"/>
- <FacilityParty facilityId="GIRLS_HOSTEL" fromDate="2015-03-13 08:27:41.0" partyId="Company" roleTypeId="HOSTEL_WARDEN"/>
+ <PartyRole  partyId="E101" roleTypeId="HOSTEL_WARDEN"></PartyRole>
+ <FacilityParty facilityId="BOYS_HOSTEL" fromDate="2015-03-13 08:27:41.0" partyId="E101" roleTypeId="HOSTEL_WARDEN"/>
+ <FacilityParty facilityId="GIRLS_HOSTEL" fromDate="2015-03-13 08:27:41.0" partyId="E101" roleTypeId="HOSTEL_WARDEN"/>
  
  <Product productId="CLASS_I" productTypeId="CLASS" productName="Clas -I" description="Clas -I"></Product>
  <Product productId="CLASS_II" productTypeId="CLASS" productName="Class -II" description="Class-II"></Product>
