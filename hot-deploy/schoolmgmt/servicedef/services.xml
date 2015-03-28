@@ -44,4 +44,18 @@
 	<attribute name="stateProvinceGeoId" mode="IN" type="String" optional="true"/>
 	<attribute name="countryGeoId" mode="IN" type="String" optional="true"/>
 	</service>
+	<service name="AddStudentToHostel" engine="java" location="com.serp.SchoolMgmtServices" auth="true" invoke="addStudentToHostel">
+	<attribute name="partyId" mode="IN" type="String" optional="false"/>
+	<attribute name="roleTypeId" mode="IN" type="String" optional="false"/>
+	<attribute name="facilityId" mode="IN" type="String" optional="false"/>
+	<attribute name="fromDate" mode="IN" type="java.sql.Date" optional="false"/>
+	<attribute name="thruDate" mode="IN" type="java.sql.Date" optional="true"/>
+	</service>
+	<service name="UpdateStudentToHostel" engine="java" location="com.serp.SchoolMgmtServices" auth="true" invoke="updateStudentToHostel">
+	<attribute name="partyId" mode="IN" type="String" optional="false"/>
+	<attribute name="roleTypeId" mode="IN" type="String" optional="false"/>
+	<attribute name="facilityId" mode="IN" type="String" optional="false"/>
+	<attribute name="fromDate" mode="IN" type="Timestamp" optional="false"/>
+	<attribute name="thruDate" mode="IN" type="java.sql.Date" optional="true"/>
+	</service>
 </services>

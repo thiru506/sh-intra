@@ -91,9 +91,22 @@
     	<response name="success" type="view" value="SelectedView"/>
     	<response name="Error" type="view" value="SelectedView"/>
     </request-map>
-    
+    <request-map uri="AddStudentToHostel">
+    	<security auth="true" https="true"/>
+    	<event type="service" invoke="AddStudentToHostel"/>
+    	<response name="success" type="request-redirect-noparam" value="SelectedView"/>
+    	<response name="Error" type="view" value="SelectedView"/>
+    </request-map>
+    <request-map uri="UpdateStudentToHostel">
+    	<security auth="true" https="true"/>
+    	<event type="service" invoke="UpdateStudentToHostel"/>
+    	<response name="success" type="request-redirect-noparam" value="SelectedView"/>
+    	<response name="Error" type="view" value="SelectedView"/>
+    </request-map>
+    <request-map uri="LookupPartyName" track-serverhit="false" track-visit="false"><security auth="true" https="true"/><response name="success" type="view" value="LookupPartyName"/></request-map>
     
     <!-- View Mappings -->
+     <view-map name="LookupPartyName" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupPartyName"/>
     <view-map name="main" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#main"/>
     <view-map name="transport" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#transport"/>
     <view-map name="Dormitary" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#Dormitary"/>

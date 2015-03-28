@@ -8,7 +8,7 @@
         <field name="startTime"><text></text></field>
         <field name="submit"><submit/></field>
      </form>
-     <form name="listFacilityParties" type="list" list-name="facilityPartyList" separate-columns="true" odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" >
+     <form name="listFacilityParties" type="list" list-name="facilityPartyList" separate-columns="true" target="UpdateStudentToHostel" odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" >
      <row-actions>
      	<entity-one value-field="personName" entity-name="Person">
      		<field-map field-name="partyId"  from-field="partyId"/>
@@ -16,12 +16,44 @@
      	<set field="name" value="${personName.firstName} ${personName.lastName} ${personName.middleName}"></set>
      </row-actions>
      <field name="partyId" title="Student No"><display/></field>
+     <field name="facilityId"><hidden/></field>
      <field name="name"><display/></field>
-     <field name="roleTypeId"><display></display></field>
-     <field name="fromDate"><display></display></field>
+     <field name="roleTypeId"><display-entity entity-name="RoleType" description="${description}"></display-entity></field>
+     <field name="fromDate"><display description="${groovy:org.ofbiz.base.util.UtilDateTime.toDateString(fromDate, &quot;MM/dd/yyyy&quot;);}"></display></field>
+     <field name="thruDate"><date-time type="date"/></field>
+     <field name="update" title="Update" widget-style="buttontext">
+     	<submit/>
+     </field>
       </form>
-      <form name="AddStudent" type="single">
-      	<field name=""></field>
+      <form name="AddStudent" type="single" target="AddStudentToHostel">
+      	<field name="partyId" title="Student No" required-field="true"><lookup target-form-name="LookupPartyName"/></field>
+      	<field name="facilityId"><hidden value="${parameters.facilityId}"/></field>
+      	<field name="roleTypeId" title="Role" required-field="true"><drop-down allow-empty="true"><entity-options description="${description}" entity-name="RoleType"></entity-options></drop-down></field>
+      	<field name="fromDate" widget-style="required" required-field="true"><date-time type="date"/></field>
+      	<field name="thruDate"><date-time type="date"/></field>
+      	<field name="submit" title="Add"><submit/></field>
       </form>
-
+    <form name="facilityContact" type="single" list-name="parentList">
+    <actions>
+    	<set field="parentFacilityId" value="${parentList[0].parentFacilityId}"/>
+    	<set field="facilitySize" value="${parentList[0].facilitySize}"/>
+    	<set field="filledBeds" value="${parentList[0].filledBeds}"/>
+    	<set field="primaryPhoneNumber" value="${parentList[0].phoneNumber}"/>
+    	<set field="address1" value="${parentList[0].address1}"/>
+    	<set field="address2" value="${parentList[0].address2}"/>
+    	<set field="city" value="${parentList[0].city}"/>
+    	<set field="postalCode" value="${parentList[0].postalCode}"/>
+    	<set field="countryGeoId" value="${parentList[0].countryGeoId}"/>
+    	<set field="stateProvinceGeoId" value="${parentList[0].stateProvinceGeoId}"/> 	
+    </actions>
+    <field name="parentFacilityId" position="1" title="Hostel Name"><display-entity key-field-name="facilityId" description="${facilityName}" entity-name="Facility"></display-entity></field>
+    <field name="facilitySize" title="Total Beds" position="2"><display></display></field>
+    <field name="primaryPhoneNumber" title="Contact Number" position="1"><display></display></field>
+    <field name="filledBeds" title="Filled" position="2"><display></display></field>
+    <field name="address1" title="Address"><display></display></field>
+    <field name="address2" title=" "><display></display></field>
+    <field name="city" title="City"><display/></field>
+    <field name="stateProvinceGeoId" title="State/Province"><display-entity key-field-name="geoId" description="${geoName}"  entity-name="Geo"></display-entity></field>
+    <field name="countryGeoId" title="Country"><display-entity key-field-name="geoId" description="${geoName}"  entity-name="Geo"></display-entity></field>
+    </form>
 </forms>
