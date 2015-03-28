@@ -47,12 +47,12 @@ $(document).ready(function() {
                 { 
                 	"sExtends": "csv", 
                 	"oSelectorOpts": { filter: 'applied', order: 'current' },
-                	"sFileName": "VehilecList.csv"                 	
+                	"sFileName": "StudentList.csv"                 	
                 },
                 { 
                 	"sExtends": "pdf", 
                 	"oSelectorOpts": { filter: 'applied', order: 'current' },
-                	"sFileName": "VehilecList.pdf"   
+                	"sFileName": "StudentList.pdf"   
                 } 
                 ]
             },
