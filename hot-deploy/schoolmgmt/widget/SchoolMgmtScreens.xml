@@ -73,11 +73,13 @@
         <section>
             <actions>
                 <set field="tabButtonItem" value="timeTable"/><!-- this highlights the selected menu-item with name "main" -->
+                <set field="tabButtonItem2" value="TimeTableLookUpTable"/>
                 <script location="component://schoolmgmt/webapp/schoolmgmt/WEB-INF/actions/schoolmgmt/timeTableLookupTable.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="SchoolMgmtCommonDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
+                           <include-menu location="component://schoolmgmt/widget/SchoolMgmtMenus.xml" name="TimeTableSubTabBar"/>
                           <container>
 							<screenlet title="Time Table LookUp">
 								<platform-specific>
@@ -86,6 +88,36 @@
 											location="component://schoolmgmt/webapp/schoolmgmt/schoolmgmt/timeTableLookupTable.ftl"></html-template>
 									</html>
 								</platform-specific>
+							</screenlet>
+						</container>
+                     </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="TimeTableOverView">
+        <section>
+            <actions>
+                <set field="tabButtonItem" value="timeTable"/><!-- this highlights the selected menu-item with name "main" -->
+                 <set field="tabButtonItem2" value="timeTableOverView"/>
+                 <set field="titleProperty" value="OverView"/>
+                 <script location="component://schoolmgmt/webapp/schoolmgmt/WEB-INF/actions/schoolmgmt/TimeTableOverView.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="SchoolMgmtCommonDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                    		<include-menu location="component://schoolmgmt/widget/SchoolMgmtMenus.xml" name="TimeTableSubTabBar"/>
+                          <container style="lefthalf">
+	                           <screenlet title="TimeTable Details">
+	                           <include-form location="component://schoolmgmt/widget/SchoolMgmtForms.xml" name="TimeTableOverView"/>
+	                           </screenlet>
+							<screenlet title="List Events">
+								<include-form location="component://schoolmgmt/widget/SchoolMgmtForms.xml" name="ListTimeTableEvents"/>
+							</screenlet>
+						</container>
+						<container style="righthalf">
+							<screenlet title="Add Event">
+								<include-form location="component://schoolmgmt/widget/SchoolMgmtForms.xml" name="AddEvent"/>
 							</screenlet>
 						</container>
                      </decorator-section>
@@ -187,7 +219,7 @@
             </widgets>
         </section>
     </screen>
-     <screen name="HostelOverView">
+   <screen name="HostelOverView">
         <section>
             <actions>
                 <set field="tabButtonItem" value="utilities"/><!-- this highlights the selected menu-item with name "main" -->
@@ -203,8 +235,8 @@
                     <decorator-section name="body">
                     		<include-menu location="component://schoolmgmt/widget/SchoolMgmtMenus.xml" name="UtilitiesSubTabBar"/>
                           <container style="lefthalf">
-                           <screenlet title="Contact Details">
-                           <include-form location="component://schoolmgmt/widget/SchoolMgmtForms.xml" name="facilityContact"/>
+                           <screenlet title="Hostel Details">
+                           		<include-form location="component://schoolmgmt/widget/SchoolMgmtForms.xml" name="facilityContact"/>
                            </screenlet>
 							<screenlet title="Students">
 								<include-form location="component://schoolmgmt/widget/SchoolMgmtForms.xml" name="listFacilityParties"/>
@@ -220,4 +252,5 @@
             </widgets>
         </section>
     </screen>
+    
 </screens>

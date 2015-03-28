@@ -113,6 +113,25 @@
     	<response name="success" type="view" value="LookupPartyName"/>
     </request-map>
     
+    <request-map uri="timeTableOverView">
+    	<security https="true" auth="true"/>
+    	<response name="success" type="view" value="TimeTableOverView"/>
+    	<response name="Error" type="view" value="TimeTableOverView"/>
+    </request-map>
+    
+    <request-map uri="addTimeTableEvent">
+    	<security https="true" auth="true"/>
+    	<event type="service" invoke="createWorkEffortAndAssoc"></event>
+    	<response name="success" type="view" value="TimeTableOverView"/>
+    	<response name="Error" type="view" value="TimeTableOverView"/>
+    </request-map>
+     <request-map uri="updateTimeTableEvent">
+    	<security https="true" auth="true"/>
+    	<event type="service" invoke="updateWorkEffort"></event>
+    	<response name="success" type="view" value="TimeTableOverView"/>
+    	<response name="Error" type="view" value="TimeTableOverView"/>
+    </request-map>
+    
     <!-- View Mappings -->
     <view-map name="TimeTableLookUpTable" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#TimeTableLookUpTable"/>
     
@@ -127,6 +146,7 @@
 	<view-map name="FindFeeInvoice" type="screen" page="component://schoolmgmt/widget/FinanceScreens.xml#FindFeeInvoice"/>
 	<view-map name="FindFeePayment" type="screen" page="component://schoolmgmt/widget/FinanceScreens.xml#FindFeePayment"/>
 	<view-map name="HostelOverView" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#HostelOverView"/>
+	<view-map name="TimeTableOverView" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#TimeTableOverView"/>
     <view-map name="academics" type="screen" page="component://schoolmgmt/widget/AcademicsScreens.xml#academics"/>
     <view-map name="admission" type="screen" page="component://schoolmgmt/widget/AdmissionScreens.xml#admission"/>
     

@@ -20,7 +20,7 @@ timeTableList.each { timeTable ->
 	timeTableJSON.add(timeTable.workEffortName);
 	timeTableJSON.add(timeTable.workEffortPurposeTypeId);
 	timeTableJSON.add(timeTable.currentStatusId);
-	timeTableJSON.add("");
+	timeTableJSON.add(timeTable.workEffortId);
 	timeTablesJSON.add(timeTableJSON);
 	
 }
