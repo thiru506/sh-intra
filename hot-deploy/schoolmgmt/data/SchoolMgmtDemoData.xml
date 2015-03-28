@@ -59,6 +59,10 @@
  <PartyRole partyId="S102" roleTypeId="STUDENT"></PartyRole>
 <Subscription partyId="S102" productId="CLASS_II" subscriptionId="S102" fromDate="2013-06-01 00:00:00" thruDate="2014-04-30 00:00:00" customeTimePeriodId=""/>
  
-  
+   <Vehicle vehicleId="001" vehicleNumber="AP 27 BT 5569" vehicleName="Route-1"/>
+   <Vehicle vehicleId="002" vehicleNumber="AP 27 BT 5444" vehicleName="Route-2"/>
+  <Vehicle vehicleId="003" vehicleNumber="AP 27 BT 5577" vehicleName="Route-3"/>
+   <Vehicle vehicleId="004" vehicleNumber="AP 27 BT 5666" vehicleName="Route-4"/>
+  <Vehicle vehicleId="005" vehicleNumber="AP 27 BT 0588" vehicleName="Route-5"/>
   
 </entity-engine-xml>
