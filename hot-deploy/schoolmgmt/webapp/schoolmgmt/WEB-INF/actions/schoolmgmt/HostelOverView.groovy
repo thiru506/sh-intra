@@ -42,9 +42,7 @@ filledBeds=null;
 if(UtilValidate.isNotEmpty(facilityIds)){
 	facilityPartiesList=EntityUtil.filterByDate(delegator.findList("FacilityParty",EntityCondition.makeCondition("facilityId",EntityOperator.IN,facilityIds),UtilMisc.toSet("partyId","facilityId","roleTypeId","fromDate","thruDate"),null,null,false),dayBegin);
 }
-
 facilityPartyList=EntityUtil.filterByDate(delegator.findList("FacilityParty",EntityCondition.makeCondition("facilityId",EntityOperator.EQUALS,facilityId),UtilMisc.toSet("partyId","facilityId","roleTypeId","fromDate","thruDate"),null,null,false),dayBegin);
-
 if(UtilValidate.isNotEmpty(facilityPartyList)){
 	context.facilityPartyList=facilityPartyList;
 	filledBeds=facilityPartyList.size();
@@ -108,10 +106,11 @@ stateProvinceGeoId=null;
  parentMap.city=city;
  parentMap.countryGeoId=countryGeoId;
  parentMap.stateProvinceGeoId=stateProvinceGeoId;
- 							  	
+ 	
+ parentMap.parentFacilityId=parentFacilityId;
+ parentMap.facilitySize=facilitySize;
+ parentMap.filledBeds=filledBeds;
+ parentList.add(parentMap);
+ context.parentList=parentList;
+ 
 }
-parentMap.parentFacilityId=parentFacilityId;
-parentMap.facilitySize=facilitySize;
-parentMap.filledBeds=filledBeds;
-parentList.add(parentMap);
-context.parentList=parentList;

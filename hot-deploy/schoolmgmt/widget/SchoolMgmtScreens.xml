@@ -187,7 +187,7 @@
             </widgets>
         </section>
     </screen>
-     <screen name="SelectedView">
+     <screen name="HostelOverView">
         <section>
             <actions>
                 <set field="tabButtonItem" value="utilities"/><!-- this highlights the selected menu-item with name "main" -->

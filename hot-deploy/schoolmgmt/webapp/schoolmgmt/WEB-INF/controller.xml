@@ -8,6 +8,7 @@
 	<include location="component://product/webapp/facility/WEB-INF/controller.xml"/>
    <include location="component://commonext/webapp/WEB-INF/controller.xml"/>
 	<include location="component://order/webapp/ordermgr/WEB-INF/controller.xml"/> 
+	<include location="component://party/webapp/partymgr/WEB-INF/controller.xml"/>
 	<include location="component://humanres/webapp/humanres/WEB-INF/controller.xml"/>
 	<include location="component://accounting/webapp/accounting/WEB-INF/controller.xml"/>
     <description>SchoolMgmt Component Site Configuration File</description>
@@ -90,29 +91,32 @@
     	<security https="true" auth="true"/>
     	<response name="success" type="view" value="admission"/>
     </request-map>
-    <request-map uri="SelectedView">
+    <request-map uri="hostelOverView">
     	<security https="true" auth="true"/>
-    	<response name="success" type="view" value="SelectedView"/>
-    	<response name="Error" type="view" value="SelectedView"/>
+    	<response name="success" type="view" value="HostelOverView"/>
+    	<response name="Error" type="view" value="HostelOverView"/>
     </request-map>
     <request-map uri="AddStudentToHostel">
     	<security auth="true" https="true"/>
     	<event type="service" invoke="AddStudentToHostel"/>
-    	<response name="success" type="request-redirect-noparam" value="SelectedView"/>
-    	<response name="Error" type="view" value="SelectedView"/>
+    	<response name="success" type="view" value="HostelOverView"/>
+    	<response name="Error" type="view" value="HostelOverView"/>
     </request-map>
     <request-map uri="UpdateStudentToHostel">
     	<security auth="true" https="true"/>
     	<event type="service" invoke="UpdateStudentToHostel"/>
-    	<response name="success" type="request-redirect-noparam" value="SelectedView"/>
-    	<response name="Error" type="view" value="SelectedView"/>
+    	<response name="success" type="view" value="HostelOverView"/>
+    	<response name="Error" type="view" value="HostelOverView"/>
     </request-map>
-    <request-map uri="LookupPartyName" track-serverhit="false" track-visit="false"><security auth="true" https="true"/><response name="success" type="view" value="LookupPartyName"/></request-map>
+    <request-map uri="LookupPartyName" track-serverhit="false" track-visit="false">
+    	<security auth="true" https="true"/>
+    	<response name="success" type="view" value="LookupPartyName"/>
+    </request-map>
     
     <!-- View Mappings -->
     <view-map name="TimeTableLookUpTable" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#TimeTableLookUpTable"/>
     
-     <view-map name="LookupPartyName" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupPartyName"/>
+    <view-map name="LookupPartyName" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupPartyName"/>
     <view-map name="main" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#main"/>
     <view-map name="transport" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#transport"/>
     <view-map name="Dormitary" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#Dormitary"/>
@@ -122,7 +126,8 @@
 	<view-map name="DailyAttendance" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#DailyAttendance"/>
 	<view-map name="FindFeeInvoice" type="screen" page="component://schoolmgmt/widget/FinanceScreens.xml#FindFeeInvoice"/>
 	<view-map name="FindFeePayment" type="screen" page="component://schoolmgmt/widget/FinanceScreens.xml#FindFeePayment"/>
-	<view-map name="SelectedView" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#SelectedView"/>
+	<view-map name="HostelOverView" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#HostelOverView"/>
     <view-map name="academics" type="screen" page="component://schoolmgmt/widget/AcademicsScreens.xml#academics"/>
     <view-map name="admission" type="screen" page="component://schoolmgmt/widget/AdmissionScreens.xml#admission"/>
+    
 </site-conf>
