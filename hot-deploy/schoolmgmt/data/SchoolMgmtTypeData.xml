@@ -11,6 +11,17 @@
  <RoleType roleTypeId="HOSTEL_WARDEN" description="Hostel Warden"></RoleType>
  <RoleType roleTypeId="INCHARGE" description="In-charge"></RoleType>
  
+ <EnumerationType  enumTypeId="PERSON_REC_NA" />
+    <Enumeration  description="INDIAN" enumId="IND" enumTypeId="PERSON_REC_NA" />
+     <EnumerationType  enumTypeId="EMPL_REC_RE" />
+     <Enumeration  description="BUDDHISM" enumId="BUDDHISM" enumTypeId="EMPL_REC_RE" />
+     <Enumeration  description="CHRISTIAN" enumId="CHRISTIAN" enumTypeId="EMPL_REC_RE" />
+     <Enumeration  description="HINDU" enumId="HINDU" enumTypeId="EMPL_REC_RE" />
+     <Enumeration  description="JAIN" enumId="JAIN" enumTypeId="EMPL_REC_RE" />
+     <Enumeration  description="MUSLIM" enumId="MUSLIM" enumTypeId="EMPL_REC_RE" />
+     <Enumeration  description="PARSI" enumId="PARSI" enumTypeId="EMPL_REC_RE" />
+      <Enumeration description="SIKH" enumId="SIKH" enumTypeId="EMPL_REC_RE" />
+      
  <ProductType productTypeId="CLASS" description="Class"></ProductType>
  <ProductType productTypeId="SUBJECT" description="Subject"></ProductType>
  <ProductAssocType description="Actual Product Component" hasTable="N" productAssocTypeId="PRODUCT_COMPONENT"/>
@@ -36,7 +47,9 @@
     <WorkEffortType description="Time Table" workEffortTypeId="TIME_TABLE"/>
     <WorkEffortType description="Time Table Entry" workEffortTypeId="TIME_TABLE_ENTRY"/>
     <WorkEffortPurposeType description="Exam Schedule"  workEffortPurposeTypeId="EXAM_SCHEDULE"/>
-    
+    <WorkEffortAssocType description="Time Table Entry" hasTable="N" parentTypeId="TIME_TABLE_ENTRY" workEffortAssocTypeId="TIME_TABLE_ENTRY"/>
+  
     <WorkEffortType description="Public Holiday" workEffortTypeId="PUBLIC_HOLIDAY"/>
     <WorkEffortType description="Meeting" parentTypeId="EVENT" workEffortTypeId="MEETING"/>
+    
 </entity-engine-xml>
