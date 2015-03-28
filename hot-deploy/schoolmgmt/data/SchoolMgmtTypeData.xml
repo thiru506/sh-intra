@@ -32,4 +32,11 @@
     <InvoiceType description="Hostel Fee Invoice" hasTable="N" invoiceTypeId="HOSTEL_FEE_INV" parentTypeId="SALES_INVOICE"/>
     <InvoiceType description="Bus Fee Invoice" hasTable="N" invoiceTypeId="STD_BUS_FEE_INV" parentTypeId="SALES_INVOICE"/>
     
+    <PeriodType periodTypeId="ACADEMIC_YEAR" description="Academic Year"></PeriodType>
+    <WorkEffortType description="Time Table" workEffortTypeId="TIME_TABLE"/>
+    <WorkEffortType description="Time Table Entry" workEffortTypeId="TIME_TABLE_ENTRY"/>
+    <WorkEffortPurposeType description="Exam Schedule"  workEffortPurposeTypeId="EXAM_SCHEDULE"/>
+    
+    <WorkEffortType description="Public Holiday" workEffortTypeId="PUBLIC_HOLIDAY"/>
+    <WorkEffortType description="Meeting" parentTypeId="EVENT" workEffortTypeId="MEETING"/>
 </entity-engine-xml>
