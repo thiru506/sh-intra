@@ -75,6 +75,7 @@
   <Enumeration  description="AB-" enumId="BG08" enumTypeId="BLOOD_TYPE" />
   <Enumeration  description="AB+" enumId="BG04" enumTypeId="BLOOD_TYPE" />
   
+    <PartyClassificationType partyClassificationTypeId="PCG_REC_CA" description="CASTE PARENT"/>
     <PartyClassificationGroup partyClassificationGroupId="10020" isInvoicable="Y" description="Wholesaler " />
     <PartyClassificationGroup partyClassificationGroupId="10021" isInvoicable="Y" description="Retailer " />
     <PartyClassificationGroup partyClassificationGroupId="10022" isInvoicable="Y" description="Retailer Special Price " />
@@ -197,6 +198,5 @@
     <PartyClassificationType partyClassificationTypeId="CA57" description="MADIVALA" />
     <PartyClassificationType partyClassificationTypeId="CA58" description="KORACHA" />
     <PartyClassificationType partyClassificationTypeId="CA59" description="ARYA VYSYA" />
-    <PartyClassificationType partyClassificationTypeId="PCG_REC_CA" description="CASTE PARENT" lastUpdatedStamp="2014-07-10 16:57:24.0" lastUpdatedTxStamp="2014-07-10 16:57:24.0" createdStamp="2014-07-10 16:57:24.0" createdTxStamp="2014-07-10 16:57:24.0"/>
-  
+    
 </entity-engine-xml>

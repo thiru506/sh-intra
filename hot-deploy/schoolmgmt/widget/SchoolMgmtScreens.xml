@@ -252,5 +252,37 @@
             </widgets>
         </section>
     </screen>
+     <screen name="TypeWiseRevenue">
+        <section>
+            <actions>
+                <set field="titleProperty" value="MgmtDashBoard"/>
+                <set field="tabButtonItem" value="MgmtDashBoard"/>
+ 				<set field="tabButtonItem2" value="MgmtDashBoard" />
+ 				<set field="ajaxUrl" value="TypeWiseRevenueInternal" type="String"/>
+            </actions>            
+            <widgets>
+                   <decorator-screen name="SchoolMgmtCommonDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">     
+                        <include-menu location="component://schoolmgmt/widget/SchoolMgmtMenus.xml" name="MgmtDashBoardSubTabBar"/>                                                        
+                        	<platform-specific> 
+                            	<html><html-template location="component://schoolmgmt/webapp/schoolmgmt/schoolmgmt/selectFields.ftl"/></html>
+                        	</platform-specific>   
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>   
+	 <screen name="TypeWiseRevenueInternal">
+        <section>
+            <actions>
+				 <script location="component://schoolmgmt/webapp/schoolmgmt/WEB-INF/actions/schoolmgmt/MgmtDashBoard.groovy"/>
+            </actions>            
+            <widgets>
+                   	<platform-specific> 
+                       	<html><html-template location="component://schoolmgmt/webapp/schoolmgmt/schoolmgmt/RevenueCharts.ftl"/></html>
+                   	</platform-specific>   
+            </widgets>
+        </section>
+    </screen>  
     
 </screens>

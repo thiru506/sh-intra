@@ -3,6 +3,7 @@
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
 	 <form name="FindFeeInvoice" type="single" target="FindFeeInvoice" extends="FindInvoices" extends-resource="component://accounting/widget/InvoiceForms.xml">
         <field name="parentTypeId"><hidden value="SALES_INVOICE"/></field>
+        <field name="billingAccountId"><hidden/></field>
         <field name="invoiceTypeId" position="1">
             <drop-down allow-empty="true">
                 <entity-options entity-name="InvoiceType" description="${description}">

@@ -6,8 +6,8 @@
     </menu>
      <menu name="SchoolAppBar" default-menu-item-name="dashBoard" default-selected-style="selected"
         type="simple" menu-container-style="button-bar tab-bar" selected-menuitem-context-field-name="tabButtonItem">
-        <menu-item name="dashBoard" title="Dash Board">
-           <link target="dashBoard"></link>
+        <menu-item name="MgmtDashBoard" title="Dash Board">
+           <link target="MgmtDashBoard"></link>
         </menu-item>
         <menu-item name="enquiry" title="Enquiry">
            <link target="enquiry"></link>
@@ -120,13 +120,21 @@
         </menu>
        <menu name="AcademicSubTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
           default-menu-item-name="transport" selected-menuitem-context-field-name="tabButtonItem2" >
-		<actions> 
-		</actions> 
-		<menu-item name="academics" title="Create Academic Year">
-            <link target="academics">
-            </link>
-        </menu-item>         
-        
-        </menu>
-        
+			<actions> 
+			</actions> 
+			<menu-item name="academics" title="Create Academic Year">
+	            <link target="academics">
+	            </link>
+	        </menu-item>         
+      </menu>
+       <menu name="MgmtDashBoardSubTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+          default-menu-item-name="transport" selected-menuitem-context-field-name="tabButtonItem2" >
+			<actions> 
+			</actions> 
+			<menu-item name="MgmtDashBoard" title="Revenue Charts">
+	            <link target="MgmtDashBoard">
+	            </link>
+	       </menu-item>         
+      </menu>
+       
 </menus>
