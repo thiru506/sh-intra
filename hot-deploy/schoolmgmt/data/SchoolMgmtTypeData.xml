@@ -39,9 +39,20 @@
     <PaymentMethodType  defaultGlAccountId="122000" description="Cash Payment"  paymentMethodTypeId="CASH_PAYIN"/>
     <PaymentMethodType  defaultGlAccountId="122000" description="Cheque Payment" paymentMethodTypeId="CHEQUE_PAYOUT"/>
     
+    <InvoiceType description="Sales Invoice" hasTable="N" invoiceTypeId="SALES_INVOICE"/>
     <InvoiceType description="Student Fee Invoice" hasTable="N" invoiceTypeId="STUDENT_FEE_INV" parentTypeId="SALES_INVOICE"/>
     <InvoiceType description="Hostel Fee Invoice" hasTable="N" invoiceTypeId="HOSTEL_FEE_INV" parentTypeId="SALES_INVOICE"/>
     <InvoiceType description="Bus Fee Invoice" hasTable="N" invoiceTypeId="STD_BUS_FEE_INV" parentTypeId="SALES_INVOICE"/>
+    
+    <InvoiceItemType invoiceItemTypeId="STUDENT_FEE_ITEM" description="Student Fee"/>
+    <InvoiceItemType invoiceItemTypeId="HOSTEL_FEE_ITEM" description="Hostel Fee"/>
+    <InvoiceItemType invoiceItemTypeId="STD_BUS_FEE_ITEM" description="Bus Fee"/>
+    
+    <InvoiceItemTypeMap invoiceItemMapKey="STUDENT_FEE_ITEM" invoiceItemTypeId="STUDENT_FEE_ITEM" invoiceTypeId="STUDENT_FEE_INV"/>
+    <InvoiceItemTypeMap invoiceItemMapKey="HOSTEL_FEE_INV" invoiceItemTypeId="HOSTEL_FEE_ITEM" invoiceTypeId="HOSTEL_FEE_INV"/>
+    <InvoiceItemTypeMap invoiceItemMapKey="STD_BUS_FEE_INV" invoiceItemTypeId="STD_BUS_FEE_ITEM" invoiceTypeId="STD_BUS_FEE_INV"/>
+    
+    
     
     <PeriodType periodTypeId="ACADEMIC_YEAR" description="Academic Year"></PeriodType>
     <WorkEffortType description="Time Table" workEffortTypeId="TIME_TABLE"/>
@@ -51,5 +62,6 @@
   
     <WorkEffortType description="Public Holiday" workEffortTypeId="PUBLIC_HOLIDAY"/>
     <WorkEffortType description="Meeting" parentTypeId="EVENT" workEffortTypeId="MEETING"/>
+    
     
 </entity-engine-xml>

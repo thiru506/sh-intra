@@ -26,7 +26,17 @@
     -->
 
     <!-- Request Mappings -->
-    <request-map uri="main"><security https="true" auth="true"/><response name="success" type="view" value="main"/></request-map>
+    <request-map uri="main"><security https="true" auth="true"/><response name="success" type="request" value="MgmtDashBoard"/></request-map>
+    
+    <request-map uri="MgmtDashBoard">
+    	<security https="true" auth="true"/>
+    	<response name="success" type="view" value="TypeWiseRevenue"/>
+    </request-map>
+     <request-map uri="TypeWiseRevenueInternal">
+    	<security https="true" auth="true"/>
+    	<response name="success" type="view" value="TypeWiseRevenueInternal"/>
+    </request-map>
+    
     <request-map uri="transport">
     	<security https="true" auth="true"/>
     	<response name="success" type="view" value="transport"/>
@@ -149,5 +159,9 @@
 	<view-map name="TimeTableOverView" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#TimeTableOverView"/>
     <view-map name="academics" type="screen" page="component://schoolmgmt/widget/AcademicsScreens.xml#academics"/>
     <view-map name="admission" type="screen" page="component://schoolmgmt/widget/AdmissionScreens.xml#admission"/>
+    <view-map name="TypeWiseRevenue" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#TypeWiseRevenue"/>
+    <view-map name="TypeWiseRevenueInternal" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#TypeWiseRevenueInternal"/>
+    
+    
     
 </site-conf>
