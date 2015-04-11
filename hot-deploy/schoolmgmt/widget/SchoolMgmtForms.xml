@@ -120,4 +120,37 @@
 	     	</hyperlink>
 	     </field>
       </form>
+      <form name="VehicleDetails" type="single" default-map-name="vehicleDetails">
+       <field name="vehicleName" position="1"><display></display></field>
+       <field name="vehicleCapacity" position="2"><display></display></field>
+       <field name="vehicleNumber" position="1"><display></display></field>
+       <field name="available" title="Available" position="2"><display></display></field>
+      </form>
+      <form name="DriverDetails" type="list" list-name="driverDetails" separate-columns="true" target="" odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" >
+      <row-actions>
+             <entity-one value-field="personName" entity-name="Person">
+                 <field-map field-name="partyId"  from-field="partyId"/>
+             </entity-one>
+             <set field="name" value="${personName.firstName} ${personName.lastName} ${personName.middleName}"></set>
+         </row-actions>
+          <field name="name"><display></display></field>
+      </form>
+      <form name="StudentDetails"  type="list" list-name="studentList" separate-columns="true" odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" >
+      <row-actions>
+             <entity-one value-field="personName" entity-name="Person">
+                 <field-map field-name="partyId"  from-field="partyId"/>
+             </entity-one>
+             <set field="name" value="${personName.firstName} ${personName.lastName} ${personName.middleName}"></set>
+         </row-actions>
+         <field name="name" ><display></display></field>
+      </form>
+      <form name="AddPartyToRoute" type="single" target="CreateVechicleRole">
+       <field name="partyId" title="Party" required-field="true"><lookup target-form-name="LookupPartyName"/></field>
+              <field name="facilityId"><hidden value="_NA_"/></field>
+              <field name="roleTypeId" title="Role" required-field="true"><drop-down allow-empty="true"><entity-options description="${description}" entity-name="RoleType"></entity-options></drop-down></field>
+              <field name="fromDate" widget-style="required" required-field="true"><date-time type="date"/></field>
+              <field name="thruDate"><date-time type="date"/></field>
+              <field name="vehicleId"><hidden value="${parameters.vehicleId}"/></field>
+              <field name="submit" title="Add"><submit/></field>     
+      </form>
 </forms>

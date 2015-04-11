@@ -283,4 +283,47 @@ public class SchoolMgmtServices {
 		result = ServiceUtil.returnSuccess("Student Updated Succefully..!");
 		return result;
 	}
+	public static Map<String, Object> createVehicleRole(DispatchContext dctx, Map<String, ? extends Object> context) {
+		Map<String, Object> result = FastMap.newInstance();
+        Delegator delegator = dctx.getDelegator();
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        Locale locale = (Locale) context.get("locale");
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        
+        String roleTypeId = (String) context.get("roleTypeId");
+        String vehicleId = (String) context.get("vehicleId");
+        String partyId = (String) context.get("partyId");
+        Date fromDate = (Date) context.get("fromDate");
+        Date thruDate = (Date) context.get("thruDate");
+        Timestamp fromDateTime = UtilDateTime.toTimestamp(fromDate);
+        Timestamp thruDateTime = UtilDateTime.toTimestamp(thruDate);
+        String facilityId = (String) context.get("facilityId");
+        
+        try {
+	        	List conList= FastList.newInstance();
+	        	conList.add(EntityCondition.makeCondition("vehicleId", EntityOperator.EQUALS ,vehicleId));
+	        	conList.add(EntityCondition.makeCondition("partyId", EntityOperator.EQUALS ,partyId));
+	        	conList.add(EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null));
+	        	EntityCondition cond=EntityCondition.makeCondition(conList,EntityOperator.AND);
+	        	List<GenericValue> facilityPartys = delegator.findList("VehicleRole", cond, null,null, null, false);
+	        	if(UtilValidate.isNotEmpty(facilityPartys)){    
+	        		return ServiceUtil.returnError("This Party Already Existed..!");
+	        	}else{	
+	        		GenericValue vechileRole = delegator.makeValue("VehicleRole");
+	        		vechileRole.set("vehicleId",vehicleId);
+	        		vechileRole.set("partyId",partyId);
+	        		vechileRole.set("facilityId",facilityId);
+	        		vechileRole.set("roleTypeId",roleTypeId);
+	        		vechileRole.set("fromDate",UtilDateTime.getDayStart(fromDateTime));
+	        		if(UtilValidate.isNotEmpty(thruDateTime)){
+	        			vechileRole.set("thruDate", UtilDateTime.getDayEnd(thruDateTime));
+	        		}
+	        		delegator.create(vechileRole);
+	        	}
+        }catch (Exception e) {
+            return ServiceUtil.returnError(e.getMessage());
+        }
+		result = ServiceUtil.returnSuccess("Party Added Succefully..!");
+		return result;
+	}
 }
