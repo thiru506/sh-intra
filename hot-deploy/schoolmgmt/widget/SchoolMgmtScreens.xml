@@ -284,5 +284,37 @@
             </widgets>
         </section>
     </screen>  
-    
+    <screen name="VechicleOverView">
+        <section>
+            <actions>
+                <set field="tabButtonItem" value="utilities"/><!-- this highlights the selected menu-item with name "main" -->
+                 <set field="tabButtonItem2" value="transport"/>
+                 <set field="titleProperty" value="Vehicle OverView"/>
+                 <script location="component://schoolmgmt/webapp/schoolmgmt/WEB-INF/actions/schoolmgmt/VechicleOverView.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="SchoolMgmtCommonDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                            <include-menu location="component://schoolmgmt/widget/SchoolMgmtMenus.xml" name="UtilitiesSubTabBar"/>
+                          <container style="lefthalf">
+                           <screenlet title="Vechicle Details">
+                                   <include-form location="component://schoolmgmt/widget/SchoolMgmtForms.xml" name="VehicleDetails"/>
+                           </screenlet>
+                           <screenlet title="Driver Details">
+                           <include-form location="component://schoolmgmt/widget/SchoolMgmtForms.xml" name="DriverDetails"/>
+                            </screenlet>
+                            <screenlet title="Students">
+                            <include-form location="component://schoolmgmt/widget/SchoolMgmtForms.xml" name="StudentDetails"/>
+                            </screenlet>
+                        </container>
+                        <container style="righthalf">
+                        <screenlet title="Add Party">
+                        <include-form location="component://schoolmgmt/widget/SchoolMgmtForms.xml" name="AddPartyToRoute"/>
+                        </screenlet>
+                        </container>
+                     </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>
