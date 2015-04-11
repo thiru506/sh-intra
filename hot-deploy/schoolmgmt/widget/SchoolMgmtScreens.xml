@@ -290,7 +290,7 @@
                 <set field="tabButtonItem" value="utilities"/><!-- this highlights the selected menu-item with name "main" -->
                  <set field="tabButtonItem2" value="transport"/>
                  <set field="titleProperty" value="Vehicle OverView"/>
-                 <script location="component://schoolmgmt/webapp/schoolmgmt/WEB-INF/actions/schoolmgmt/VechileOverView.groovy"/>
+                 <script location="component://schoolmgmt/webapp/schoolmgmt/WEB-INF/actions/schoolmgmt/VechicleOverView.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="SchoolMgmtCommonDecorator" location="${parameters.mainDecoratorLocation}">
