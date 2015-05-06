@@ -62,6 +62,7 @@ public class SchoolMgmtServices {
         String lastName = (String) context.get("lastName");
         String externalId = (String) context.get("externalId");
         String gender = (String) context.get("gender");
+        String bloodGroup = (String) context.get("bloodGroup");
         Date birthDate = (Date) context.get("birthDate");
         String fatherName = (String) context.get("fatherName");
         String motherName = (String) context.get("motherName");
@@ -96,6 +97,7 @@ public class SchoolMgmtServices {
             input.put("birthDate",birthDate);
             input.put("fatherName",fatherName);
             input.put("motherName",motherName);
+            input.put("bloodGroup", bloodGroup);
             input.put("placeOfBirth",placeOfBirth);
             input.put("occupation",occupation);
             input.put("religion",religion);
@@ -117,6 +119,13 @@ public class SchoolMgmtServices {
             partyRole.set("partyId", partyId);
             partyRole.set("roleTypeId",roleTypeId);
             delegator.create(partyRole);
+            if(UtilValidate.isNotEmpty(caste)){
+	            GenericValue partyCaste = delegator.makeValue("PartyClassification");
+	            partyCaste.set("partyId", partyId);
+	            partyCaste.set("partyClassificationGroupId", caste);
+	            partyCaste.set("fromDate", UtilDateTime.nowTimestamp());
+	            delegator.create(partyCaste);
+            }
             
             String postalContactId=null;
             if (UtilValidate.isNotEmpty(address1)){

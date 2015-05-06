@@ -152,6 +152,11 @@
     	<response name="success" type="view" value="VechicleOverView"/>
     	<response name="Error" type="view" value="VechicleOverView"/>
     </request-map>
+    <request-map uri="PartyView">
+    	<security https="true" auth="true"/>
+    	<response name="success" type="view" value="partyOverView"/>
+    	<response name="Error" type="view" value="partyOverView"/>
+    </request-map>
     <!-- View Mappings -->
     <view-map name="TimeTableLookUpTable" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#TimeTableLookUpTable"/>
     
@@ -172,6 +177,6 @@
     <view-map name="TypeWiseRevenue" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#TypeWiseRevenue"/>
     <view-map name="TypeWiseRevenueInternal" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#TypeWiseRevenueInternal"/>
      <view-map name="VechicleOverView" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#VechicleOverView"/>
-    
+    <view-map name="partyOverView" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#partyOverView"/>
     
 </site-conf>

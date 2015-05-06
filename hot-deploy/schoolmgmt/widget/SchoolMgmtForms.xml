@@ -153,4 +153,38 @@
               <field name="vehicleId"><hidden value="${parameters.vehicleId}"/></field>
               <field name="submit" title="Add"><submit/></field>     
       </form>
+      <form name="studentOverView" type="single" default-map-name="studentMap">
+    	<field name="firstName" title="First Name :"><display/></field>
+    	<field name="middleName" title="Middle Name :"><display/></field>
+    	<field name="lastName" title="Last Name :"><display/></field>
+    	<field name="externalId" title="Role No :"><display/></field>
+    	<field name="roleTypeId"><hidden value="STUDENT"/></field>
+    	<field name="gender" title="Gender :"><display/>		
+		</field>
+		<field name="birthDate" title="Date Of Birth :"><display/></field>
+		<field name="fatherName" title="Father Name :"><display/></field>
+		<field name="motherName" title="Mother Name :"><display/></field>
+		<field name="placeOfBirth" title="Place Of Birth :"><display/></field>
+		<field name="bloodGroup" title="${uiLabelMap.BloodGroup} :"><display-entity entity-name="Enumeration" key-field-name="enumId" description="${description}"></display-entity>		</field>
+		<field name="religion" title="${uiLabelMap.Religion} :"><display-entity entity-name="Enumeration" key-field-name="enumId" description="${description}"></display-entity></field>
+		<field name="partyClassificationGroupId" title="${uiLabelMap.Caste} :" ><display-entity entity-name="PartyClassificationGroup" description="${description}"></display-entity>		</field>
+		<field name="nationality" title="${uiLabelMap.Nationality} :"><display-entity entity-name="Enumeration" key-field-name="enumId" description="${description}"></display-entity>		</field>
+		<field name="emailAddress" title="${uiLabelMap.Email} :"><display/></field>
+		<field name="mobileNumber" title="${uiLabelMap.Mobile} :"><display/></field>
+		<field name="residentialNumber" title="${uiLabelMap.Residential} :"><display/></field>
+		<field name="occupation" title="Father Occupation :"><display/></field>
+		<field name="presentAddress1" title="Present Address :"><display/></field>
+		<field name="presentAddress2" title="  :"><display/></field>
+		<field name="presentCity" title="City :"><display/></field>
+		<field name="presentPostalCode" title="PostalCode :"><display/></field>
+		<!-- <field name="presentCuntry" title="Country"><drop-down><entity-options description="${geoName}" key-field-name="geoId" entity-name="Geo"><entity-constraint name="geoTypeId" operator="equals" value="COUNTRY"/></entity-options></drop-down></field>
+		<field name="presentState" title="State"><drop-down allow-empty="true"></drop-down></field> -->
+		<field name="address1" title="Permanent Address :"><display/></field>
+		<field name="address2" title="  :"><display/></field>
+		<field name="city" title="City :"><display/></field>
+		<field name="postalCode" title="Postal Code :"><display/></field>
+		<!-- <field name="countryGeoId" title="Country"><drop-down><entity-options description="${geoName}" key-field-name="geoId" entity-name="Geo"><entity-constraint name="geoTypeId" operator="equals" value="COUNTRY"/></entity-options></drop-down></field>
+		<field name="stateProvinceGeoId" title="State"><text></text></field> -->
+    </form>
+      
 </forms>
