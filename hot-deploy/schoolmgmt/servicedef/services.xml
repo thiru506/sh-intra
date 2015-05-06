@@ -20,6 +20,7 @@
 	<attribute name="roleTypeId" mode="IN" type="String" optional="false"/>
 	<attribute name="externalId" mode="IN" type="String" optional="true"/>
 	<attribute name="gender" mode="IN" type="String" optional="true"/>
+	<attribute name="bloodGroup" mode="IN" type="String" optional="true"/>
 	<attribute name="birthDate" mode="IN" type="java.sql.Date" optional="false"/>
 	<attribute name="fatherName" mode="IN" type="String" optional="false"/>
 	<attribute name="motherName" mode="IN" type="String" optional="false"/>
