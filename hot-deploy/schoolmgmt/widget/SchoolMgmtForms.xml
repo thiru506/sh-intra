@@ -39,22 +39,37 @@
 	    	<set field="facilitySize" value="${parentList[0].facilitySize}"/>
 	    	<set field="filledBeds" value="${parentList[0].filledBeds}"/>
 	    	<set field="primaryPhoneNumber" value="${parentList[0].phoneNumber}"/>
+	    	<!-- <set field="address1" value="${parentList[0].address1}"/>
+	    	<set field="address2" value="${parentList[0].address2}"/>
+	    	<set field="city" value="${parentList[0].city}"/>
+	    	<set field="postalCode" value="${parentList[0].postalCode}"/>
+	    	<set field="countryGeoId" value="${parentList[0].countryGeoId}"/>
+	    	<set field="stateProvinceGeoId" value="${parentList[0].stateProvinceGeoId}"/>  -->	
+	    </actions>
+	    <field name="facilityId" position="1" title="Hostel Name :"><display-entity key-field-name="facilityId" description="${facilityName}" entity-name="Facility"></display-entity></field>
+	    <field name="facilitySize" title="Total Beds :" position="2"><display></display></field>
+	    <field name="primaryPhoneNumber" title="Contact Number :" position="1"><display></display></field>
+	    <field name="filledBeds" title="Filled :" position="2"><display></display></field>
+	    <!-- <field name="address1" title="Address"><display></display></field>
+	    <field name="address2" title=" "><display></display></field>
+	    <field name="city" title="City"><display/></field>
+	    <field name="stateProvinceGeoId" title="State/Province"><display-entity key-field-name="geoId" description="${geoName}"  entity-name="Geo"></display-entity></field>
+	    <field name="countryGeoId" title="Country"><display-entity key-field-name="geoId" description="${geoName}"  entity-name="Geo"></display-entity></field> -->
+    </form>
+    <form name="HostelAddress" type="single" list-name="parentList">
+    <actions>
 	    	<set field="address1" value="${parentList[0].address1}"/>
 	    	<set field="address2" value="${parentList[0].address2}"/>
 	    	<set field="city" value="${parentList[0].city}"/>
 	    	<set field="postalCode" value="${parentList[0].postalCode}"/>
 	    	<set field="countryGeoId" value="${parentList[0].countryGeoId}"/>
 	    	<set field="stateProvinceGeoId" value="${parentList[0].stateProvinceGeoId}"/> 	
-	    </actions>
-	    <field name="facilityId" position="1" title="Hostel Name"><display-entity key-field-name="facilityId" description="${facilityName}" entity-name="Facility"></display-entity></field>
-	    <field name="facilitySize" title="Total Beds" position="2"><display></display></field>
-	    <field name="primaryPhoneNumber" title="Contact Number" position="1"><display></display></field>
-	    <field name="filledBeds" title="Filled" position="2"><display></display></field>
-	    <field name="address1" title="Address"><display></display></field>
-	    <field name="address2" title=" "><display></display></field>
-	    <field name="city" title="City"><display/></field>
-	    <field name="stateProvinceGeoId" title="State/Province"><display-entity key-field-name="geoId" description="${geoName}"  entity-name="Geo"></display-entity></field>
-	    <field name="countryGeoId" title="Country"><display-entity key-field-name="geoId" description="${geoName}"  entity-name="Geo"></display-entity></field>
+    </actions>
+    <field name="address1" title="Address :"><display></display></field>
+	    <field name="address2" title=" :"><display></display></field>
+	    <field name="city" title="City :"><display/></field>
+	    <field name="stateProvinceGeoId" title="State/Province :"><display-entity key-field-name="geoId" description="${geoName}"  entity-name="Geo"></display-entity></field>
+	    <field name="countryGeoId" title="Country :"><display-entity key-field-name="geoId" description="${geoName}"  entity-name="Geo"></display-entity></field>
     </form>
     
     <form name="TimeTableOverView" type="single" default-map-name="workEffort">
@@ -173,18 +188,66 @@
 		<field name="mobileNumber" title="${uiLabelMap.Mobile} :"><display/></field>
 		<field name="residentialNumber" title="${uiLabelMap.Residential} :"><display/></field>
 		<field name="occupation" title="Father Occupation :"><display/></field>
-		<field name="presentAddress1" title="Present Address :"><display/></field>
+		<!-- <field name="presentAddress1" title="Present Address :"><display/></field>
 		<field name="presentAddress2" title="  :"><display/></field>
 		<field name="presentCity" title="City :"><display/></field>
 		<field name="presentPostalCode" title="PostalCode :"><display/></field>
-		<!-- <field name="presentCuntry" title="Country"><drop-down><entity-options description="${geoName}" key-field-name="geoId" entity-name="Geo"><entity-constraint name="geoTypeId" operator="equals" value="COUNTRY"/></entity-options></drop-down></field>
-		<field name="presentState" title="State"><drop-down allow-empty="true"></drop-down></field> -->
+		<field name="presentCuntry" title="Country"><drop-down><entity-options description="${geoName}" key-field-name="geoId" entity-name="Geo"><entity-constraint name="geoTypeId" operator="equals" value="COUNTRY"/></entity-options></drop-down></field>
+		<field name="presentState" title="State"><drop-down allow-empty="true"></drop-down></field>
 		<field name="address1" title="Permanent Address :"><display/></field>
 		<field name="address2" title="  :"><display/></field>
 		<field name="city" title="City :"><display/></field>
 		<field name="postalCode" title="Postal Code :"><display/></field>
-		<!-- <field name="countryGeoId" title="Country"><drop-down><entity-options description="${geoName}" key-field-name="geoId" entity-name="Geo"><entity-constraint name="geoTypeId" operator="equals" value="COUNTRY"/></entity-options></drop-down></field>
+		<field name="countryGeoId" title="Country"><drop-down><entity-options description="${geoName}" key-field-name="geoId" entity-name="Geo"><entity-constraint name="geoTypeId" operator="equals" value="COUNTRY"/></entity-options></drop-down></field>
 		<field name="stateProvinceGeoId" title="State"><text></text></field> -->
     </form>
-      
+    <form name="PresentAddress" type="single" default-map-name="studentMap">
+    	<field name="presentAddress1" title="Present Address :"><display/></field>
+		<field name="presentAddress2" title="  :"><display/></field>
+		<field name="presentCity" title="City :"><display/></field>
+		<field name="presentPostalCode" title="PostalCode :"><display/></field>
+    </form>
+      <form name="PermanentAddress" type="single" default-map-name="studentMap">
+    	<field name="address1" title="Permanent Address :"><display/></field>
+		<field name="address2" title="  :"><display/></field>
+		<field name="city" title="City :"><display/></field>
+		<field name="postalCode" title="Postal Code :"><display/></field>
+    </form>
+    <form name="CreateEnquiry" type="single" target="CreateStudentEnquiry">
+    	<field name="firstName" title="First Name :" required-field="true"><text></text></field>
+    	<field name="middleName" title="Middle Name :"><text></text></field>	
+    	<field name="lastName" title="Last Name :" required-field="true"><text></text></field>
+    	<field name="fatherName" title="Father Name :"><text></text></field>
+    	<field name="motherName" title="Mother Name :"><text></text></field>
+    	<field name="gender" title="Gender :">
+		<drop-down allow-empty="false" no-current-selected-key="M">
+			<option key="F"></option>
+			<option key="M" />
+		</drop-down>		
+		</field>
+		<field name="emailAddress" title="${uiLabelMap.Email} :"><text></text></field>
+		<field name="mobileNumber" title="${uiLabelMap.Mobile} :"><text></text></field>
+		<field name="previousSchool" title="Previous School :"><text></text></field>
+		<field name="submitButton" title="Create" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="FindEnquiry" type="single" target="FindStudentEnquiry">
+     <field name="custRequestId" title="Enquiry Id"><text-find></text-find></field>
+     <field name="partyId" title="Student No"><lookup target-form-name="LookupPartyName"/></field>
+     <field name="statusId" title="Status">
+      <drop-down allow-empty="true"><entity-options description="${description}" entity-name="StatusItem"><entity-constraint name="statusTypeId" operator="equals" value="STUDENT_ENQ_STATUS"/></entity-options></drop-down>
+     </field>
+     <field name="custRequestDate" title="Date"><date-time type="date"/></field>
+     <field name="submitButton" title="Find" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ListEnquires" type="list" list-name="custRequestList" separate-columns="true" target="" odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" >
+    	<field name="custRequestId"><display></display></field>
+    	<field name="name"><display></display></field>
+    	<field name="fromPartyId"><display></display></field>
+    	<field name="custRequestDate"><display description="${groovy:org.ofbiz.base.util.UtilDateTime.toDateString(custRequestDate, &quot;MM/dd/yyyy&quot;);}"></display></field>
+    	<field name="statusId"><display-entity entity-name="StatusItem" ></display-entity></field>
+    	<field name="name"><display></display></field>
+    	<field name="custRequestName" title="Previous School"><display></display></field>
+    	<field name="emailAddress"><display></display></field>
+    	<field name="phoneNumber"><display></display></field>
+    </form>
 </forms>

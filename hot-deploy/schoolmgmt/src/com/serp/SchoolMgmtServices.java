@@ -335,4 +335,89 @@ public class SchoolMgmtServices {
 		result = ServiceUtil.returnSuccess("Party Added Succefully..!");
 		return result;
 	}
+	
+	public static Map<String, Object> CreateStudentEnquiry(DispatchContext dctx, Map<String, ? extends Object> context) {
+		Map<String, Object> result = FastMap.newInstance();
+        Delegator delegator = dctx.getDelegator();
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        Locale locale = (Locale) context.get("locale");
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        
+        String firstName = (String) context.get("firstName");
+        String middleName = (String) context.get("middleName");
+        String lastName = (String) context.get("lastName");
+        String gender = (String) context.get("gender");
+        String fatherName = (String) context.get("fatherName");
+        String motherName = (String) context.get("motherName");
+        String email = (String) context.get("emailAddress");
+        String mobileNumber = (String) context.get("mobileNumber");
+        String previousSchool = (String) context.get("previousSchool");
+		String partyId =null;
+		String custRequestId=null;
+		Map<String, Object> input = FastMap.newInstance();
+		try {
+			input.put("userLogin", userLogin);
+            input.put("firstName",firstName);
+            input.put("middleName",middleName);
+            input.put("lastName",lastName);
+            input.put("gender",gender);
+            input.put("fatherName",fatherName);
+            input.put("motherName",motherName);
+            Map resultctx = dispatcher.runSync("createPerson", input);
+            if(ServiceUtil.isError(resultctx)){
+           	 	Debug.logError("Error while create person:"+ServiceUtil.getErrorMessage(resultctx), module);
+           	 	return ServiceUtil.returnError(ServiceUtil.getErrorMessage(resultctx));
+            }
+            partyId = (String)resultctx.get("partyId");
+           
+            String countryCode=null;
+         // create phone number
+ 			if (UtilValidate.isNotEmpty(mobileNumber)){
+ 				if (UtilValidate.isEmpty(countryCode)){
+ 					countryCode	="91";
+ 				}
+ 	            input.clear();
+ 	            input.put("userLogin", userLogin);
+ 	            input.put("contactNumber",mobileNumber);
+ 	            input.put("contactMechPurposeTypeId","PRIMARY_PHONE");
+ 	            input.put("countryCode",countryCode);	
+ 	            input.put("partyId", partyId);
+ 	            Map outMap = dispatcher.runSync("createPartyTelecomNumber", input);
+ 	            if(ServiceUtil.isError(outMap)){
+ 	           	 	Debug.logError("failed service create party contact telecom number:"+ServiceUtil.getErrorMessage(outMap), module);
+ 	           	 	return ServiceUtil.returnError(ServiceUtil.getErrorMessage(outMap));
+ 	            }
+ 			}
+    		// Create Party Email
+			if (UtilValidate.isNotEmpty(email)){
+	            input.clear();
+	            input.put("userLogin", userLogin);
+	            input.put("contactMechPurposeTypeId", "PRIMARY_EMAIL");
+	            input.put("emailAddress", email);
+	            input.put("partyId", partyId);
+	            input.put("verified", "Y");
+	            input.put("fromDate", UtilDateTime.nowTimestamp());
+	            Map outMap = dispatcher.runSync("createPartyEmailAddress", input);
+	            if(ServiceUtil.isError(outMap)){
+	           	 	Debug.logError("faild service create party Email:"+ServiceUtil.getErrorMessage(outMap), module);
+	           	 	return ServiceUtil.returnError(ServiceUtil.getErrorMessage(outMap));
+	            }
+			}
+			GenericValue custRequest=delegator.makeValue("CustRequest");
+			custRequest.set("custRequestTypeId","STUDENT_ENQUIRY");
+			custRequest.set("fromPartyId",partyId);
+			custRequest.set("statusId","ENQ_CREATED");
+			custRequest.set("custRequestDate",UtilDateTime.nowTimestamp());
+			custRequest.set("custRequestName", previousSchool);
+			delegator.createSetNextSeqId(custRequest);
+			if(UtilValidate.isNotEmpty(custRequest)){
+				custRequestId = custRequest.getString("custRequestId");
+			}
+        
+		} catch (Exception e) {
+            return ServiceUtil.returnError(e.getMessage());
+        }
+		result = ServiceUtil.returnSuccess("Enquiry Created Successfully.! StudentId :"+partyId+" EnquiryId :"+custRequestId);
+		return result;
+	}	
 }

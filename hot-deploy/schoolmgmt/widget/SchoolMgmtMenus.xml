@@ -136,5 +136,12 @@
 	            </link>
 	       </menu-item>         
       </menu>
-       
+      <menu name="EnquirySubTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+          default-menu-item-name="enquiry" selected-menuitem-context-field-name="tabButtonItem2" >
+			<actions> 
+			</actions> 
+			<menu-item name="enquiry" title="Find Enquiry">
+           <link target="enquiry"></link>
+        </menu-item>
+      </menu>  
 </menus>

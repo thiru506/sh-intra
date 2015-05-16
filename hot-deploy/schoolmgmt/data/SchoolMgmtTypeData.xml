@@ -63,5 +63,10 @@
     <WorkEffortType description="Public Holiday" workEffortTypeId="PUBLIC_HOLIDAY"/>
     <WorkEffortType description="Meeting" parentTypeId="EVENT" workEffortTypeId="MEETING"/>
     
+     <StatusType  description="Student Enquiry Status"  statusTypeId="STUDENT_ENQ_STATUS"/>
+     <StatusItem  description="Created."  statusCode="CREATED" statusId="ENQ_CREATED" statusTypeId="STUDENT_ENQ_STATUS"/>
+      <StatusItem  description="Joined."  statusCode="JOINED" statusId="ENQ_JOINED" statusTypeId="STUDENT_ENQ_STATUS"/>
+      
+       <CustRequestType  custRequestTypeId="STUDENT_ENQUIRY" description="Student Enquiry" />
     
 </entity-engine-xml>

@@ -157,6 +157,37 @@
     	<response name="success" type="view" value="partyOverView"/>
     	<response name="Error" type="view" value="partyOverView"/>
     </request-map>
+    <request-map uri="uploadPartyContent">
+        <security auth="true" https="true"/>
+        <event type="service" invoke="uploadPartyContentFile"/>
+        <response name="success" type="view" value="partyOverView"/>
+        <response name="error" type="view" value="partyOverView"/>
+    </request-map>
+    <request-map uri="removePartyContent">
+        <security auth="true" https="true"/>
+        <event type="service" invoke="removePartyContent"/>
+        <response name="success" type="view" value="viewprofile"/>
+    </request-map>
+    <request-map uri="enquiry">
+    	<security auth="true" https="true"/>
+    	<response name="success" type="view" value="enquiry"/>
+    </request-map>
+    <request-map uri="CreateEnquiry">
+    	<security auth="true" https="true"/>
+    	<response name="success" type="view" value="CreateEnquiry"/>
+    	<response name="error" type="view" value="enquiry"/>
+    </request-map>
+    <request-map uri="CreateStudentEnquiry">
+        <security auth="true" https="true"/>
+        <event type="service" invoke="CreateStudentEnquiry"/>
+        <response name="success" type="view" value="enquiry"/>
+        <response name="error" type="view" value="CreateEnquiry"/>
+    </request-map>
+    <request-map uri="FindStudentEnquiry">
+    	<security auth="true" https="true"/>
+    	<response name="success" type="view" value="enquiry"/>
+    	<response name="error" type="view" value="enquiry"/>
+    </request-map>
     <!-- View Mappings -->
     <view-map name="TimeTableLookUpTable" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#TimeTableLookUpTable"/>
     
@@ -178,5 +209,7 @@
     <view-map name="TypeWiseRevenueInternal" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#TypeWiseRevenueInternal"/>
      <view-map name="VechicleOverView" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#VechicleOverView"/>
     <view-map name="partyOverView" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#partyOverView"/>
-    
+    <view-map name="viewprofile" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#partyOverView"/>
+    <view-map name="enquiry" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#enquiry"/>
+    <view-map name="CreateEnquiry" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#CreateEnquiry"/>
 </site-conf>
