@@ -48,7 +48,7 @@ $(document).ready(function(){
 					
 				date = $(this).datepicker('getDate');
 	        	var maxDate = new Date(date.getTime());
-	        	maxDate.setDate(maxDate.getDate() + 31);
+	        	maxDate.setDate(maxDate.getDate() + 600);
 				$( "#thruDate" ).datepicker( "option", {minDate: selectedDate, maxDate: maxDate}).datepicker('setDate', date);
 			}
 		});
