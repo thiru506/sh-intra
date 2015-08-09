@@ -52,4 +52,16 @@
 			<key-map field-name="partyId" />
 		</relation>
 	</entity>
+	<entity entity-name="BiometricPunchData" package-name="org.ofbiz.schoolmgmt"	title="Party PUnch Raw Data">
+	  <field name="partyId" type="id-ne"/>
+	  <field name="punchDateTime" type="date-time"/>
+	  <field name="deviceId" type="id"/>
+	  <field name="createdDateTime" type="date-time"/>
+	  <prim-key field="partyId"/>
+	  <prim-key field="punchDateTime"/>
+	  <relation type="one" fk-name="EMPR_PARTY" title="From"
+			rel-entity-name="Party">
+			<key-map field-name="partyId" rel-field-name="partyId" />
+	  </relation>
+    </entity>
 </entitymodel>

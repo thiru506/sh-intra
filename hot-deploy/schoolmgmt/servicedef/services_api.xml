@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
+    <description>Humanres API services</description>
+    <vendor>Vasista</vendor>
+
+  <service name="recordPunch" engine="java" invoke="recordPunch" location="com.serp.PartyPunchService" auth="true" export="true" transaction-timeout="300">
+        <description>record punch</description>
+       <permission-service service-name="humanResManagerPermission" main-action="CREATE"/>
+       <attribute name="punchList" mode="IN" type="java.util.List"/>
+  </service>
+ <service name="fetchLastPunch" engine="java" invoke="fetchLastPunch" location="icom.serp.PartyPunchService" auth="true" export="true">
+        <description>fetch punch</description>
+       <permission-service service-name="humanResManagerPermission" main-action="CREATE"/>
+      <attribute name="deviceId" mode="IN" optional="true" type="String"/>
+      <attribute name="partyId" mode="IN" optional="true" type="String"/>
+      <attribute name="punchEntry" mode="OUT" type="Map" optional="true"></attribute>
+  </service>      
+</services>   

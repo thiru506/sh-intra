@@ -68,13 +68,27 @@
 	<attribute name="thruDate" mode="IN" type="java.sql.Date" optional="true"/>
 	 </service>
 	 <service name="CreateStudentEnquiry" engine="java" location="com.serp.SchoolMgmtServices" auth="true" invoke="CreateStudentEnquiry">
-	 <attribute name="firstName" mode="IN" type="String" optional="false"/>
-	 <attribute name="lastName" mode="IN" type="String" optional="false"/>
-	 <attribute name="fatherName" mode="IN" type="String" optional="true"/>
-	 <attribute name="motherName" mode="IN" type="String" optional="true"/>
-	 <attribute name="gender" mode="IN" type="String" optional="true"/>
-	 <attribute name="emailAddress" mode="IN" type="String" optional="true"/>
-	 <attribute name="mobileNumber" mode="IN" type="String" optional="true"/>
-	 <attribute name="previousSchool" mode="IN" type="String" optional="true"/>
+		 <attribute name="firstName" mode="IN" type="String" optional="false"/>
+		 <attribute name="lastName" mode="IN" type="String" optional="false"/>
+		 <attribute name="fatherName" mode="IN" type="String" optional="true"/>
+		 <attribute name="motherName" mode="IN" type="String" optional="true"/>
+		 <attribute name="gender" mode="IN" type="String" optional="true"/>
+		 <attribute name="emailAddress" mode="IN" type="String" optional="true"/>
+		 <attribute name="mobileNumber" mode="IN" type="String" optional="true"/>
+		 <attribute name="previousSchool" mode="IN" type="String" optional="true"/>
 	 </service>
+	 <service name="populatePartyPunchFromRawForPeriod" engine="java" auth="true" invoke="populatePartyPunchFromRawForPeriod" 
+        location="com.serp.PartyPunchService" transaction-timeout="10000">
+        <description>populateEmplPunch From Raw For Period</description>
+        <attribute name="fromDate" mode="IN" type="Timestamp"/> 
+        <attribute name="thruDate" mode="IN" type="Timestamp"/> 
+   </service> 
+   
+   <service name="populateEmplPunch" engine="java" auth="true" invoke="populateEmplPunch" 
+        location="com.serp.PartyPunchService">
+        <description>populateEmplPunch from </description>
+        <auto-attributes mode="IN" entity-name="BiometricPunchData" include="pk"></auto-attributes>
+        <auto-attributes mode="IN" entity-name="BiometricPunchData" include="nonpk" optional="true"></auto-attributes>
+   </service>
+	 
 </services>

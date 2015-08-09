@@ -395,4 +395,41 @@
             </widgets>
         </section>
     </screen>
+    
+    <screen name="AttendanceDetail">
+        <section>
+            <actions>
+				<set field="headerItem" value="Attendance" />
+				<set field="tabButtonItem" value="Attendance" />
+ 				<set field="tabButtonItem2" value="AttendanceDetail" />                                           				
+				<set field="titleProperty" value="AttendanceDetail" />
+				            
+				<set field="ajaxUrl" value="AttendanceDetailInternal" type="String"/>
+				<script location="component://schoolmgmt/webapp/schoolmgmt/WEB-INF/actions/schoolmgmt/partyByRoleType.groovy"/>  				
+            </actions>            
+            <widgets>
+				<decorator-screen name="SchoolMgmtCommonDecorator" location="${parameters.mainDecoratorLocation}">
+					<decorator-section name="body"> 
+                        <include-menu location="component://schoolmgmt/widget/SchoolMgmtMenus.xml" name="AttendanceSubTabBar"/>                                                        					   					
+                        <platform-specific>
+							<html><html-template location="component://schoolmgmt/webapp/schoolmgmt/schoolmgmt/partyAttendance.ftl"></html-template></html>                         
+                        </platform-specific>   
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen> 
+    <screen name="AttendanceDetailInternal">
+        <section>
+            <actions>
+				<script location="component://schoolmgmt/webapp/schoolmgmt/WEB-INF/actions/schoolmgmt/partyAttendance.groovy"/>  
+            </actions>            
+            <widgets>
+            	<platform-specific> 
+                	<html><html-template location="component://schoolmgmt/webapp/schoolmgmt/schoolmgmt/partyAttendanceInternal.ftl"/></html>
+                </platform-specific>   
+            </widgets>
+        </section>
+    </screen> 
+    
 </screens>

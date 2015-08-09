@@ -188,6 +188,14 @@
     	<response name="success" type="view" value="enquiry"/>
     	<response name="error" type="view" value="enquiry"/>
     </request-map>
+    <request-map uri="AttendanceDetail">
+       <security https="true" auth="true"/>
+        <response name="success" type="view" value="AttendanceDetail"/>
+    </request-map> 
+    <request-map uri="AttendanceDetailInternal">
+       <security https="true" auth="true"/>
+        <response name="success" type="view" value="AttendanceDetailInternal"/>
+    </request-map>
     <!-- View Mappings -->
     <view-map name="TimeTableLookUpTable" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#TimeTableLookUpTable"/>
     
@@ -198,7 +206,10 @@
     <view-map name="StudentLookUpTable" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#StudentLookUpTable"/>
     <view-map name="DailyAttendanceEntry" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#DailyAttendanceEntry"/>
 	<view-map name="DailyAttendanceEntryInternal" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#DailyAttendanceEntryInternal"/>
+	<view-map name="AttendanceDetail" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#AttendanceDetail"/>
+	<view-map name="AttendanceDetailInternal" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#AttendanceDetailInternal"/>
 	<view-map name="DailyAttendance" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#DailyAttendance"/>
+	
 	<view-map name="FindFeeInvoice" type="screen" page="component://schoolmgmt/widget/FinanceScreens.xml#FindFeeInvoice"/>
 	<view-map name="FindFeePayment" type="screen" page="component://schoolmgmt/widget/FinanceScreens.xml#FindFeePayment"/>
 	<view-map name="HostelOverView" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#HostelOverView"/>
