@@ -13,6 +13,7 @@
     <service name="CreateStudent" engine="java" location="com.serp.SchoolMgmtServices" invoke="createStudent" auth="true">
 	<description>Create Student</description>
 	<attribute name="productId" mode="IN" type="String" optional="false"/>
+	<attribute name="productFeatureId" mode="IN" type="String" optional="true"/>
 	<attribute name="customTimePeriodId" mode="IN" type="String" optional="false"/>
 	<attribute name="firstName" mode="IN" type="String" optional="false"/>
 	<attribute name="middleName" mode="IN" type="String" optional="true"/>

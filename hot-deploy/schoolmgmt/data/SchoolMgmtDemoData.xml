@@ -26,6 +26,12 @@
  <ProductAssoc fromDate="2007-01-01 12:00:00.0" productAssocTypeId="PRODUCT_COMPONENT" productId="SUBJECT_2" productIdTo="CLASS_II" quantity="1.000000"/>
  <ProductAssoc fromDate="2007-01-01 12:00:00.0" productAssocTypeId="PRODUCT_COMPONENT" productId="SUBJECT_3" productIdTo="CLASS_II" quantity="1.000000"/>
  
+  <ProductFeature description="CSE" idCode="Y" productFeatureId="CSE" productFeatureTypeId="BRANCH"/>
+   <ProductFeature description="ECE" idCode="Y" productFeatureId="ECE" productFeatureTypeId="BRANCH"/>
+  <ProductFeature description="EEE" idCode="Y" productFeatureId="EEE" productFeatureTypeId="BRANCH"/>
+  <ProductFeature description="IT" idCode="Y" productFeatureId="IT" productFeatureTypeId="BRANCH"/>
+  <ProductFeature description="CIVIL" idCode="Y" productFeatureId="CIVIL" productFeatureTypeId="BRANCH"/>
+ 
  <Party partyId="E100" partyTypeId="PERSON"></Party>
  <Person partyId="E100" firstName="Praveen" lastName="Prakash" gender="M"></Person>
  <PartyRole partyId="E100" roleTypeId="EMPLOYEE"></PartyRole>

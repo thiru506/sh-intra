@@ -4453,6 +4453,7 @@ under the License.
         <field name="customTimePeriodId" type="id"></field>
         <field name="productId" type="id"></field>
         <field name="productCategoryId" type="id"></field>
+       <field name="productFeatureId" type="id"></field>
         <field name="inventoryItemId" type="id"></field>
         <field name="subscriptionTypeId" type="id"></field>
         <field name="externalSubscriptionId" type="id"></field>
@@ -4536,6 +4537,9 @@ under the License.
         </relation>
         <relation type="one" fk-name="SUBSC_PROD_CAT" rel-entity-name="ProductCategory">
             <key-map field-name="productCategoryId"/>
+        </relation>
+        <relation type="one" fk-name="SUBSC_PROD_CAT" rel-entity-name="ProductFeature">
+            <key-map field-name="productFeatureId"/>
         </relation>
         <relation type="one" fk-name="SUBSC_INV_ITM" rel-entity-name="InventoryItem">
             <key-map field-name="inventoryItemId"/>

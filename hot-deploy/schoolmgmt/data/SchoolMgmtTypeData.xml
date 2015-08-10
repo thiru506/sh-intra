@@ -25,6 +25,8 @@
  <ProductType productTypeId="CLASS" description="Class"></ProductType>
  <ProductType productTypeId="SUBJECT" description="Subject"></ProductType>
  <ProductAssocType description="Actual Product Component" hasTable="N" productAssocTypeId="PRODUCT_COMPONENT"/>
+ <ProductFeatureType description="Branch" productFeatureTypeId="BRANCH"/>
+  
   
   <EmplPositionType description="Teacher" hasTable="N" parentTypeId="" emplPositionTypeId="TEACHER"/>
   <EmplPositionType description="Non Teaching Staff" hasTable="N" parentTypeId="" emplPositionTypeId="NON_TEACHING"/>
