@@ -55,6 +55,7 @@ public class SchoolMgmtServices {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         
         String productId = (String) context.get("productId");
+        String productFeatureId = (String) context.get("productFeatureId");
         String customTimePeriodId = (String) context.get("customTimePeriodId");
         String roleTypeId = (String) context.get("roleTypeId");
         String firstName = (String) context.get("firstName");
@@ -112,6 +113,7 @@ public class SchoolMgmtServices {
             GenericValue subScription = delegator.makeValue("Subscription");
             subScription.set("partyId", partyId);
             subScription.set("productId", productId);
+            subScription.set("productFeatureId", productFeatureId);
             subScription.set("customTimePeriodId",customTimePeriodId);
             delegator.createSetNextSeqId(subScription);
             

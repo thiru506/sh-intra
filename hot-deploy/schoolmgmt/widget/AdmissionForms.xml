@@ -7,6 +7,11 @@
     		<entity-constraint name="productTypeId" value="CLASS"/>
     		</entity-options></drop-down>
     	</field>
+       <field name="productFeatureId" title="Branch">
+    		<drop-down><entity-options description="${description}" entity-name="ProductFeature">
+    		<entity-constraint name="productFeatureTypeId" value="BRANCH"/>
+    		</entity-options></drop-down>
+    	</field>
     	<field name="customTimePeriodId" title="Academic Year">
     	<drop-down>
                 <entity-options entity-name="CustomTimePeriod" key-field-name="customTimePeriodId" description="${periodName}: ${fromDate} - ${thruDate}" filter-by-date="false">
