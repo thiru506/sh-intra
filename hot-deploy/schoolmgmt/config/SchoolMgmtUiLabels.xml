@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="SchoolMgmtApplication">
-        <value xml:lang="en">SchoolMgmt Application</value>
+        <value xml:lang="en">CollegeMgmt Application</value>
         <value xml:lang="zh">SchoolMgmt应用程序</value>
     </property>
     <property key="SchoolMgmtCompanyName">
-        <value xml:lang="en">S-ERP: SchoolMgmt</value>
+        <value xml:lang="en">S-ERP: CollegeMgmt</value>
     </property>
     <property key="SchoolMgmtCompanySubtitle">
         <value xml:lang="en">Part of the Open For Business Family of Open Source Software</value>
