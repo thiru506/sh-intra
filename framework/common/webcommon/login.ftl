@@ -16,6 +16,16 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
+    <link rel="stylesheet" href="<@ofbizContentUrl>/images/jquery/plugins/jqtransform/jqtransformplugin/jqtransform.css</@ofbizContentUrl>" type="text/css" media="all" />
+	<link rel="stylesheet" href="<@ofbizContentUrl>/images/jquery/plugins/jqtransform/demo.css" type="text/css</@ofbizContentUrl>" media="all" />
+	
+	<script type="text/javascript" src="<@ofbizContentUrl>/images/jquery/plugins/jqtransform/requiered/jquery.js</@ofbizContentUrl>" ></script>
+	<script type="text/javascript" src="<@ofbizContentUrl>/images/jquery/plugins/jqtransform/jqtransformplugin/jquery.jqtransform.js</@ofbizContentUrl>" ></script>
+	<script language="javascript">
+		$(function(){
+			$('form').jqTransform({imgPath:'/images/jquery/plugins/jqtransform/jqtransformplugin/img/'});
+		});
+	</script>
 
 <#if requestAttributes.uiLabelMap?exists><#assign uiLabelMap = requestAttributes.uiLabelMap></#if>
 <#assign useMultitenant = Static["org.ofbiz.base.util.UtilProperties"].getPropertyValue("general.properties", "multitenant")>
