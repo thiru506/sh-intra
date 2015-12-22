@@ -710,7 +710,7 @@ public class UtilHttp {
         // if none is set we will use the configured default
         if (iso == null) {
             try {
-                iso = UtilProperties.getPropertyValue("general", "currency.uom.id.default", "USD");
+                iso = UtilProperties.getPropertyValue("general", "currency.uom.id.default", "INR");
             } catch (Exception e) {
                 Debug.logWarning("Error getting the general:currency.uom.id.default value: " + e.toString(), module);
             }

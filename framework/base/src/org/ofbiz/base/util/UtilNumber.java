@@ -141,16 +141,54 @@ public class UtilNumber {
         + "    90: ninety[->>];\n"
         + "    100: << hundred[ >>];\n"
         + "    1000: << thousand[ >>];\n"
+        + "    100,000: << lakh[ >>];\n"//Newly added insted of Changing it Many places
         + "    1,000,000: << million[ >>];\n"
         + "    1,000,000,000: << billion[ >>];\n"
         + "    1,000,000,000,000: << trillion[ >>];\n"
+        + "    1,000,000,000,000,000: =#,##0=;\n"
+        + "%%vmain:\n"
+        + "    zero; One; Two; Three; Four; Five; Six; Seven; Eight; Nine;\n"
+        + "    Ten; Eleven; Twelve; Thirteen; Fourteen; Fifteen; Sixteen;\n"
+        + "        Seventeen; Eighteen; Nineteen;\n"
+        + "    20: Twenty[ >>];\n"
+        + "    30: Thirty[ >>];\n"
+        + "    40: Forty[ >>];\n"
+        + "    50: Fifty[ >>];\n"
+        + "    60: Sixty[ >>];\n"
+        + "    70: Seventy[ >>];\n"
+        + "    80: Eighty[ >>];\n"
+        + "    90: Ninety[>>];\n"
+        + "    100: << Hundred[ >>];\n"
+        + "    1000: << Thousand[ >>];\n"
+        + "    100,000: << Lakh[ >>];\n"
+        + "    10,000,000: << Crore[ >>];\n"
         + "    1,000,000,000,000,000: =#,##0=;\n"
         + "%%cents:\n"
         + "    100: <%%main< cent[s];\n"
         + "%dollars-and-hundredths:\n"
         + "    x.0: <%%main< and >%%hundredths>/100;\n" // this used to end in 'dollars' but that should be added later
         + "%%hundredths:\n"
-        + "    100: <00<;\n";
+        + "    100: <00<;\n"
+        + "%rs-and-ps:\n"//This only for words with Only
+        + "    x.0: <%%main< ONLY;\n"
+        +"%rupees-and-paise:\n"//This used for Rupees-paise define By our Vasista Programmers
+        + "    x.0: << [and >%%paise>];\n"
+        + "    0.x: >%%paise>;\n"
+        + "    0: zero rupees ; one rupee; =%%main= rupees;\n"
+        + "%%paise:\n"
+        + "    100: <%%main< paise[s];\n"
+	    +"%indRupees-and-paise:\n"//This is used for Rupees-paise define By our Vasista Programmers for Lakhs
+	    + "    x.0: << [and >%%paise>];\n"
+	    + "    0.x: >%%paise>;\n"
+	    + "    0: zero rupees; one rupee; =%%vmain= rupees;\n"
+	    + "%%paise:\n"
+	    + "    100: <%%main< paise[s];\n"
+	    +"%indRupees-and-paiseRupees:\n"//This is used for Rupees-paise define By our Vasista Programmers for Lakhs without rupees
+	    + "    x.0: << [and >%%paise>];\n"
+	    + "    0.x: >%%paise>;\n"
+	    + "    0: zero ; one rupee; =%%vmain=;\n"
+	    + "%%paise:\n"
+	    + "    100: <%%main< paise[s];\n";
 
     // ICU4J rule sets for the th_TH locale. To add more rules, expand this string.
     // For reference, see the RbnfSampleRuleSets.java file distributed with ICU4J
@@ -216,7 +254,7 @@ public class UtilNumber {
         String ruleSet = rbnfRuleSets.get(locale);
         if (ruleSet == null) {
             Debug.logWarning("Cannot format rule based amount for locale " + locale.toString() + " because rule set for that locale does not exist", module);
-            return "";
+            ruleSet = ruleSet_en_US;
         }
         RuleBasedNumberFormat formatter = new RuleBasedNumberFormat(ruleSet, locale);
         String result = "";
