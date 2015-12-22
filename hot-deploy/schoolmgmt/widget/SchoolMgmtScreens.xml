@@ -363,6 +363,9 @@
                 <decorator-screen name="SchoolMgmtCommonDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                     <include-menu location="component://schoolmgmt/widget/SchoolMgmtMenus.xml" name="EnquirySubTabBar"/>
+                     <platform-specific> 
+                   <html><html-template location="component://common/webcommon/includes/formStyles.ftl"/></html>
+                 </platform-specific>   
                     <container>
                         <link target="CreateEnquiry" text="Create Enquiry" style="smallSubmit">
                         </link>
@@ -387,6 +390,9 @@
             <widgets>
                 <decorator-screen name="SchoolMgmtCommonDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
+                     <platform-specific> 
+                   <html><html-template location="component://common/webcommon/includes/formStyles.ftl"/></html>
+                 </platform-specific>   
                     	<screenlet title="Create New Enquiry">
                     		<include-form location="component://schoolmgmt/widget/SchoolMgmtForms.xml" name="CreateEnquiry"/>
                     	</screenlet>

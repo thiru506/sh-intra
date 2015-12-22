@@ -15,6 +15,9 @@
                 <decorator-screen name="SchoolMgmtCommonDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                     <include-menu location="component://schoolmgmt/widget/SchoolMgmtMenus.xml" name="AcademicSubTabBar"/>
+                     <platform-specific> 
+                   <html><html-template location="component://common/webcommon/includes/formStyles.ftl"/></html>
+                 </platform-specific>   
                           <container>
                           	<screenlet title="Add Academic Year" >
                           		<include-form location="component://schoolmgmt/widget/AcademicsForms.xml" name="AddAcademicYear"/>
