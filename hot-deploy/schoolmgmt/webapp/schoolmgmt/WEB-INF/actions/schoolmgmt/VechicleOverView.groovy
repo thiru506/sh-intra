@@ -40,6 +40,11 @@ stCondition=EntityCondition.makeCondition([EntityCondition.makeCondition("vehicl
 studentList=EntityUtil.filterByCondition(vehicleRoleDetails,stCondition);
 context.studentList=studentList;
 studentListSize=studentList.size();
-available=vehicleDetails.vehicleCapacity-studentListSize;
-tempMap.putAt("available", available);
+tempMap.putAt("available", 0);
+if(vehicleDetails.vehicleCapacity){
+	available=vehicleDetails.vehicleCapacity-studentListSize;
+	tempMap.putAt("available", available);
+}	
+	
+
 context.vehicleDetails=tempMap;
