@@ -108,16 +108,16 @@ input[type="radio"],input[type="checkbox"] {
 input[type="text"],input[type="password"] {
     background-color: #ffffff;
     border: #999999 solid 0.1em;
-    font-size: 1.1em;
-    margin: 0.2em;
-    padding: 0.1em 0 0.1em 0;
+    font-size: 1.2em;
+    margin: 0.1em;
+    padding: 0.1em 0 0.3em 0;
 }
 
 input[type="submit"],input[type="button"],input[type="reset"] {
     background-color: #ffffff;
     border: #999999 solid 0.1em;
     color: #000099;
-    font-size: 1em;
+    font-size: 1.2em;
     font-weight: bold;
 }
 
@@ -135,9 +135,11 @@ input[type="file"] {
 select {
     background-color: #ffffff;
     border: #999999 solid 0.1em;
-    font-size: 1.1em;
-    height: 1.6em; /* force ctrl to scale with text */
+    font-size: 1.2em;
+    height: 2em; /* force ctrl to scale with text */
     margin: 0.1em;
+    padding: 0.1em 0 0.1em 0;
+    
 }
 
 select[multiple="multiple"] {
@@ -161,7 +163,7 @@ h3,.h3 {
 
 /* IE7 fix */
 table {
-    font-size: 1em;
+    font-size: 1.1em;
 }
 
 /* IE7 fix */
@@ -313,9 +315,10 @@ A.buttontext,.buttontextdisabled {
     background-color: #ffffff;
     border: #999999 solid 0.1em;
     font-weight: bold;
-    line-height: 1.8em;
+    line-height: 2.5em;
     margin: 0.2em;
     padding: 0.1em 0.4em 0.1em 0.4em;
+     font-size: 1.1em;
     /*white-space: nowrap;*/
 }
 
@@ -876,6 +879,7 @@ in contained elements. */
     white-space: nowrap;
     width: 1%;
     vertical-align: middle;
+    font-size:larger;
 }
 
 .required,input.required {
@@ -1395,7 +1399,7 @@ margin: 0 1em 1em 0;
 }
 
 .button-bar ul a,.button-bar a {
-    padding: 0.1em 0.5em 0.1em 0.5em;
+    padding: 0.1em 0.5em 0.3em 0.5em;
     white-space: nowrap;
 }
 

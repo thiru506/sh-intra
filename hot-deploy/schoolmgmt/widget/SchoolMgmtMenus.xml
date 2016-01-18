@@ -68,6 +68,10 @@
 	            <link target="Attendance">
 	            </link>
 	        </menu-item>
+	        <menu-item name="AttendanceEntry" title="Attendance Entry">
+	            <link target="AttendanceEntry">
+	            </link>
+	        </menu-item>
 			<menu-item name="AttendanceDetail" title="Attendance Detail">
 	            <link target="AttendanceDetail">
 	            </link>
@@ -117,7 +121,15 @@
 	        <menu-item name="findFeePayment" title="Find Fee Payments">
 	            <link target="FindFeePayment">
 	            </link>
-	        </menu-item>         
+	        </menu-item>
+	        <menu-item name="AgingAnalysis" title="${uiLabelMap.AccountingAgingAnalysis}">
+			<condition>
+	                <if-has-permission permission="ACCOUNTING"  action="_ADMIN"/>
+			</condition>		    
+			<link target="AgingAnalysis">
+				<parameter param-name="organizationPartyId" />
+			</link>
+		</menu-item>
         </menu>
        <menu name="AcademicSubTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
           default-menu-item-name="transport" selected-menuitem-context-field-name="tabButtonItem2" >

@@ -201,7 +201,31 @@
                 </decorator-screen>
             </widgets>
         </section>
-    </screen>   
+    </screen>
+    
+     <screen name="AttendanceEntry">
+        <section>
+            <actions>
+				<set field="headerItem" value="attendance" />
+				<set field="tabButtonItem" value="attendance" />
+ 				<set field="tabButtonItem2" value="AttendanceEntry" />                                           				
+				<set field="titleProperty" value="AttendanceEntry" />
+				<set field="ajaxUrl" value="DailyAttendanceEntryInternal" type="String"/>
+				<script location="component://schoolmgmt/webapp/schoolmgmt/WEB-INF/actions/schoolmgmt/employees.groovy"/> 
+            </actions>            
+            <widgets>
+				<decorator-screen name="SchoolMgmtCommonDecorator"
+					location="${parameters.mainDecoratorLocation}">
+					<decorator-section name="body"> 
+                        <include-menu location="component://schoolmgmt/widget/SchoolMgmtMenus.xml" name="AttendanceSubTabBar"/>                                                        					   					
+                        <platform-specific>
+							<html><html-template location="component://schoolmgmt/webapp/schoolmgmt/schoolmgmt/AttendanceEntry.ftl"></html-template></html>                         
+                        </platform-specific>  
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>     
 	
 	<screen name="DailyAttendanceEntryInternal">
         <section>

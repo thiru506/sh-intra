@@ -690,7 +690,15 @@ under the License.
         <if-empty field="currencyUomId">
             <property-to-field resource="general" property="currency.uom.id.default" field="currencyUomId"/>
         </if-empty>
-        <set field="invoiceRunningTotal" value="${groovy:org.ofbiz.base.util.UtilFormatOut.formatCurrency(runningTotal, currencyUomId, parameters.locale)}"/>
+        <if-empty field="currency">
+            <set field="invoiceRunningTotalValue" value="${runningTotal}"/>
+            <field-to-result field="invoiceRunningTotalValue"/>
+            <set field="invoiceRunningTotal" value="${runningTotal}" type="String"/>
+            <else>
+               <set field="invoiceRunningTotal" value="${groovy:org.ofbiz.base.util.UtilFormatOut.formatCurrency(runningTotal, currencyUomId, parameters.locale)}"/>
+            </else>
+        </if-empty>
+        
         <field-to-result field="invoiceRunningTotal"/>
     </simple-method>
     

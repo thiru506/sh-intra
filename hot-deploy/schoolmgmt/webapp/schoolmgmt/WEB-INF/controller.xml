@@ -49,6 +49,11 @@
     	<security https="true" auth="true"/>
     	<response name="success" type="view" value="DailyAttendanceEntry"/>
     </request-map>
+    <request-map uri="AttendanceEntry">
+    	<security https="true" auth="true"/>
+    	<response name="success" type="view" value="AttendanceEntry"/>
+    </request-map>
+    
     <request-map uri="DailyAttendanceEntryInternal">
     	<security https="true" auth="true"/>
     	<response name="success" type="view" value="DailyAttendanceEntryInternal"/>
@@ -196,6 +201,11 @@
        <security https="true" auth="true"/>
         <response name="success" type="view" value="AttendanceDetailInternal"/>
     </request-map>
+     <request-map uri="AgingAnalysis">
+     	<security https="true" auth="true"/>
+     	<response name="success" type="view" value="AgingAnalysis"/>
+     </request-map>
+    
     <!-- View Mappings -->
     <view-map name="TimeTableLookUpTable" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#TimeTableLookUpTable"/>
     
@@ -209,6 +219,8 @@
 	<view-map name="AttendanceDetail" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#AttendanceDetail"/>
 	<view-map name="AttendanceDetailInternal" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#AttendanceDetailInternal"/>
 	<view-map name="DailyAttendance" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#DailyAttendance"/>
+	<view-map name="AttendanceEntry" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#AttendanceEntry"/>
+	
 	
 	<view-map name="FindFeeInvoice" type="screen" page="component://schoolmgmt/widget/FinanceScreens.xml#FindFeeInvoice"/>
 	<view-map name="FindFeePayment" type="screen" page="component://schoolmgmt/widget/FinanceScreens.xml#FindFeePayment"/>
@@ -223,4 +235,5 @@
     <view-map name="viewprofile" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#partyOverView"/>
     <view-map name="enquiry" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#enquiry"/>
     <view-map name="CreateEnquiry" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#CreateEnquiry"/>
+    <view-map name="AgingAnalysis" type="screen" page="component://schoolmgmt/widget/FinanceScreens.xml#AgingAnalysis"/>
 </site-conf>

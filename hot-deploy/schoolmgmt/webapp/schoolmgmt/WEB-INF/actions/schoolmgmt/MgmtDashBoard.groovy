@@ -104,18 +104,15 @@
 			 
 			 apInvoiceByStatusList = EntityUtil.filterByAnd(apInvoiceList, UtilMisc.toMap("invoiceTypeId", invoiceTypeId));
 			 arInvoiceByStatusList = EntityUtil.filterByAnd(arInvoiceList , UtilMisc.toMap("invoiceTypeId", invoiceTypeId));
-			 apStatusAmount = dispatcher.runSync("getInvoiceRunningTotal", [invoiceIds: apInvoiceByStatusList.invoiceId, organizationPartyId: organizationPartyId, userLogin: userLogin]).get("invoiceRunningTotal");
-			 arStatusAmount = dispatcher.runSync("getInvoiceRunningTotal", [invoiceIds: arInvoiceByStatusList.invoiceId, organizationPartyId: organizationPartyId, userLogin: userLogin]).get("invoiceRunningTotal");
+			 apStatusAmount = dispatcher.runSync("getInvoiceRunningTotal", [invoiceIds: apInvoiceByStatusList.invoiceId, organizationPartyId: organizationPartyId, userLogin: userLogin, currency:false]).get("invoiceRunningTotalValue");
+			 arStatusAmount = dispatcher.runSync("getInvoiceRunningTotal", [invoiceIds: arInvoiceByStatusList.invoiceId, organizationPartyId: organizationPartyId, userLogin: userLogin,currency:false]).get("invoiceRunningTotalValue");
 			 if (apStatusAmount) {
-				 apStatusAmount = apStatusAmount.replace("₹" ,"");
-				 apStatusAmount = apStatusAmount.replace("," ,"");
+				// apStatusAmount = apStatusAmount.replace("," ,"");
 				 apStatusAmount = (new BigDecimal(apStatusAmount)).setScale(0,0);
 				 apDataMap.put(invoiceTypeId, apStatusAmount);
 				 totalApAmount += apStatusAmount;
 			 }
 			 if (arStatusAmount) {
-				 arStatusAmount = arStatusAmount.replace("₹" ,"");
-				 arStatusAmount = arStatusAmount.replace("," ,"");
 				 arStatusAmount = (new BigDecimal(arStatusAmount)).setScale(0,0);
 				 arDataMap.put(invoiceTypeId, arStatusAmount);
 				 totalArAmount += arStatusAmount;
@@ -157,4 +154,9 @@
  }
  context.totalApAmount = totalApAmount;
  context.totalArAmount = totalArAmount;
+ Debug.log("apInvoiceListSize==========="+context.apInvoiceListSize);
+ Debug.log("arInvoiceListSize==========="+context.arInvoiceListSize);
+ 
+ 
+ 
  

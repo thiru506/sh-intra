@@ -146,4 +146,54 @@
             </widgets>
         </section>
     </screen>
+    <screen name="AgingAnalysis">
+		<section>
+			<actions>
+			    <set field="parameters.organizationPartyId" from-field="parameters.organizationPartyId" default-value="Company"/>
+				<entity-one value-field="Name" entity-name="PartyGroup">
+				<field-map field-name="partyId" value="${parameters.organizationPartyId}"/>
+				<select-field field-name="groupName"/>
+				</entity-one>
+				<set field="titleProperty" value="AccountingAgingAnalysisOrgName"/>
+				<set field="tabButtonItem" value="finance"/><!-- this highlights the selected menu-item with name "main" -->
+				<set field="tabButtonItem2" value="AgingAnalysis" />
+				<set field="organizationPartyId" from-field="parameters.organizationPartyId" />
+                <set field="invoiceTypeId" value="SALES_INVOICE"/>
+                <script location="component://schoolmgmt/webapp/schoolmgmt/WEB-INF/actions/schoolmgmt/AgingAnalysis.groovy"/>
+				<service service-name="basicGeneralLedgerPermissionCheck"
+					result-map="permResult">
+					<field-map field-name="mainAction" value="REPORTS" />
+				</service>
+				<set field="hasReportsEditPermission" from-field="permResult.hasPermission" />
+			</actions>
+			<widgets>
+				<section>
+					<condition>
+						<if-compare operator="equals" value="true"
+							field="hasReportsEditPermission" />
+					</condition>
+					<widgets>
+						<decorator-screen name="SchoolMgmtCommonDecorator"
+							location="${parameters.mainDecoratorLocation}">
+							<decorator-section name="body">
+                               <include-menu location="component://schoolmgmt/widget/SchoolMgmtMenus.xml" name="FinanceSubTabBar"/>
+						 		<platform-specific><html><html-template location="component://schoolmgmt/webapp/schoolmgmt/schoolmgmt/AgingAnalysis.ftl"></html-template></html></platform-specific>
+
+							</decorator-section>
+						</decorator-screen>
+					</widgets>
+					<fail-widgets>
+						<decorator-screen name="main-decorator"
+							location="${parameters.mainDecoratorLocation}">
+							<decorator-section name="body">
+								<label style="h3" text="${uiLabelMap.AccountingReportError}"></label>
+							</decorator-section>
+						</decorator-screen>
+					</fail-widgets>
+				</section>
+			</widgets>
+		</section>
+	</screen>
+
+    
 </screens>
