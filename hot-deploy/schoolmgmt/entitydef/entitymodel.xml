@@ -64,4 +64,25 @@
 			<key-map field-name="partyId" rel-field-name="partyId" />
 	  </relation>
     </entity>
+
+     <view-entity entity-name="SubscriptionPartyAndPerson"
+        package-name="org.ofbiz.party.party"
+        title="Party and Person View Entity">
+        <member-entity entity-alias="SUB" entity-name="Subscription"/>
+        <member-entity entity-alias="PTY" entity-name="Party"/>
+        <member-entity entity-alias="PERS" entity-name="Person"/>
+        <alias-all entity-alias="SUB"/>
+        <alias-all entity-alias="PTY"/>
+        <alias-all entity-alias="PERS"/>
+        <view-link entity-alias="SUB" rel-entity-alias="PTY">
+            <key-map field-name="partyId"/>
+        </view-link>
+        <view-link entity-alias="SUB" rel-entity-alias="PERS">
+            <key-map field-name="partyId"/>
+        </view-link>
+        
+    </view-entity>
+    
+    
+    
 </entitymodel>

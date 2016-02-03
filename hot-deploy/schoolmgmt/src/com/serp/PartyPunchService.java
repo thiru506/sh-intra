@@ -17,11 +17,15 @@ import java.util.TimeZone;
 import java.util.Map.Entry;
 import java.util.regex.Pattern;
 
+import javax.servlet.http.HttpServletRequest;
+
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
+import org.apache.http.HttpResponse;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
+import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
@@ -385,5 +389,43 @@ public class PartyPunchService {
       result = ServiceUtil.returnSuccess("Successfully Updated!!");
       return result;
   }//end of service
+  
+  public static String bulkAttendanceEntry(HttpServletRequest request,HttpResponse response){
+	  Delegator delegator = (Delegator) request.getAttribute("delegator");
+	  LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
+	  Locale locale = UtilHttp.getLocale(request);
+	  
+	  Map<String, Object> paramMap = UtilHttp.getParameterMap(request);
+	  int rowCount = UtilHttp.getMultiFormRowCount(paramMap);
+	  
+	  if (rowCount < 1) {
+			Debug.logError("No rows to process, as rowCount = " + rowCount,module);
+			request.setAttribute("_ERROR_MESSAGE_", "No rows to process");
+			return "error";
+		}
+	    String partyId = null;
+	    String inOut = null;
+	    String punchDate = null;
+	  for (int i = 0; i < rowCount; i++) {
+			String thisSuffix = UtilHttp.MULTI_ROW_DELIMITER + i;
+			if (paramMap.containsKey("partyId" + thisSuffix)) {
+				partyId = (String) paramMap.remove("partyId"
+						+ thisSuffix);
+			}
+			if (paramMap.containsKey("inOut" + thisSuffix)) {
+				inOut = (String) paramMap.remove("inOut"
+						+ thisSuffix);
+			}
+			if (paramMap.containsKey("punchDate" + thisSuffix)) {
+				punchDate = (String) paramMap.remove("punchDate"
+						+ thisSuffix);
+			}
+			
+			
+	  }	
+	  
+	  return "success";
+  }
+  
 	
 }
