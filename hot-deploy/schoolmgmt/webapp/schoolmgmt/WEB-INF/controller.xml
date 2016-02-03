@@ -201,6 +201,13 @@
        <security https="true" auth="true"/>
         <response name="success" type="view" value="AttendanceDetailInternal"/>
     </request-map>
+    <request-map uri="bulkAttendanceEntryAjax">
+       <security https="true" auth="true"/>
+    	<event type="java" invoke="bulkAttendanceEntry" path="com.serp.PartyPunchService" global-transaction="true"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
+    </request-map> 
+    
      <request-map uri="AgingAnalysis">
      	<security https="true" auth="true"/>
      	<response name="success" type="view" value="AgingAnalysis"/>
