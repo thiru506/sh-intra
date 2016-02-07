@@ -70,5 +70,10 @@
       <StatusItem  description="Joined."  statusCode="JOINED" statusId="ENQ_JOINED" statusTypeId="STUDENT_ENQ_STATUS"/>
       
        <CustRequestType  custRequestTypeId="STUDENT_ENQUIRY" description="Student Enquiry" />
+       <ContentType contentTypeId="PROFILE_PIC" description="Profile Pic"/>
+       <DataCategory dataCategoryId="PROFILE_PIC" description="Profile Pic"/>
+       
+       
+       
     
 </entity-engine-xml>

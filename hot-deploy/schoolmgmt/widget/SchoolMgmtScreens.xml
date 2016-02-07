@@ -344,6 +344,21 @@
             </widgets>
         </section>
     </screen>
+    <screen name="ProfilePicture">
+        <section>
+            <actions>
+                <script location="component://schoolmgmt/webapp/schoolmgmt/WEB-INF/actions/schoolmgmt/DisplayProfilePic.groovy"/>
+                <set field="partyId" from-field="parameters.partyId"/>
+                <set field="contentId" from-field="parameters.contentId"/>
+                <entity-one entity-name="Content" value-field="content"/>
+            </actions>
+            <widgets>
+                <screenlet title="Profile Picture">
+                    <include-form name="ProfilePicture" location="component://schoolmgmt/widget/SchoolMgmtForms.xml"/>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
     <screen name="partyOverView">
         <section>
             <actions>
@@ -362,6 +377,9 @@
                            </screenlet>
                         </container>
                         <container style="righthalf">
+                            <screenlet title="Profile Picture">
+                        		<include-screen name="ProfilePicture"/>
+                        	</screenlet>
                         	<screenlet title="Present Address">
                         		<include-form location="component://schoolmgmt/widget/SchoolMgmtForms.xml" name="PresentAddress"/>
                         	</screenlet>
