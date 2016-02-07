@@ -327,7 +327,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
         <read-data reader-name="ext"/>
         <inline-jdbc
                 jdbc-driver="com.mysql.jdbc.Driver"
-                jdbc-uri="jdbc:mysql://127.0.0.1/mint?autoReconnect=true"
+                jdbc-uri="jdbc:mysql://127.0.0.1/serp?autoReconnect=true"
                 jdbc-username="root"
                 jdbc-password="vbiz"
                 isolation-level="ReadCommitted"
@@ -362,7 +362,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
         <read-data reader-name="ext"/>
         <inline-jdbc
                 jdbc-driver="com.mysql.jdbc.Driver"
-                jdbc-uri="jdbc:mysql://127.0.0.1/mintolap?autoReconnect=true"
+                jdbc-uri="jdbc:mysql://127.0.0.1/serpolap?autoReconnect=true"
                 jdbc-username="root"
 
                 jdbc-password="vbiz"
@@ -400,7 +400,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
         <read-data reader-name="ext"/>
         <inline-jdbc
                 jdbc-driver="com.mysql.jdbc.Driver"
-                jdbc-uri="jdbc:mysql://127.0.0.1/minttenant?autoReconnect=true"
+                jdbc-uri="jdbc:mysql://127.0.0.1/serptenant?autoReconnect=true"
                 jdbc-username="root"
 
                 jdbc-password="vbiz"

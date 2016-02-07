@@ -449,16 +449,26 @@
                 <set field="partyId" from-field="parameters.partyId" default-value="${userLogin.partyId}"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
-                <entity-and entity-name="PartyContent" list="partyContent">
+                <!-- <entity-and entity-name="PartyContent" list="partyContent">
                     <field-map field-name="partyId" from-field="partyId"/>
-                </entity-and>
+                </entity-and> -->
+                <entity-condition entity-name="PartyContentAndDataResource" list="partyContent">
+                    <condition-list combine="and">
+                        <condition-expr field-name="partyId" operator="equals"  from-field="partyId"/>
+                        <!-- <condition-expr field-name="contentTypeId" operator="equals"  value="SR_DOCUMENT"/>
+                        <condition-expr field-name="dataCategoryId" operator="equals"  value="SR_DOCUMENT"/> -->
+                        <!-- <condition-expr field-name="isPublic" operator="equals" value="Y"/> -->
+                    </condition-list>
+                    <order-by field-name="-createdDate"/>
+                </entity-condition> 
             </actions>
             <widgets>
-                <platform-specific>
+              <!--   <platform-specific>
                     <html>
                         <html-template location="component://party/webapp/partymgr/party/profileblocks/ContentList.ftl"/>
                     </html>
-                </platform-specific>
+                </platform-specific> -->
+                <include-form name="ListPartyContent" location="component://party/widget/partymgr/ProfileForms.xml"/>
             </widgets>
         </section>
     </screen>

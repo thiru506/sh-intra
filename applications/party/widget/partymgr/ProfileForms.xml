@@ -1,0 +1,44 @@
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
+
+    <form name="UploadSRDocument" target="createEmployeeContent" type="upload" 
+  		header-row-style="header-row">
+
+		<field name="partyId" map-name="parameters"><hidden/></field>  
+        <field name="partyContentTypeId"><hidden value="INTERNAL"/></field>
+        <!-- <field name="dataResourceTypeId"><hidden value="IMAGE_OBJECT"/></field> -->
+        
+        <field name="contentTypeId"><hidden value="SR_DOCUMENT"/></field>
+        <field name="statusId"><hidden value="CTNT_AVAILABLE"/></field>
+        
+        <field name="uploadedFile" title="${uiLabelMap.CommonUpload}"><file/></field>
+        <field name="dataCategoryId"><hidden value="SR_DOCUMENT"/></field>
+        <field name="isPublic"><hidden value="N"/></field>
+             
+        <field name="createButton" title="Upload File"><submit button-type="button"/></field>
+    </form> 
+    <form name="ListPartyContent" type="list" list-name="partyContent"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+
+        <field name="contentName" title="Document"><display/></field>
+        <field name="partyId" title="Uploaded By"><display description="${groovy:org.ofbiz.party.party.PartyHelper.getPartyName(delegator, partyId, false);}"/></field>
+        <field name="createdDate" title="Uploaded Date">
+            <display description="${groovy:org.ofbiz.base.util.UtilDateTime.toDateString(createdDate, &quot;dd/MM/yyyy&quot;);}"/>        
+        </field>
+		<field name="action" title="View" widget-style="buttontext">
+            <hyperlink  target="stream/${contentName}" description="${uiLabelMap.CommonView}" target-window="_BLANK" target-type="content">
+            	<parameter param-name="contentId" value="${contentId}"/>
+            </hyperlink>              
+        </field>
+        <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="smallSubmit">
+            <hyperlink target="removePartyContent" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="contentId"/>
+                <parameter param-name="partyId"/>
+                <parameter param-name="partyContentTypeId"/>                
+                <parameter param-name="fromDate"/>
+            </hyperlink>
+        </field>        
+    </form>
+    
+</forms>
