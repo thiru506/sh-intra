@@ -82,7 +82,20 @@
         </view-link>
         
     </view-entity>
-    
+    <view-entity entity-name="PartyContentAndDataResource" package-name="org.ofbiz.content.content" title="Party Content and DataResource View Entity">
+        <member-entity entity-alias="PCT" entity-name="PartyContent"/>
+        <member-entity entity-alias="CNT" entity-name="Content"/>
+        <member-entity entity-alias="DR" entity-name="DataResource"/>        
+        <alias-all entity-alias="PCT"/>
+        <alias-all entity-alias="CNT"/>
+        <alias-all entity-alias="DR"/>        
+        <view-link entity-alias="PCT" rel-entity-alias="CNT">
+            <key-map field-name="contentId"/>
+        </view-link>
+        <view-link entity-alias="CNT" rel-entity-alias="DR">
+            <key-map field-name="dataResourceId"/>
+        </view-link>        
+    </view-entity> 
     
     
 </entitymodel>

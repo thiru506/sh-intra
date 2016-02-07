@@ -934,14 +934,17 @@ under the License.
     <request-map uri="removePartyContent">
         <security auth="true" https="true"/>
         <event type="service" invoke="removePartyContent"/>
-        <response name="success" type="view" value="EditPartyContents"/>
+        <response name="success" type="request-redirect" value="viewprofile">
+            <redirect-parameter name="partyId"/>
+        </response>
     </request-map>
 
     <request-map uri="uploadPartyContent">
         <security auth="true" https="true"/>
         <event type="service" invoke="uploadPartyContentFile"/>
-        <response name="success" type="view" value="partyContentList"/>
-        <response name="error" type="view" value="EventMessages"/>
+        <response name="success" type="request-redirect" value="viewprofile">
+            <redirect-parameter name="partyId"/>
+        </response>
     </request-map>
 
     <request-map uri="partyContentList">
