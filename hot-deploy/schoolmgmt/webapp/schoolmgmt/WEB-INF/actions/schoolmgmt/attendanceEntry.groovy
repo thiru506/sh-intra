@@ -54,7 +54,7 @@ if(productId){
 		 stu.put("partyId", student.partyId);
 		 stu.put("rollNumber", student.rollNumber);
 		 stu.put("name", student.name);
-		 stu.put("punchDate", punchDate);
+		 stu.put("punchDate", UtilDateTime.toDateString(punchDate, "yyyy-MM-dd"));
 		 stu.put("inOut", "IN");
 		 stu.put("check", true);
 		 jsonData.add(stu);

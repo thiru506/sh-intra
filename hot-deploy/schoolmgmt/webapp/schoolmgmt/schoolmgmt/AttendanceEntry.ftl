@@ -184,18 +184,17 @@ function approveClickQtySnfValidationHandler(row) {
 	}	
 
 
-   
+   var dataString;
 	function processAttendanceEntry() {
 	
 	
 		if (Slick.GlobalEditorLock.isActive() && !Slick.GlobalEditorLock.commitCurrentEdit()) {
 			return false;		
 		}
-		var formId = "#" + "AttendanceEtryInternal";
+		var formId = "#"+"AttendanceEtryInternal";
 		var inputRowSubmit = jQuery("<input>").attr("type", "hidden").attr("name", "_useRowSubmit").val("Y");
 		jQuery(formId).append(jQuery(inputRowSubmit));	
-		for (var rowCount=0; rowCount < data1.length; ++rowCount)
-		{
+		for (var rowCount=0; rowCount < data1.length; ++rowCount){
 		
 			
 			var partyId = data1[rowCount]["partyId"];
@@ -204,8 +203,10 @@ function approveClickQtySnfValidationHandler(row) {
 			var check = data1[rowCount]["check"];
 			
 			
-			if(check != "undefined"){
 				if(check){
+				   alert(inOut);
+				   alert(punchDate);
+				   alert(partyId);
 					var inputPartyId = jQuery("<input>").attr("type", "hidden").attr("name", "partyId_o_" + rowCount).val(partyId);
 					var inputInOut = jQuery("<input>").attr("type", "hidden").attr("name", "inOut_o_" + rowCount).val(inOut);
 					var inputPunchDate = jQuery("<input>").attr("type", "hidden").attr("name", "punchDate_o_" + rowCount).val(punchDate);
@@ -215,13 +216,10 @@ function approveClickQtySnfValidationHandler(row) {
 					jQuery(formId).append(jQuery(inputPunchDate));
 					
 				}
-			}
-				
-				    
 		}
 		
 		// lets make the ajaxform submit
-		var dataString = $(formId).serializeArray();	
+		dataString = $(formId).serializeArray();	
 		var action ="bulkAttendanceEntryAjax";
 		
 		$.ajax({
@@ -245,7 +243,7 @@ function approveClickQtySnfValidationHandler(row) {
 	            	    $('div#updateEntryMsg').addClass("messageStr");
 	            	    $('div#updateEntryMsg').html('<label>succesfully updated.</label>'); 
 	            	    $('div#updateEntryMsg').delay(5000).fadeOut('slow');  
-	            	    cleanUpGrid3(); 
+	            	   cleanUpGrid(); 
 	               }
                
                },
@@ -264,6 +262,9 @@ function approveClickQtySnfValidationHandler(row) {
    
    
 </script>
+
+<form name="AttendanceEtryInternal" id="AttendanceEtryInternal"></form>
+
 <div class="screenlet">
 	<div class="screenlet-title-bar">
       	<h3>Select Period</h3>	

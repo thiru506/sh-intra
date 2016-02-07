@@ -18,6 +18,8 @@ import java.util.Map.Entry;
 import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -390,11 +392,14 @@ public class PartyPunchService {
       return result;
   }//end of service
   
-  public static String bulkAttendanceEntry(HttpServletRequest request,HttpResponse response){
+  public static String bulkAttendanceEntry(HttpServletRequest request,HttpServletResponse response){
 	  Delegator delegator = (Delegator) request.getAttribute("delegator");
 	  LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
 	  Locale locale = UtilHttp.getLocale(request);
-	  
+	  Map<String, Object> result = ServiceUtil.returnSuccess();
+  	  HttpSession session = request.getSession();
+  	  GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
+  	  
 	  Map<String, Object> paramMap = UtilHttp.getParameterMap(request);
 	  int rowCount = UtilHttp.getMultiFormRowCount(paramMap);
 	  
@@ -419,7 +424,39 @@ public class PartyPunchService {
 			if (paramMap.containsKey("punchDate" + thisSuffix)) {
 				punchDate = (String) paramMap.remove("punchDate"
 						+ thisSuffix);
+				
 			}
+			Debug.log("punchDate============="+punchDate);
+			Map emplPunchMap = UtilMisc.toMap("userLogin", userLogin);
+			Timestamp punchDateTime = UtilDateTime.nowTimestamp();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			try {
+				punchDateTime = new java.sql.Timestamp(sdf.parse(punchDate).getTime());
+				emplPunchMap.put("punchdate", UtilDateTime.toSqlDate(punchDateTime));
+			} catch (Exception e) {
+				Debug.logError("Cannot parse date string: "+punchDate+"==="+e.toString(), module);
+    			return "error"; 
+			}
+			Time punchtime = UtilDateTime.toSqlTime(UtilDateTime.toDateString(punchDateTime, "HH:mm:ss"));
+			
+			
+			emplPunchMap.put("PunchType", "Normal");
+			emplPunchMap.put("punchDateTime", punchDateTime);
+			emplPunchMap.put("punchtime", punchtime);
+			emplPunchMap.put("partyId", partyId);
+			emplPunchMap.put("InOut", inOut);
+			emplPunchMap.put("isManual","Y");
+			try{
+				result = dispatcher.runSync("emplPunch", emplPunchMap);
+				if(ServiceUtil.isError(result)){
+					Debug.logError(ServiceUtil.getErrorMessage(result), module);
+					
+					return "eroor";
+				}
+			}catch(Exception e){
+				
+			}
+			
 			
 			
 	  }	
