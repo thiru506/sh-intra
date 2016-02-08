@@ -73,9 +73,12 @@
 			var columns = [
 				{id:"rollNumber", name:"Roll Number", field:"rollNumber", width:100, minWidth:100, cssClass:"cell-title", sortable:true},
 				{id:"name", name:"Name", field:"name", width:200, minWidth:200, cssClass:"cell-title", sortable:true},
+				<#if flag=="attendanceEntry">
 				{id:"inOut", name:"In/Out", field:"inOut", width:100, minWidth:100, cssClass:"cell-title", sortable:false},
+				</#if>
 			];
-	       columns.push({id:"check", name:"check", field:"check", width:100, minWidth:100, cssClass:"cell-title", formatter:BoolCellFormatter, editor:YesNoCheckboxCellEditor, sortable:false});		   		   	   
+	       columns.push({id:"check", name:"check", field:"check", width:100, minWidth:100, cssClass:"cell-title", formatter:BoolCellFormatter, editor:YesNoCheckboxCellEditor, sortable:false});
+	       <#if flag=="attendanceEntry">		   		   	   
  			columns.push({id:"button", name:"Edit", field:"button", width:70, minWidth:70, cssClass:"cell-title",
 			 			formatter: function (row, cell, id, def, datactx) { 
 			 				if (dataView4.getItem(row)["statusId"] != "Approved") {
@@ -86,6 +89,7 @@
         					}
         	 			}
  					   });	
+ 		 </#if>			   
  		    
 	
 			var options = {
@@ -194,15 +198,31 @@ function approveClickQtySnfValidationHandler(row) {
 		var formId = "#"+"AttendanceEtryInternal";
 		var inputRowSubmit = jQuery("<input>").attr("type", "hidden").attr("name", "_useRowSubmit").val("Y");
 		jQuery(formId).append(jQuery(inputRowSubmit));	
-		for (var rowCount=0; rowCount < data1.length; ++rowCount){
+		<#if flag=="promoteStudents">
+      	 var customTimePeriodId = "${customTimePeriodId}";
+		var fromProductId = "${fromProductId}";
+		var toProductId = "${toProductId}";
+		var partySubscriptionJson=${StringUtil.wrapString(partySubscription)!'[]'};
+        </#if> 
+		for (var rowCount=0; rowCount < data1.length; ++rowCount)
+		{
 		
-			
+			<#if flag=="promoteStudents">	
+			var partyId = data1[rowCount]["partyId"];
+			var check = data1[rowCount]["check"];
+			var subScripId = partySubscriptionJson[partyId];
+			if(check){
+				var inputPartyId = jQuery("<input>").attr("type", "hidden").attr("name", "partyId_o_" + rowCount).val(partyId);
+               var inputSubScripId = jQuery("<input>").attr("type", "hidden").attr("name", "subscriptionId_o_" + rowCount).val(subScripId);
+				jQuery("#pramoteStudentsForm").append(jQuery(inputPartyId));
+				jQuery("#pramoteStudentsForm").append(jQuery(inputSubScripId));
+				
+			}
+            <#elseif flag=="attendanceEntry">
 			var partyId = data1[rowCount]["partyId"];
 			var inOut = data1[rowCount]["inOut"];
 			var punchDate = data1[rowCount]["punchDate"];
 			var check = data1[rowCount]["check"];
-			
-			
 				if(check){
 				   alert(inOut);
 				   alert(punchDate);
@@ -216,15 +236,28 @@ function approveClickQtySnfValidationHandler(row) {
 					jQuery(formId).append(jQuery(inputPunchDate));
 					
 				}
+			}
+            </#if>
 		}
-		
-		// lets make the ajaxform submit
-		dataString = $(formId).serializeArray();	
+		<#if flag=="promoteStudents">		
+		var action ="pramoteStudentsAjax";
+        var inputCustTimePeriodId = jQuery("<input>").attr("type", "hidden").attr("name", "customTimePeriodId").val(customTimePeriodId);
+		var inputFromProdId = jQuery("<input>").attr("type", "hidden").attr("name", "fromProductId").val(fromProductId);
+		var inputToProdId = jQuery("<input>").attr("type", "hidden").attr("name", "toProductId").val(toProductId);
+        jQuery("#pramoteStudentsForm").append(jQuery(inputCustTimePeriodId));
+		jQuery("#pramoteStudentsForm").append(jQuery(inputFromProdId));
+		jQuery("#pramoteStudentsForm").append(jQuery(inputToProdId));
+		dataString = jQuery("#pramoteStudentsForm").serializeArray();
+		<#elseif flag=="attendanceEntry">
 		var action ="bulkAttendanceEntryAjax";
-		
+		dataString = $(formId).serializeArray();
+        </#if>
+		// lets make the ajaxform submit
+		 
 		$.ajax({
              type: "POST",
              url: action,
+             async:false,
              data: dataString,
              dataType: 'json',
              success: function(result) { 
@@ -234,14 +267,18 @@ function approveClickQtySnfValidationHandler(row) {
 	            	    $('div#updateEntryMsg').removeClass("messageStr");            	 
 	            	    $('div#updateEntryMsg').addClass("errorMessage");
 	            	    $('div#updateEntryMsg').html('<label>'+ result["_ERROR_MESSAGE_"]+result["_ERROR_MESSAGE_LIST_"]+'</label>');
-	            	     
+	            	    $('div#updateEntryMsg').delay(6000).fadeOut('slow');  
 	               }else{
 	               		
 	               		$("div#updateEntryMsg").fadeIn();               	         	   
 	            	    $('div#updateEntryMsg').html(); 
 	            	    $('div#updateEntryMsg').removeClass("errorMessage");           	 
 	            	    $('div#updateEntryMsg').addClass("messageStr");
+	            	    <#if flag=="promoteStudents">
+                        $('div#updateEntryMsg').html('<label>succesfully pramoted.</label>'); 
+                        <#else>
 	            	    $('div#updateEntryMsg').html('<label>succesfully updated.</label>'); 
+                        </#if>
 	            	    $('div#updateEntryMsg').delay(5000).fadeOut('slow');  
 	            	   cleanUpGrid(); 
 	               }
@@ -262,7 +299,7 @@ function approveClickQtySnfValidationHandler(row) {
    
    
 </script>
-
+<#if flag=="attendanceEntry">
 <form name="AttendanceEtryInternal" id="AttendanceEtryInternal"></form>
 
 <div class="screenlet">
@@ -285,17 +322,23 @@ function approveClickQtySnfValidationHandler(row) {
 	</form>
 	</div>
 </div>
-	
+</#if>	
 
  <div name ="updateEntryMsg" id="updateEntryMsg">      
     </div>
- 
+ <div>
+ 	<form name="pramoteStudentsForm" id="pramoteStudentsForm"/>
+ </div>
 <div class="screenlet">   
 <div id="div2" style="float: left;width: 100%;align:left; border: #F97103 solid 0.1em;">
   <#if jsonData?has_content>
     <div>    	
  		<div class="grid-header" style="width:100%">
+ 		<#if flag=="attendanceEntry">
 			<label>Attendance Entries</label>
+		<#elseif flag=="promoteStudents">	
+            <label>Promote Students</label>
+        </#if>
 		</div>    
 		<div id="itemGrid3" style="width:100%;height:350px;">
 			
@@ -304,7 +347,7 @@ function approveClickQtySnfValidationHandler(row) {
 		 <table width="50%" border="0" cellspacing="0" cellpadding="0" align="left">  
 		    <tr><td></td><td></td></tr>
 		    <tr><td></td><td></td></tr>
-		    <tr><td>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" style="padding:.3em" name="changeSave" id="changeSave" value="Save" onclick="javascript:processAttendanceEntry();" /></td>
+		    <tr><td>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" style="padding:.3em" name="changeSave" id="changeSave" <#if flag=="promoteStudents">value="Submint"<#else>value="Save"</#if> onclick="javascript:processAttendanceEntry();" /></td>
 		    <td><input type="button" style="padding:.3em" id="changeCancel" value="Cancel" onclick="javascript:cleanUpGrid();"/>  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;</td></tr>
 		 <tr><td></td><td></td></tr>
 		 </table>

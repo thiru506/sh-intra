@@ -3,6 +3,7 @@ package com.serp;
 import java.math.BigDecimal;
 import java.util.Map;
 
+import org.apache.http.HttpResponse;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
@@ -19,6 +20,10 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
@@ -28,7 +33,6 @@ import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
-
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilNumber;
@@ -110,11 +114,18 @@ public class SchoolMgmtServices {
             }
             partyId = (String)resultctx.get("partyId");
             
+            Timestamp fromDate=null;
+            GenericValue customTimePeriod = delegator.findOne("CustomTimePeriod", UtilMisc.toMap("customTimePeriodId",customTimePeriodId), false);
+			if(UtilValidate.isNotEmpty(customTimePeriod)){
+				fromDate = UtilDateTime.toTimestamp(customTimePeriod.getDate("fromDate"));
+			}
+            
             GenericValue subScription = delegator.makeValue("Subscription");
             subScription.set("partyId", partyId);
             subScription.set("productId", productId);
             subScription.set("productFeatureId", productFeatureId);
             subScription.set("customTimePeriodId",customTimePeriodId);
+            subScription.set("fromDate",fromDate);
             delegator.createSetNextSeqId(subScription);
             
             GenericValue partyRole = delegator.makeValue("PartyRole");
@@ -422,4 +433,86 @@ public class SchoolMgmtServices {
 		result = ServiceUtil.returnSuccess("Enquiry Created Successfully.! StudentId :"+partyId+" EnquiryId :"+custRequestId);
 		return result;
 	}	
+	public static String pramoteStudentsToNextClass(HttpServletRequest request,HttpServletResponse response){
+		  Delegator delegator = (Delegator) request.getAttribute("delegator");
+		  LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
+		  Locale locale = UtilHttp.getLocale(request);
+		  HttpSession session = request.getSession();
+		  GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
+		  Map<String, Object> paramMap = UtilHttp.getParameterMap(request);
+		  int rowCount = UtilHttp.getMultiFormRowCount(paramMap);
+		  
+		  if (rowCount < 1) {
+				Debug.logError("No rows to process, as rowCount = " + rowCount,module);
+				request.setAttribute("_ERROR_MESSAGE_", "No rows to process");
+				return "error";
+			}
+		  	Map inputMap = FastMap.newInstance();
+	        String fromProductId = (String)paramMap.get("fromProductId");
+	        String toProductId = (String)paramMap.get("toProductId");
+	        String customTimePeriodId = (String)paramMap.get("customTimePeriodId");
+	        Timestamp fromDate =null;
+	        Timestamp thruDate=null;
+	        Timestamp prevDay=null;
+		try {
+			GenericValue customTimePeriod = delegator.findOne("CustomTimePeriod", UtilMisc.toMap("customTimePeriodId",customTimePeriodId), false);
+			if(UtilValidate.isNotEmpty(customTimePeriod)){
+				fromDate = UtilDateTime.toTimestamp(customTimePeriod.getDate("fromDate"));
+				prevDay = UtilDateTime.addDaysToTimestamp(fromDate, -1);
+			}
+			List orderBy = UtilMisc.toList("-fromDate");
+			List condList = FastList.newInstance();
+			condList.add(EntityCondition.makeCondition("fromDate",EntityOperator.LESS_THAN,customTimePeriod.getDate("fromDate")));
+			condList.add(EntityCondition.makeCondition("periodTypeId",EntityOperator.EQUALS,"ACADEMIC_YEAR"));
+			EntityCondition cond = EntityCondition.makeCondition(condList,EntityOperator.AND);
+			List<GenericValue> customTimePeriodList = delegator.findList("CustomTimePeriod",cond , null, orderBy, null, false);
+			if(UtilValidate.isNotEmpty(customTimePeriodList)){
+				thruDate = UtilDateTime.toTimestamp(EntityUtil.getFirst(customTimePeriodList).getDate("thruDate"));
+			}else{
+				thruDate = prevDay;
+			}
+			for (int i = 0; i < rowCount; i++) {
+				String thisSuffix = UtilHttp.MULTI_ROW_DELIMITER + i;
+				String partyId="";
+				String subscriptionId="";
+				if (paramMap.containsKey("partyId" + thisSuffix)) {
+					partyId = (String) paramMap.get("partyId"+ thisSuffix);
+				}
+				if (paramMap.containsKey("subscriptionId" + thisSuffix)) {
+					subscriptionId = (String) paramMap.get("subscriptionId"+ thisSuffix);
+				}
+				//papulating thruDate
+				/*inputMap.clear();
+				inputMap.put("subscriptionId", subscriptionId);
+				inputMap.put("thruDate", thruDate);
+				inputMap.put("userLogin", userLogin);
+				Map updateRsltMap = dispatcher.runSync("updateSubscription", inputMap);
+				if(ServiceUtil.isError(updateRsltMap)){
+					Debug.logError("Error While Updating Subscription for "+partyId, module);
+					request.setAttribute("_ERROR_MESSAGE_", "Error While Updating Subscription for "+partyId);
+					return "error";
+				}*/
+				GenericValue subscription = delegator.findOne("Subscription", UtilMisc.toMap("subscriptionId",subscriptionId), false);
+				subscription.set("thruDate", thruDate);
+				subscription.store();
+				
+				inputMap.clear();
+				inputMap.put("userLogin", userLogin);
+				inputMap.put("partyId", partyId);
+				inputMap.put("productId", toProductId);
+				inputMap.put("fromDate", fromDate);
+				inputMap.put("customTimePeriodId", customTimePeriodId);
+				Map createRstlMap = dispatcher.runSync("createSubscription", inputMap);
+				if(ServiceUtil.isError(createRstlMap)){
+					Debug.logError("Error While Creating Subscription for "+partyId, module);
+					request.setAttribute("_ERROR_MESSAGE_", "Error While Creating Subscription for "+partyId);
+					return "error";
+				}
+		  }
+		} catch (Exception e) {
+            request.setAttribute("_ERROR_MESSAGE_", ServiceUtil.returnError(e.getMessage()));
+			return "error";
+        }
+		return "success";
+	}
 }
