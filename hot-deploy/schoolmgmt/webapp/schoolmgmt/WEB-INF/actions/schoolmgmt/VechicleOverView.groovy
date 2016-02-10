@@ -29,13 +29,13 @@ vehicleRoleDetails=delegator.findList("VehicleRole",EntityCondition.makeConditio
 List driverDetails=FastList.newInstance();
 List studentList=FastList.newInstance();
 ecl=EntityCondition.makeCondition([EntityCondition.makeCondition("vehicleId",EntityOperator.EQUALS,vehicleId),
-                                   EntityCondition.makeCondition("roleTypeId",EntityOperator.EQUALS,"DRIVER"),
-                                   EntityCondition.makeCondition("thruDate",EntityOperator.EQUALS,null)],EntityOperator.AND)
+                                   EntityCondition.makeCondition("roleTypeId",EntityOperator.EQUALS,"DRIVER")/*,
+                                   EntityCondition.makeCondition("thruDate",EntityOperator.EQUALS,null)*/],EntityOperator.AND)
 driverDetails=EntityUtil.filterByCondition(vehicleRoleDetails,ecl);
 context.driverDetails=driverDetails;
 stCondition=EntityCondition.makeCondition([EntityCondition.makeCondition("vehicleId",EntityOperator.EQUALS,vehicleId),
-                                   EntityCondition.makeCondition("roleTypeId",EntityOperator.EQUALS,"STUDENT"),
-                                   EntityCondition.makeCondition("thruDate",EntityOperator.EQUALS,null)],EntityOperator.AND)
+                                   EntityCondition.makeCondition("roleTypeId",EntityOperator.EQUALS,"STUDENT")/*,
+                                   EntityCondition.makeCondition("thruDate",EntityOperator.EQUALS,null)*/],EntityOperator.AND)
 
 studentList=EntityUtil.filterByCondition(vehicleRoleDetails,stCondition);
 context.studentList=studentList;

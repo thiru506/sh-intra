@@ -7,11 +7,11 @@
     		<entity-constraint name="productTypeId" value="CLASS"/>
     		</entity-options></drop-down>
     	</field>
-       <field name="productFeatureId" title="Branch">
+       <!-- <field name="productFeatureId" title="Branch">
     		<drop-down><entity-options description="${description}" entity-name="ProductFeature">
     		<entity-constraint name="productFeatureTypeId" value="BRANCH"/>
     		</entity-options></drop-down>
-    	</field>
+    	</field> -->
     	<field name="customTimePeriodId" title="Academic Year">
     	<drop-down>
                 <entity-options entity-name="CustomTimePeriod" key-field-name="customTimePeriodId" description="${periodName}: ${fromDate} - ${thruDate}" filter-by-date="false">
@@ -34,6 +34,7 @@
 		<field name="birthDate" title="Date Of Birth"><date-time type="date"/></field>
 		<field name="fatherName"><text></text></field>
 		<field name="motherName"><text></text></field>
+		<field name="occupation" title="Father Occupation"><text></text></field>
 		<field name="placeOfBirth"><text></text></field>
 		<field name="bloodGroup" title="${uiLabelMap.BloodGroup}">
 			<drop-down allow-empty="true">
@@ -59,31 +60,62 @@
 				</entity-options>
 			</drop-down>
 		</field>
-		<field name="nationality" title="${uiLabelMap.Nationality}">
+		<!-- <field name="nationality" title="${uiLabelMap.Nationality}">
 			<drop-down allow-empty="true">
 				<entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
 					<entity-constraint name="enumTypeId" value="PERSON_REC_NA" />
 					<entity-order-by field-name="sequenceId" />
 				</entity-options>
 			</drop-down>
-		</field>
-		
+		</field> -->
 		<field name="emailAddress" title="${uiLabelMap.Email}"><text></text></field>
 		<field name="mobileNumber" title="${uiLabelMap.Mobile}"><text></text></field>
 		<field name="residentialNumber" title="${uiLabelMap.Residential}"><text></text></field>
-		<field name="occupation" title="Father Occupation"><text></text></field>
 		<field name="presentAddress1" title="Present Address"><text></text></field>
 		<field name="presentAddress2" title=" "><text></text></field>
 		<field name="presentCity" title="City"><text></text></field>
 		<field name="presentPostalCode" title="PostalCode"><text></text></field>
-		<field name="presentCuntry" title="Country"><drop-down><entity-options description="${geoName}" key-field-name="geoId" entity-name="Geo"><entity-constraint name="geoTypeId" operator="equals" value="COUNTRY"/></entity-options></drop-down></field>
-		<field name="presentState" title="State"><drop-down allow-empty="true"></drop-down></field>
+		<field name="presentCuntry" title="Country"><hidden value="IND"/></field>
+		<field name="presentState" title="State"><hidden/></field>
 		<field name="address1" title="Permanent Address"><text></text></field>
 		<field name="address2" title=" "><text></text></field>
 		<field name="city"><text></text></field>
 		<field name="postalCode"><text></text></field>
-		<field name="countryGeoId" title="Country"><drop-down><entity-options description="${geoName}" key-field-name="geoId" entity-name="Geo"><entity-constraint name="geoTypeId" operator="equals" value="COUNTRY"/></entity-options></drop-down></field>
+		<field name="countryGeoId" title="Country"><hidden value="IND"/></field>
 		<field name="stateProvinceGeoId" title="State"><text></text></field>
 		<field name="submitButton" title="Add Student" widget-style="smallSubmit"><submit button-type="button"/></field>
+		<sort-order>
+		      <sort-field name="productId"/>
+		      <sort-field name="customTimePeriodId"/>
+		     <field-group title="Personal Details" collapsible="true" initially-collapsed="true">
+	            <sort-field name="firstName"/>
+	            <sort-field name="middleName"/>
+	            <sort-field name="lastName"/>
+	            <sort-field name="externalId"/>
+	            <sort-field name="gender"/>
+	             <sort-field name="birthDate"/>
+	             <sort-field name="fatherName"/>
+	             <sort-field name="motherName"/>
+	             <sort-field name="occupation"/>
+	              <sort-field name="placeOfBirth"/>
+	              <sort-field name="bloodGroup"/>
+	              <sort-field name="religion"/>
+	              <sort-field name="caste"/>
+            </field-group>
+            <field-group title="Contact Details" collapsible="true" initially-collapsed="true">
+	            <sort-field name="emailAddress"/>
+	            <sort-field name="mobileNumber"/>
+	            <sort-field name="residentialNumber"/>
+	            <sort-field name="presentAddress1"/>
+	            <sort-field name="presentAddress2"/>
+	            <sort-field name="presentCity"/>
+	            <sort-field name="presentPostalCode"/>
+	            <sort-field name="address1"/>
+	            <sort-field name="address2"/>
+	            <sort-field name="city"/>
+	            <sort-field name="postalCode"/>
+	            <sort-field name="stateProvinceGeoId"/>
+            </field-group>
+        </sort-order>
     </form>
 </forms>

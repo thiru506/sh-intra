@@ -946,7 +946,7 @@ under the License.
         </field>
         <field name="invoiceDate"><display type="date"/></field>
         <field name="amount"><display type="currency" currency="${invoiceCurrencyUomId}"/></field>
-        <field name="unAppliedAmount"><display type="currency" currency="${invoiceCurrencyUomId}"/></field>
+        <field name="unAppliedAmount" title="Outstanding Amount"><display type="currency" currency="${invoiceCurrencyUomId}"/></field>
     </form>
     <form name="ListUnAppliedPayments" type="list" list-name="paymentList"
         default-title-style="tableheadtext" default-widget-style="tabletext" odd-row-style="alternate-row" default-table-style="basic-table hover-bar"
@@ -971,7 +971,7 @@ under the License.
             <display-entity entity-name="PaymentType" key-field-name="paymentTypeId" description="${description}"/>
         </field>
         <field name="amount"><display type="currency" currency="${paymentCurrencyUomId}"/></field>
-        <field name="unAppliedAmount"><display type="currency" currency="${paymentCurrencyUomId}"/></field>
+        <field name="unAppliedAmount" title="Outstanding Amount"><display type="currency" currency="${paymentCurrencyUomId}"/></field>
     </form>
     <form name="partyFinancialSummary" type="single" title="Financial summary" default-map-name="finanSummary"
         default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">

@@ -328,7 +328,8 @@ public class SchoolMgmtServices {
 	        	conList.add(EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null));
 	        	EntityCondition cond=EntityCondition.makeCondition(conList,EntityOperator.AND);
 	        	List<GenericValue> facilityPartys = delegator.findList("VehicleRole", cond, null,null, null, false);
-	        	if(UtilValidate.isNotEmpty(facilityPartys)){    
+	        	GenericValue facilityParty = EntityUtil.getFirst(facilityPartys);
+	        	if(UtilValidate.isNotEmpty(facilityParty) && (fromDateTime.compareTo(facilityParty.getTimestamp("fromDate"))) !=0){    
 	        		return ServiceUtil.returnError("This Party Already Existed..!");
 	        	}else{	
 	        		GenericValue vechileRole = delegator.makeValue("VehicleRole");
@@ -340,7 +341,7 @@ public class SchoolMgmtServices {
 	        		if(UtilValidate.isNotEmpty(thruDateTime)){
 	        			vechileRole.set("thruDate", UtilDateTime.getDayEnd(thruDateTime));
 	        		}
-	        		delegator.create(vechileRole);
+	        		delegator.createOrStore(vechileRole);
 	        	}
         }catch (Exception e) {
             return ServiceUtil.returnError(e.getMessage());
