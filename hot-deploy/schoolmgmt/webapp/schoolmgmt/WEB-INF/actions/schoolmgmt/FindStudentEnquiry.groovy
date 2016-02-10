@@ -20,9 +20,11 @@ import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.ServiceUtil;
 
 custRequestId=parameters.custRequestId;
-custRequestDate=parameters.custRequestDate;
+fromDate=parameters.fromDate;
+thruDate=parameters.thruDate;
 fromPartyId=parameters.partyId;
 statusId=parameters.statusId;
+custRequestName = parameters.custRequestName;
 List conditionList=FastList.newInstance();
 List custRequestList = FastList.newInstance(); 
 List tempList=FastList.newInstance();
@@ -35,9 +37,16 @@ if(UtilValidate.isNotEmpty(fromPartyId)){
 if(UtilValidate.isNotEmpty(statusId)){
 	conditionList.add(EntityCondition.makeCondition("statusId",EntityOperator.EQUALS,statusId));
 }
-if(UtilValidate.isNotEmpty(custRequestDate)){
-	dayBegin=UtilDateTime.getDayStart(custRequestDate);
-	dayEnd=UtilDateTime.getDayEnd(custRequestDate);
+
+if(UtilValidate.isNotEmpty(custRequestName)){
+	conditionList.add(EntityCondition.makeCondition("custRequestName",EntityOperator.EQUALS,custRequestName));
+}
+if(UtilValidate.isNotEmpty(fromDate)){
+	dayBegin=UtilDateTime.getDayStart(fromDate);
+	dayEnd=UtilDateTime.getDayEnd(fromDate);
+	if(UtilValidate.isNotEmpty(thruDate)){
+		dayEnd=UtilDateTime.getDayEnd(thruDate);
+	}
 	conditionList.add(EntityCondition.makeCondition([EntityCondition.makeCondition("custRequestDate",EntityOperator.GREATER_THAN_EQUAL_TO,dayBegin),
 		                                            EntityCondition.makeCondition("custRequestDate",EntityOperator.LESS_THAN_EQUAL_TO,dayEnd)],EntityOperator.AND));
 }

@@ -155,7 +155,7 @@
 				<select-field field-name="groupName"/>
 				</entity-one>
 				<set field="titleProperty" value="AccountingAgingAnalysisOrgName"/>
-				<set field="tabButtonItem" value="finance"/><!-- this highlights the selected menu-item with name "main" -->
+				<set field="tabButtonItem" value="MgmtDashBoard"/><!-- this highlights the selected menu-item with name "main" -->
 				<set field="tabButtonItem2" value="AgingAnalysis" />
 				<set field="organizationPartyId" from-field="parameters.organizationPartyId" />
                 <set field="invoiceTypeId" value="SALES_INVOICE"/>
@@ -176,7 +176,7 @@
 						<decorator-screen name="SchoolMgmtCommonDecorator"
 							location="${parameters.mainDecoratorLocation}">
 							<decorator-section name="body">
-                               <include-menu location="component://schoolmgmt/widget/SchoolMgmtMenus.xml" name="FinanceSubTabBar"/>
+                               <include-menu location="component://schoolmgmt/widget/SchoolMgmtMenus.xml" name="MgmtDashBoardSubTabBar"/>
 						 		<platform-specific><html><html-template location="component://schoolmgmt/webapp/schoolmgmt/schoolmgmt/AgingAnalysis.ftl"></html-template></html></platform-specific>
 
 							</decorator-section>
@@ -194,6 +194,4 @@
 			</widgets>
 		</section>
 	</screen>
-
-    
 </screens>

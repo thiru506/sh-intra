@@ -25,6 +25,42 @@
 	     	<submit/>
 	     </field>
       </form>
+      <form name="listVehicleStudents" type="list" list-name="studentList" separate-columns="true" target="CreateVechicleRole" odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" >
+	     <row-actions>
+	     	<entity-one value-field="personName" entity-name="Person">
+	     		<field-map field-name="partyId"  from-field="partyId"/>
+	     	</entity-one>
+	     	<set field="name" value="${personName.firstName} ${personName.lastName} ${personName.middleName}"></set>
+	     </row-actions>
+	     <field name="vehicleId"><hidden/></field>
+	     <field name="partyId" title="Student No"><display/></field>
+	     <field name="facilityId"><hidden/></field>
+	     <field name="name"><display/></field>
+	     <field name="roleTypeId"><display-entity entity-name="RoleType" description="${description}"></display-entity></field>
+	     <field name="fromDate"><display description="${groovy:org.ofbiz.base.util.UtilDateTime.toDateString(fromDate, &quot;MM/dd/yyyy&quot;);}"></display></field>
+	     <field name="thruDate"><date-time type="date"/></field>
+	     <field name="update" title="Update" widget-style="buttontext">
+	     	<submit/>
+	     </field>
+      </form>
+       <form name="listVehicleDriver" type="list" list-name="driverDetails" separate-columns="true" target="CreateVechicleRole" odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" >
+	     <row-actions>
+	     	<entity-one value-field="personName" entity-name="Person">
+	     		<field-map field-name="partyId"  from-field="partyId"/>
+	     	</entity-one>
+	     	<set field="name" value="${personName.firstName} ${personName.lastName} ${personName.middleName}"></set>
+	     </row-actions>
+	     <field name="vehicleId"><hidden/></field>
+	     <field name="partyId" title="ID:"><display/></field>
+	     <field name="facilityId"><hidden/></field>
+	     <field name="name"><display/></field>
+	     <field name="roleTypeId"><display-entity entity-name="RoleType" description="${description}"></display-entity></field>
+	     <field name="fromDate"><display description="${groovy:org.ofbiz.base.util.UtilDateTime.toDateString(fromDate, &quot;MM/dd/yyyy&quot;);}"></display></field>
+	     <field name="thruDate"><date-time type="date"/></field>
+	     <field name="update" title="Update" widget-style="buttontext">
+	     	<submit/>
+	     </field>
+      </form>
       <form name="AddStudent" type="single" target="AddStudentToHostel">
 	      	<field name="partyId" title="Student No" required-field="true"><lookup target-form-name="LookupPartyName"/></field>
 	      	<field name="facilityId"><hidden value="${parameters.facilityId}"/></field>
@@ -150,7 +186,7 @@
          </row-actions>
           <field name="name"><display></display></field>
       </form>
-      <form name="StudentDetails"  type="list" list-name="studentList" separate-columns="true" odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" >
+      <!-- <form name="StudentDetails"  type="list" list-name="studentList" separate-columns="true" odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" >
       <row-actions>
              <entity-one value-field="personName" entity-name="Person">
                  <field-map field-name="partyId"  from-field="partyId"/>
@@ -158,7 +194,7 @@
              <set field="name" value="${personName.firstName} ${personName.lastName} ${personName.middleName}"></set>
          </row-actions>
          <field name="name" ><display></display></field>
-      </form>
+      </form> -->
       <form name="AddPartyToRoute" type="single" target="CreateVechicleRole">
        <field name="partyId" title="Party" required-field="true"><lookup target-form-name="LookupPartyName"/></field>
               <field name="facilityId"><hidden value="_NA_"/></field>
@@ -169,26 +205,27 @@
               <field name="submit" title="Add"><submit/></field>     
       </form>
       <form name="studentOverView" type="single" default-map-name="studentMap">
-    	<field name="firstName" title="First Name :"><display/></field>
-    	<field name="middleName" title="Middle Name :"><display/></field>
-    	<field name="lastName" title="Last Name :"><display/></field>
-    	<field name="externalId" title="Role No :"><display/></field>
+        <field name="externalId" title="Role No :" position="1"><display/></field>
+    	<field name="firstName" title="First Name :" position="1"><display/></field>
+    	<!-- <field name="middleName" title="Middle Name :" position="1"><display/></field> -->
+    	<field name="lastName" title="Last Name :" position="2"><display/></field>
     	<field name="roleTypeId"><hidden value="STUDENT"/></field>
-    	<field name="gender" title="Gender :"><display/>		
+    	<field name="gender" title="Gender :" position="1"><display/>		
 		</field>
-		<field name="birthDate" title="Date Of Birth :"><display/></field>
-		<field name="fatherName" title="Father Name :"><display/></field>
-		<field name="motherName" title="Mother Name :"><display/></field>
-		<field name="placeOfBirth" title="Place Of Birth :"><display/></field>
-		<field name="bloodGroup" title="${uiLabelMap.BloodGroup} :"><display-entity entity-name="Enumeration" key-field-name="enumId" description="${description}"></display-entity>		</field>
-		<field name="religion" title="${uiLabelMap.Religion} :"><display-entity entity-name="Enumeration" key-field-name="enumId" description="${description}"></display-entity></field>
-		<field name="partyClassificationGroupId" title="${uiLabelMap.Caste} :" ><display-entity entity-name="PartyClassificationGroup" description="${description}"></display-entity>		</field>
-		<field name="nationality" title="${uiLabelMap.Nationality} :"><display-entity entity-name="Enumeration" key-field-name="enumId" description="${description}"></display-entity>		</field>
-		<field name="emailAddress" title="${uiLabelMap.Email} :"><display/></field>
-		<field name="mobileNumber" title="${uiLabelMap.Mobile} :"><display/></field>
-		<field name="residentialNumber" title="${uiLabelMap.Residential} :"><display/></field>
-		<field name="occupation" title="Father Occupation :"><display/></field>
-		<!-- <field name="presentAddress1" title="Present Address :"><display/></field>
+		<field name="birthDate" title="Date Of Birth :" position="2"><display/></field>
+		<field name="fatherName" title="Father Name :" position="1"><display/></field>
+		<field name="motherName" title="Mother Name :" position="2"><display/></field>
+		<field name="occupation" title="Father Occupation :" position="1"><display/></field>
+		<field name="placeOfBirth" title="Place Of Birth :" position="1"><display/></field>
+		<field name="bloodGroup" title="${uiLabelMap.BloodGroup} :" position="2"><display-entity entity-name="Enumeration" key-field-name="enumId" description="${description}"></display-entity>		</field>
+		<field name="religion" title="${uiLabelMap.Religion} :" position="1"><display-entity entity-name="Enumeration" key-field-name="enumId" description="${description}"></display-entity></field>
+		<field name="partyClassificationGroupId" title="${uiLabelMap.Caste} :"  position="2"><display-entity entity-name="PartyClassificationGroup" description="${description}"></display-entity>		</field>
+		<field name="nationality" title="${uiLabelMap.Nationality} :" position="1"><display-entity entity-name="Enumeration" key-field-name="enumId" description="${description}"></display-entity>		</field>
+		<field name="emailAddress" title="${uiLabelMap.Email} :" position="1"><display/></field>
+		<field name="mobileNumber" title="${uiLabelMap.Mobile} :" position="2"><display/></field>
+		<!--<field name="residentialNumber" title="${uiLabelMap.Residential} :"><display/></field>
+		
+		 <field name="presentAddress1" title="Present Address :"><display/></field>
 		<field name="presentAddress2" title="  :"><display/></field>
 		<field name="presentCity" title="City :"><display/></field>
 		<field name="presentPostalCode" title="PostalCode :"><display/></field>
@@ -236,14 +273,16 @@
      <field name="statusId" title="Status">
       <drop-down allow-empty="true"><entity-options description="${description}" entity-name="StatusItem"><entity-constraint name="statusTypeId" operator="equals" value="STUDENT_ENQ_STATUS"/></entity-options></drop-down>
      </field>
-     <field name="custRequestDate" title="Date"><date-time type="date"/></field>
+     <field name="custRequestName" title="Previous School"><text-find></text-find></field>
+     <field name="fromDate" title="From Date"><date-time type="date"/></field>
+     <field name="thruDate" title="Date"><date-time type="date"/></field>
      <field name="submitButton" title="Find" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListEnquires" type="list" list-name="custRequestList" separate-columns="true" target="" odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" >
-    	<field name="custRequestId"><display></display></field>
+    	<field name="custRequestId" title="ENQ NO"><display></display></field>
     	<field name="name"><display></display></field>
     	<field name="fromPartyId"><display></display></field>
-    	<field name="custRequestDate"><display description="${groovy:org.ofbiz.base.util.UtilDateTime.toDateString(custRequestDate, &quot;MM/dd/yyyy&quot;);}"></display></field>
+    	<field name="custRequestDate" title="ENQ Date"><display description="${groovy:org.ofbiz.base.util.UtilDateTime.toDateString(custRequestDate, &quot;MM/dd/yyyy&quot;);}"></display></field>
     	<field name="statusId"><display-entity entity-name="StatusItem" ></display-entity></field>
     	<field name="name"><display></display></field>
     	<field name="custRequestName" title="Previous School"><display></display></field>

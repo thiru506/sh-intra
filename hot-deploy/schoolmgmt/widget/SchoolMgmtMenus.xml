@@ -122,14 +122,6 @@
 	            <link target="FindFeePayment">
 	            </link>
 	        </menu-item>
-	        <menu-item name="AgingAnalysis" title="${uiLabelMap.AccountingAgingAnalysis}">
-			<condition>
-	                <if-has-permission permission="ACCOUNTING"  action="_ADMIN"/>
-			</condition>		    
-			<link target="AgingAnalysis">
-				<parameter param-name="organizationPartyId" />
-			</link>
-		</menu-item>
         </menu>
        <menu name="AcademicSubTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
           default-menu-item-name="transport" selected-menuitem-context-field-name="tabButtonItem2" >
@@ -151,7 +143,15 @@
 			<menu-item name="MgmtDashBoard" title="Revenue Charts">
 	            <link target="MgmtDashBoard">
 	            </link>
-	       </menu-item>         
+	       </menu-item> 
+	       <menu-item name="AgingAnalysis" title="Aging Analysis">
+				<condition>
+		                <if-has-permission permission="ACCOUNTING"  action="_ADMIN"/>
+				</condition>		    
+				<link target="AgingAnalysis">
+					<parameter param-name="organizationPartyId" />
+				</link>
+		 </menu-item>        
       </menu>
       <menu name="EnquirySubTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
           default-menu-item-name="enquiry" selected-menuitem-context-field-name="tabButtonItem2" >
