@@ -211,6 +211,7 @@
  				<set field="tabButtonItem2" value="AttendanceEntry" />                                           				
 				<set field="titleProperty" value="AttendanceEntry" />
 				<set field="ajaxUrl" value="DailyAttendanceEntryInternal" type="String"/>
+				<set field="flag" value="attendanceEntry"/>
 				<script location="component://schoolmgmt/webapp/schoolmgmt/WEB-INF/actions/schoolmgmt/attendanceEntry.groovy"/> 
             </actions>            
             <widgets>

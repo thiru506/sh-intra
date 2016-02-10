@@ -212,7 +212,16 @@
      	<security https="true" auth="true"/>
      	<response name="success" type="view" value="AgingAnalysis"/>
      </request-map>
-    
+     <request-map uri="pramoteStudents">
+     	<security https="true" auth="true"/>
+     	<response name="success" type="view" value="pramoteStudents"/>
+     </request-map>
+    <request-map uri="pramoteStudentsAjax">
+       <security https="true" auth="true"/>
+    	<event type="java" invoke="pramoteStudentsToNextClass" path="com.serp.SchoolMgmtServices" global-transaction="true"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
+    </request-map> 
     <!-- View Mappings -->
     <view-map name="TimeTableLookUpTable" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#TimeTableLookUpTable"/>
     
@@ -234,6 +243,7 @@
 	<view-map name="HostelOverView" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#HostelOverView"/>
 	<view-map name="TimeTableOverView" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#TimeTableOverView"/>
     <view-map name="academics" type="screen" page="component://schoolmgmt/widget/AcademicsScreens.xml#academics"/>
+    <view-map name="pramoteStudents" type="screen" page="component://schoolmgmt/widget/AcademicsScreens.xml#pramoteStudents"/>
     <view-map name="admission" type="screen" page="component://schoolmgmt/widget/AdmissionScreens.xml#admission"/>
     <view-map name="TypeWiseRevenue" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#TypeWiseRevenue"/>
     <view-map name="TypeWiseRevenueInternal" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#TypeWiseRevenueInternal"/>

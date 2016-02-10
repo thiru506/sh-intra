@@ -21,18 +21,36 @@ import java.util.SortedMap;
 import javolution.util.FastList;
 
 JSONArray jsonData= new JSONArray();
-
-
+JSONObject partySubscription = new JSONObject();
+productId="";
+fromDate=null;
 punchDate = parameters.punchDate;
-productId = parameters.productId;
-
+if(UtilValidate.isNotEmpty(parameters.productId)){
+	productId = parameters.productId;
+}
+if(UtilValidate.isNotEmpty(parameters.fromProductId)){
+	productId = parameters.fromProductId;
+	context.fromProductId=parameters.fromProductId;
+}
+if(UtilValidate.isNotEmpty(parameters.customTimePeriodId)){
+	context.customTimePeriodId=parameters.customTimePeriodId;
+	GenericValue customTimePeriod = delegator.findOne("CustomTimePeriod", UtilMisc.toMap("customTimePeriodId",parameters.customTimePeriodId), false);
+	if(UtilValidate.isNotEmpty(customTimePeriod)){
+		fromDate = UtilDateTime.toTimestamp(customTimePeriod.getDate("fromDate"));
+	}
+}
+if(UtilValidate.isNotEmpty(parameters.toProductId)){
+	context.toProductId=parameters.toProductId;
+}
 dctx = dispatcher.getDispatchContext();
 def sdf = new SimpleDateFormat("MMMM dd, yyyy");
 try {
 	if (parameters.punchDate) {
 		context.punchDate = parameters.punchDate;
 		punchDate = UtilDateTime.getDayStart(new java.sql.Timestamp(sdf.parse(parameters.punchDate).getTime()));
-	}else {
+	}else if(fromDate) {
+		punchDate = fromDate;
+	}else{
 	   punchDate = UtilDateTime.nowTimestamp();
 	}
 	
@@ -58,9 +76,10 @@ if(productId){
 		 stu.put("inOut", "IN");
 		 stu.put("check", true);
 		 jsonData.add(stu);
+		 partySubscription.put(student.partyId, student.subscriptionId);
 		 
 	 }
 	
 }
-
+context.partySubscription=partySubscription;
 context.put("jsonData", jsonData.toString());
