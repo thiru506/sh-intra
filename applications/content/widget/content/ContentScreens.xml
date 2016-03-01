@@ -22,18 +22,70 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
 
     <screen name="FindContent">
+        <section>           
+            <actions>
+                <set field="headerItem" value="Content"/>
+                <set field="titleProperty" value="PageTitleFindContent"/>
+                <set field="entityName" value="PartyContentAndDataResource"/>
+                <set field="tabButtonItem" value="findContent"/>
+                <set field="queryString" from-field="result.queryString"/>
+                <set field="viewIndex" from-field="requestParameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSize" from-field="requestParameters.VIEW_SIZE" type="Integer" default-value="50"/>
+                <set field="noConditionFind" value="Y"/>
+                <script location="component://content/webapp/content/WEB-INF/actions/content/findContent.groovy" />                
+            </actions> 
+            <widgets>
+                <decorator-screen name="contentDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                        	 <condition>
+                                <not><if-empty field="userLogin"/></not>
+                            </condition>
+                            <widgets>                            	
+                                        <container style="button-bar">
+                                            <link target="EditContents" text="${uiLabelMap.CommonCreateNew}" style="buttontext create h2"/>
+<!--                                            <link target="ContentSearchOptions" text="${uiLabelMap.CommonAdvancedSearch}" style="buttontext"/>-->
+<!--                                            <include-menu name="contentMenu" location="component://content/widget/content/ContentMenus.xml"/>-->
+                                        </container>
+                            			<screenlet title="Documents Search">                                    
+                                        	<include-form name="FindContent" location="component://content/widget/content/ContentForms.xml"/>
+										</screenlet>
+                            			<screenlet title="Documents Results">										
+                                        	<include-form name="ListContent" location="component://content/widget/content/ContentForms.xml"/>
+										</screenlet>
+                            </widgets>
+                            <fail-widgets>
+                            	<container style="button-bar">
+                            		<link name="login" target="main" style="buttontext create h2" text="Login"> </link>
+                            	</container>                            	
+                            	<screenlet title="Documents Search">
+                            		 <include-form name="FindContent" location="component://content/widget/content/ContentForms.xml"/>
+                            	</screenlet>
+                            	<screenlet title="Documents Results">
+                            		   <include-form name="ListContent" location="component://content/widget/content/ContentForms.xml"/>
+                            	</screenlet>                            	
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="confidentialContent">
         <section>
             <condition>
                 <if-has-permission permission="CONTENTMGR" action="_VIEW"/>
             </condition>
             <actions>
                 <set field="headerItem" value="Content"/>
-                <set field="titleProperty" value="PageTitleFindContent"/>
-                <set field="entityName" value="Content"/>
-                <set field="tabButtonItem" value="findContent"/>
+                <set field="titleProperty" value="PageTitleFindConfidentialContent"/>
+                <set field="entityName" value="PartyContentAndDataResource"/>
+                <set field="tabButtonItem" value="confidential"/>
                 <set field="queryString" from-field="result.queryString"/>
-                <set field="viewIndex" from-field="requestParameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSize" from-field="requestParameters.VIEW_SIZE" type="Integer" default-value="30"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="30"/>
+                 <set field="noConditionFind" value="Y"/>
+                 <set field="parameters.isPublic" value="N"/>               
             </actions>
             <widgets>
                 <decorator-screen name="contentDecorator" location="${parameters.mainDecoratorLocation}">
@@ -42,14 +94,17 @@ under the License.
                             <widgets>
                                 <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
                                     <decorator-section name="menu-bar">
-                                        <container style="button-bar">
-                                            <!--<link target="EditContent" text="${uiLabelMap.CommonCreateNew}" style="buttontext create"/>
-                                            <link target="ContentSearchOptions" text="${uiLabelMap.CommonAdvancedSearch}" style="buttontext"/>-->
-                                            <include-menu name="contentMenu" location="component://content/widget/content/ContentMenus.xml"/>
+                                       <container style="button-bar">
+                                            <link target="EditContents" text="${uiLabelMap.CommonCreateNew}" style="buttontext create h2"/>
+<!--                                            <link target="ContentSearchOptions" text="${uiLabelMap.CommonAdvancedSearch}" style="buttontext"/>-->
+<!--                                            <include-menu name="contentMenu" location="component://content/widget/content/ContentMenus.xml"/>-->
                                         </container>
+                                        <!-- <container style="button-bar">                                         
+                                            <include-menu name="contentMenu" location="component://content/widget/content/ContentMenus.xml"/>
+                                        </container> -->
                                     </decorator-section>
                                     <decorator-section name="search-options">
-                                        <include-form name="FindContent" location="component://content/widget/content/ContentForms.xml"/>
+                                        <include-form name="FindConfidentialContent" location="component://content/widget/content/ContentForms.xml"/>
                                     </decorator-section>
                                     <decorator-section name="search-results">
                                         <include-form name="ListContent" location="component://content/widget/content/ContentForms.xml"/>
@@ -86,6 +141,7 @@ under the License.
     <screen name="navigateContent">
         <section>
             <actions>
+                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/jquery-1.6.1.min.js" global="true"/>
                 <set field="titleProperty" value="PageTitleNavigateContent"/>
                 <set field="tabButtonItem" value="navigateContent"/>
                 <set field="labelTitleProperty" value="PageTitleNavigateContent"/>
@@ -221,6 +277,24 @@ under the License.
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleEditContent}">
                             <include-form name="EditContent" location="component://content/widget/content/ContentForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditContents">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleAddContent"/>
+                <set field="headerItem" value="find"/>
+                <set field="tabButtonItem" value="PartyContents"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="contentDecorator"  location="${parameters.mainDecoratorLocation}">                	 
+                    <decorator-section name="body">                    	                        
+                        <screenlet title="Add Content">
+                            <include-form name="AddContent" location="component://content/widget/content/ContentForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>

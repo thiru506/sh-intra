@@ -81,5 +81,5 @@ if(productId){
 	 }
 	
 }
-context.partySubscription=partySubscription;
+context.partySubscription=partySubscription.toString();
 context.put("jsonData", jsonData.toString());

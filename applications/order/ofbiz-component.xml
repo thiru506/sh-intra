@@ -62,6 +62,7 @@ under the License.
         description="OrderComponentDescription"
         server="default-server"
         location="webapp/ordermgr"
+        app-bar-display="false"
         base-permission="OFBTOOLS,ORDERMGR"
         mount-point="/ordermgr"/>
 </ofbiz-component>

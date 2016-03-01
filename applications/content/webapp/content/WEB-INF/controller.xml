@@ -45,7 +45,7 @@ under the License.
         <response name="error" type="view" value="error"/>
     </request-map>
 
-    <request-map uri="main"><security https="true" auth="true"/><response name="success" type="view" value="FindWebSite"/></request-map>
+    <request-map uri="main"><security https="true" auth="true"/><response name="success" type="view" value="FindContent"/></request-map>
 
     <request-map uri="fonts.pdf">
         <security https="true" auth="true"/>
@@ -73,6 +73,21 @@ under the License.
         <response name="success" type="view" value="blogMain"/>
         <response name="error" type="view" value="EditBlog"/>
     </request-map>
+     <request-map uri="uploadPartyContentFile">
+        <security auth="true" https="true"/>
+        <event type="service" invoke="uploadPartyContentFile"/>
+        <response name="success" type="view" value="FindContent"/>
+    </request-map>
+    <request-map uri="removePartyContent">
+        <security auth="true" https="true"/>
+        <event type="service" invoke="removePartyContent"/>
+        <response name="success" type="view" value="FindContent"/>
+    </request-map>
+    <request-map uri="findConfidentialContent">
+        <security auth="true" https="true"/>        
+        <response name="success" type="view" value="confidentialContent"/>
+    </request-map>
+    
     <request-map uri="blogContent">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="blogContent"/>
@@ -889,6 +904,10 @@ under the License.
         <security auth="true" https="true"/>
         <response name="success" type="view" value="EditContent"/>
     </request-map>
+    <request-map uri="EditContents">
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="EditContents"/>
+    </request-map>
     <request-map uri="updateContent">
         <security auth="true" https="true"/>
         <event invoke="updateContent" type="service"/>
@@ -998,6 +1017,11 @@ under the License.
         <event type="java" path="org.ofbiz.content.data.DataEvents" invoke="serveImage"/>
         <response name="success" type="none"/>
         <response name="error" type="request" value="main"/>
+    </request-map>
+    <request-map uri="stream">
+        <event type="java" path="org.ofbiz.content.data.DataEvents" invoke="serveObjectData"/>
+        <response name="success" type="none"/>
+        <response name="error" type="view" value="error"/>
     </request-map>
     <!-- ================ ContentOperation Requests ================= -->
     <request-map uri="EditContentOperation"><security auth="true" https="true"/><response name="success" type="view" value="EditContentOperation"/></request-map>
@@ -1781,7 +1805,7 @@ under the License.
     <request-map uri="LookupPerson"><security auth="true" https="true"/><response name="success" type="view" value="LookupPerson"/></request-map>
     <request-map uri="LookupPartyAndUserLoginAndPerson"><security auth="true" https="true"/><response name="success" type="view" value="LookupPartyAndUserLoginAndPerson"/></request-map>
     <request-map uri="LookupProductFeature"><security auth="true" https="true"/><response name="success" type="view" value="LookupProductFeature"/></request-map>
-    <request-map uri="LookupPartyName"><security https="true" auth="true"/><response name="success" type="view" value="LookupPartyName"/></request-map>
+    <request-map uri="LookupPartyName" track-serverhit="false" track-visit="false"><security https="true" auth="true"/><response name="success" type="view" value="LookupPartyName"/></request-map>
     <request-map uri="LookupWorkEffort"><security https="true" auth="true"/><response name="success" type="view" value="LookupWorkEffort"/></request-map>
 
     <!-- ================ Content Navigate Requests ================= -->
@@ -1986,8 +2010,10 @@ under the License.
     <view-map name="EditContentPurpose" page="component://content/widget/content/ContentScreens.xml#EditContentPurpose" type="screen"/>
     <view-map name="EditContentRole" page="component://content/widget/content/ContentScreens.xml#EditContentRole" type="screen"/>
     <view-map name="FindContent" page="component://content/widget/content/ContentScreens.xml#FindContent" type="screen"/>
+    <view-map name="confidentialContent" page="component://content/widget/content/ContentScreens.xml#confidentialContent" type="screen"/>    
     <view-map name="findContentSearchResults" type="screen" page="component://content/widget/content/ContentScreens.xml#findContentSearchResults"/>
     <view-map name="EditContent" page="component://content/widget/content/ContentScreens.xml#EditContent" type="screen"/>
+    <view-map name="EditContents" page="component://content/widget/content/ContentScreens.xml#EditContents" type="screen"/>
     <view-map name="EditContentAssoc" page="component://content/widget/content/ContentScreens.xml#EditContentAssoc" type="screen"/>
     <view-map name="ListWebSite" page="component://content/widget/content/ContentScreens.xml#ListWebSite" type="screen"/>
 

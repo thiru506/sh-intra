@@ -685,4 +685,71 @@ public class DataServices {
         }
         return result;
     }
+    
+    /**
+     * A service wrapper for the updateOtherMethod method. Forces permissions to be checked.
+     */
+    public static Map<String, Object> updateOther(DispatchContext dctx, Map<String, ? extends Object> context) {
+        Map<String, Object> result = updateOtherMethod(dctx, context);
+        return result;
+    }
+
+    public static Map<String, Object> updateOtherMethod(DispatchContext dctx, Map<String, ? extends Object> context) {
+        Map<String, Object> result = FastMap.newInstance();
+        Delegator delegator = dctx.getDelegator();
+        //Locale locale = (Locale) context.get("locale");
+        String dataResourceId = (String) context.get("dataResourceId");
+        ByteBuffer byteBuffer = (ByteBuffer)context.get("dataResourceContent");
+        if (byteBuffer != null) {
+            byte[] imageBytes = byteBuffer.array();
+            try {
+                GenericValue otherDataResource = delegator.findByPrimaryKey("OtherDataResource", UtilMisc.toMap("dataResourceId", dataResourceId));
+                if (Debug.infoOn()) {
+                    Debug.logInfo("otherDataResource(U):" + otherDataResource, module);
+                    Debug.logInfo("imageBytes(U):" + imageBytes, module);
+                }
+                if (otherDataResource == null) {
+                    return createOtherMethod(dctx, context);
+                } else {
+                    otherDataResource.setBytes("dataResourceContent", imageBytes);
+                    otherDataResource.store();
+                }
+            } catch (GenericEntityException e) {
+                return ServiceUtil.returnError(e.getMessage());
+            }
+        }
+        return result;
+    }
+
+    /**
+     * A service wrapper for the createOtherMethod method. Forces permissions to be checked.
+     */
+    public static Map<String, Object> createOther(DispatchContext dctx, Map<String, ? extends Object> context) {
+        Map<String, Object> result = createOtherMethod(dctx, context);
+        return result;
+    }
+
+    public static Map<String, Object> createOtherMethod(DispatchContext dctx, Map<String, ? extends Object> context) {
+        Map<String, Object> result = FastMap.newInstance();
+        Delegator delegator = dctx.getDelegator();
+        String dataResourceId = (String) context.get("dataResourceId");
+        ByteBuffer byteBuffer = (ByteBuffer)context.get("dataResourceContent");
+        if (byteBuffer != null) {
+            byte[] imageBytes = byteBuffer.array();
+            try {
+                GenericValue otherDataResource = delegator.makeValue("OtherDataResource", UtilMisc.toMap("dataResourceId", dataResourceId));
+                //otherDataResource.set("dataResourceContent", imageBytes);
+                otherDataResource.setBytes("dataResourceContent", imageBytes);
+                if (Debug.infoOn()) {
+                    Debug.logInfo("otherDataResource(C):" + otherDataResource, module);
+                }
+                otherDataResource.create();
+            } catch (GenericEntityException e) {
+                return ServiceUtil.returnError(e.getMessage());
+            }
+        }
+
+        return result;
+    }    
+    
 }

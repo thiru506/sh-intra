@@ -756,6 +756,20 @@
         <attribute name="imageData" type="java.nio.ByteBuffer" mode="IN" optional="false"/>
     </service>
 
+    <service name="updateOther" engine="java" transaction-timeout="7200"
+            location="org.ofbiz.content.data.DataServices" invoke="updateOther">
+        <description>Update other data</description>
+        <attribute name="dataResourceId" type="String" mode="IN" optional="false"/>
+        <attribute name="dataResourceContent" type="java.nio.ByteBuffer" mode="IN" optional="false"/>
+    </service>
+
+    <service name="createOther" engine="java" transaction-timeout="7200"
+            location="org.ofbiz.content.data.DataServices" invoke="createOther">
+        <description>Create other data</description>
+        <attribute name="dataResourceId" type="String" mode="IN" optional="false"/>
+        <attribute name="dataResourceContent" type="java.nio.ByteBuffer" mode="IN" optional="false"/>
+    </service>
+
     <service name="updateContentSubscription" engine="java" transaction-timeout="7200" auth="true"
             location="org.ofbiz.content.ContentManagementServices" invoke="updateContentSubscription">
         <description>Creates or updates ContentRole</description>
