@@ -222,7 +222,16 @@
         <response name="success" type="request" value="json"/>
         <response name="error" type="request" value="json"/>
     </request-map> 
+    
+    <request-map uri="FindContent">
+       <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindContent"/>
+        <response name="error" type="view" value="FindContent"/>
+    </request-map> 
+    
     <!-- View Mappings -->
+    <view-map name="FindContent" type="screen" page="component://schoolmgmt/widget/ContentScreens.xml#FindContent"/>
+    
     <view-map name="TimeTableLookUpTable" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#TimeTableLookUpTable"/>
     
     <view-map name="LookupPartyName" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupPartyName"/>

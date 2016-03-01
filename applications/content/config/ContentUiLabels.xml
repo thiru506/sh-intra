@@ -157,6 +157,14 @@
         <value xml:lang="zh">关联</value>
         <value xml:lang="zh_TW">關聯</value>
     </property>
+    <property key="ContentArticleName">
+        <value xml:lang="en">Article Name</value>
+        <value xml:lang="th">ชื่อบทความ</value>
+    </property>
+    <property key="ContentArticleNameIsMissing">
+        <value xml:lang="en">Article Name is missing.</value>
+        <value xml:lang="it">Nome articolo è mancante.</value>
+    </property>
     <property key="ContentAttribute">
         <value xml:lang="ar">خاصية</value>
         <value xml:lang="da">Attribut</value>

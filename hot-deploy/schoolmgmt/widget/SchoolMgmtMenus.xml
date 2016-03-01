@@ -27,9 +27,6 @@
         <menu-item name="humanres" title="Humanres">
            <link target="communication"></link>
         </menu-item> -->
-        <menu-item name="knowledge" title="Knowledge">
-           <link target="knowledge"></link>
-        </menu-item>
         <menu-item name="finance" title="Finance">
            <link target="FindFeeInvoice"></link>
         </menu-item>
@@ -39,9 +36,12 @@
         <menu-item name="utilities" title="Utilities">
            <link target="transport"></link>
         </menu-item>
-        <menu-item name="library" title="Library">
+       <!--  <menu-item name="library" title="Library">
            <link target="library"></link>
-        </menu-item>
+        </menu-item> -->
+        <!-- <menu-item name="content" title="Document/Papers">
+           <link target="FindContent"></link>
+        </menu-item> -->
       </menu>
       <menu name="UtilitiesSubTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
           default-menu-item-name="transport" selected-menuitem-context-field-name="tabButtonItem2" >
@@ -55,10 +55,10 @@
             <link target="Dormitary"  >
             </link>
         </menu-item>
-         <menu-item name="frontDesk" title="Front Desk">
+         <!-- <menu-item name="frontDesk" title="Front Desk">
             <link target="frontDesk">
             </link>
-        </menu-item>
+        </menu-item> -->
         </menu>
        <menu name="AttendanceSubTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
           default-menu-item-name="dailyAttendanceEntry" selected-menuitem-context-field-name="tabButtonItem2" >

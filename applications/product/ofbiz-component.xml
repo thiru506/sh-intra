@@ -86,6 +86,7 @@ under the License.
         description="FacilityComponentDescription"
         server="default-server"
         location="webapp/facility"
+        app-bar-display="false"
         base-permission="OFBTOOLS,FACILITY"
         mount-point="/facility"/>
 </ofbiz-component>

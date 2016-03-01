@@ -75,10 +75,10 @@ under the License.
                       ${telecomNumber.countryCode?if_exists}
                       <#if telecomNumber.areaCode?has_content>${telecomNumber.areaCode?default("000")}-</#if><#if telecomNumber.contactNumber?has_content>${telecomNumber.contactNumber?default("000-0000")}</#if>
                       <#if partyContactMech.extension?has_content>${uiLabelMap.PartyContactExt}&nbsp;${partyContactMech.extension}</#if>
-                        <#if !telecomNumber.countryCode?has_content || telecomNumber.countryCode = "011">
+                       <!-- <#if !telecomNumber.countryCode?has_content || telecomNumber.countryCode = "011">
                           <a target="_blank" href="${uiLabelMap.CommonLookupAnywhoLink}" class="buttontext">${uiLabelMap.CommonLookupAnywho}</a>
                           <a target="_blank" href="${uiLabelMap.CommonLookupWhitepagesTelNumberLink}" class="buttontext">${uiLabelMap.CommonLookupWhitepages}</a>
-                        </#if>
+                        </#if> -->
                     </div>
                   </#if>
                 <#elseif "EMAIL_ADDRESS" = contactMech.contactMechTypeId>

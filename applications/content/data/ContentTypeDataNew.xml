@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<entity-engine-xml>
+    <ContentType contentTypeId="OMS" description="Oms" hasTable="N" parentTypeId=""/>
+    <ContentType contentTypeId="SHOW_CASE_NOTICES" description="Show Cause Notice" hasTable="N" parentTypeId="OMS"/>
+    <ContentType contentTypeId="NOTICES" description="Notices" hasTable="N" parentTypeId="OMS"/>
+    <ContentType contentTypeId="MEMO" description="Memo" hasTable="N" parentTypeId="OMS"/>
+    <ContentType contentTypeId="WARNING" description="Warning" hasTable="N" parentTypeId="OMS"/>
+    <ContentType contentTypeId="UNDER_OFFICE_NOTE" description="Under Office Note" hasTable="N" parentTypeId="OMS"/>
+    <ContentType contentTypeId="NOTE" description="Note" hasTable="N" parentTypeId="OMS"/>
+    <ContentType contentTypeId="CIRCULAR" description="Circular" hasTable="N" parentTypeId="OMS"/>
+    <ContentType contentTypeId="MEETING_NOTICE" description="Meeting Notice" hasTable="N" parentTypeId="OMS"/>
+    <ContentType contentTypeId="OFFICE_ORDER" description="Office Order" hasTable="N" parentTypeId="OMS"/>
+    <ContentType contentTypeId="OFFICIAL_DOC" description="Official Documents" hasTable="N" parentTypeId="OMS"/>
+    <ContentType contentTypeId="Prev-Papers" description="Previous Papers" hasTable="N" parentTypeId="OMS"/>
+     
+    <DataCategory dataCategoryId="OMS" parentCategoryId="" categoryName=""/>
+    <DataCategory dataCategoryId="ADMIN" parentCategoryId="OMS" categoryName="Admin"/>
+    <DataCategory dataCategoryId="SYSTEMS" parentCategoryId="OMS" categoryName="Systems"/>
+
+</entity-engine-xml>
