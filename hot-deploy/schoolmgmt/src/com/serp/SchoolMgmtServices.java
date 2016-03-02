@@ -516,4 +516,127 @@ public class SchoolMgmtServices {
         }
 		return "success";
 	}
+	public static String processStudentsMarks(HttpServletRequest request,HttpServletResponse response){
+		  Delegator delegator = (Delegator) request.getAttribute("delegator");
+		  LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
+		  Locale locale = UtilHttp.getLocale(request);
+		  HttpSession session = request.getSession();
+		  GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
+		  Map<String, Object> paramMap = UtilHttp.getParameterMap(request);
+		  int rowCount = UtilHttp.getMultiFormRowCount(paramMap);
+		  
+		  if (rowCount < 1) {
+				Debug.logError("No rows to process, as rowCount = " + rowCount,module);
+				request.setAttribute("_ERROR_MESSAGE_", "No rows to process");
+				return "error";
+			}
+		  	Map inputMap = FastMap.newInstance();
+	        String classId = (String)paramMap.get("fromProductId");
+	        String examTypeId = (String)paramMap.get("examTypeId");
+	        String customTimePeriodId = (String)paramMap.get("customTimePeriodId");
+		try {
+			
+			for (int i = 0; i < rowCount; i++) {
+				String thisSuffix = UtilHttp.MULTI_ROW_DELIMITER + i;
+				String partyId="";
+				String subjectId="";
+				String marksStr="";
+				String attempted="";
+				BigDecimal marks = BigDecimal.ZERO;
+				if (paramMap.containsKey("partyId" + thisSuffix)) {
+					partyId = (String) paramMap.get("partyId"+ thisSuffix);
+				}
+				if (paramMap.containsKey("subjectId" + thisSuffix)) {
+					subjectId = (String) paramMap.get("subjectId"+ thisSuffix);
+				}
+				if (paramMap.containsKey("marks" + thisSuffix)) {
+					marksStr = (String) paramMap.get("marks"+ thisSuffix);
+					marks = new BigDecimal(marksStr);
+				}
+				if (paramMap.containsKey("attempted" + thisSuffix)) {
+					attempted = (String) paramMap.get("attempted"+ thisSuffix);
+				}
+				
+				inputMap.clear();
+				inputMap.put("partyId", partyId);
+				inputMap.put("subjectId", subjectId);
+				inputMap.put("customTimePeriodId", customTimePeriodId);
+				inputMap.put("classId", classId);
+				inputMap.put("examTypeId", examTypeId);
+				inputMap.put("userLogin", userLogin);
+				inputMap.put("marks", marks);
+				inputMap.put("isAttempted", attempted);
+				
+				Map resultMap = dispatcher.runSync("createOrUpdateExamMarkDetails", inputMap);
+				if(ServiceUtil.isError(resultMap)){
+					Debug.logError("Error While Processing for "+partyId, module);
+					request.setAttribute("_ERROR_MESSAGE_", "Error While Processing for "+partyId);
+					return "error";
+				}
+				
+		  }
+		} catch (Exception e) {
+          request.setAttribute("_ERROR_MESSAGE_", ServiceUtil.returnError(e.getMessage()));
+			return "error";
+      }
+		return "success";
+	}
+	public static Map<String, Object> createOrUpdateExamMarkDetails(DispatchContext dctx, Map<String, ? extends Object> context) {
+		Map<String, Object> result = FastMap.newInstance();
+        Delegator delegator = dctx.getDelegator();
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        Locale locale = (Locale) context.get("locale");
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        
+        String partyId = (String) context.get("partyId");
+        String subjectId = (String) context.get("subjectId");
+        String classId = (String) context.get("classId");
+        String customTimePeriodId = (String) context.get("customTimePeriodId");
+        String examTypeId = (String) context.get("examTypeId");
+        String isAttempted = "";
+        if(UtilValidate.isNotEmpty(context.get("isAttempted"))){
+        	isAttempted = (String) context.get("isAttempted");
+        }
+        BigDecimal marks = BigDecimal.ZERO;
+        if(UtilValidate.isNotEmpty(context.get("marks"))){
+        	marks = (BigDecimal) context.get("marks");
+        }
+		try {
+			Map input = FastMap.newInstance();
+			input.put("partyId", partyId);
+			input.put("subjectId", subjectId);
+			input.put("classId", classId);
+			input.put("customTimePeriodId", customTimePeriodId);
+			input.put("examTypeId", examTypeId);
+			GenericValue examMarksDetails = delegator.findOne("ExamMarksDetails", input, false);
+			if(UtilValidate.isNotEmpty(examMarksDetails)){
+				examMarksDetails.set("marks",marks);
+				if(UtilValidate.isNotEmpty(isAttempted)){
+					examMarksDetails.set("isAttempted",isAttempted);
+				}
+				examMarksDetails.set("lastModifiedByUserLogin",userLogin.getString("userLoginId"));
+				examMarksDetails.set("lastModifiedDate",UtilDateTime.nowTimestamp());
+				examMarksDetails.store();
+			}else{
+				examMarksDetails = delegator.makeValue("ExamMarksDetails");
+				examMarksDetails.set("partyId", partyId);
+				examMarksDetails.set("subjectId", subjectId);
+				examMarksDetails.set("classId", classId);
+				examMarksDetails.set("customTimePeriodId", customTimePeriodId);
+				examMarksDetails.set("examTypeId", examTypeId);
+				examMarksDetails.set("marks",marks);
+				if(UtilValidate.isNotEmpty(isAttempted)){
+					examMarksDetails.set("isAttempted",isAttempted);
+				}
+				examMarksDetails.set("createdByUserLogin",userLogin.getString("userLoginId"));
+				examMarksDetails.set("createdDate",UtilDateTime.nowTimestamp());
+				delegator.create(examMarksDetails);
+			}			
+        
+		} catch (Exception e) {
+            return ServiceUtil.returnError(e.getMessage());
+        }
+		result = ServiceUtil.returnSuccess("Created Successfully.! StudentId :"+partyId);
+		return result;
+	}
 }

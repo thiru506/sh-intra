@@ -96,6 +96,48 @@
             <key-map field-name="dataResourceId"/>
         </view-link>        
     </view-entity> 
-    
-    
+    <entity entity-name="ExamType" package-name="org.ofbiz.schoolmgmt.Exam"
+		title="Exam Entity">
+		<field name="examTypeId" type="id-ne"></field>
+		<field name="parentTypeId" type="id-ne"></field>
+		<field name="description" type="description"></field>
+		<prim-key field="examTypeId" />
+		<relation type="one" fk-name="EXAM_TYPEPAR" title="Parent" rel-entity-name="ExamType">
+        <key-map field-name="parentTypeId" rel-field-name="examTypeId"/>
+      </relation>
+	</entity>
+    <entity entity-name="ExamMarksDetails" package-name="org.ofbiz.schoolmgmt.Exam"
+		title="Exam Marks Details Entity">
+		<field name="examTypeId" type="id-ne"></field>
+		<field name="partyId" type="id-ne"></field>
+		<field name="classId" type="id-ne"></field>
+		<field name="subjectId" type="id-ne"></field>
+		<field name="customTimePeriodId" type="id-ne"></field>
+		<field name="marks" type="fixed-point"></field>
+		<field name="isAttempted" type="indicator"></field>
+		<field name="createdByUserLogin" type="id-vlong"></field>
+		<field name="lastModifiedByUserLogin" type="id-vlong"></field>
+		<field name="createdDate" type="date-time"></field>      
+      	<field name="lastModifiedDate" type="date-time"></field>
+      	<prim-key field="examTypeId"/>
+		<prim-key field="partyId"/>
+		<prim-key field="classId"/>
+		<prim-key field="subjectId"/>
+		<prim-key field="customTimePeriodId"/>
+		<relation type="one" fk-name="EMD_ET"  rel-entity-name="ExamType">
+        	<key-map field-name="examTypeId" />
+      	</relation>
+      	<relation type="one" fk-name="EMD_PARTY"  rel-entity-name="Party">
+        	<key-map field-name="partyId" />
+      	</relation>
+      	<relation type="one" fk-name="EMD_CPROD"  rel-entity-name="Product">
+        	<key-map field-name="classId"  rel-field-name="productId" />
+      	</relation>
+      	<relation type="one" fk-name="EMD_SPROD"  rel-entity-name="Product">
+        	<key-map field-name="subjectId" rel-field-name="productId" />
+      	</relation>
+      	<relation type="one" fk-name="EMD_CUST"  rel-entity-name="CustomTimePeriod">
+        	<key-map field-name="customTimePeriodId" />
+      	</relation>
+	</entity>
 </entitymodel>

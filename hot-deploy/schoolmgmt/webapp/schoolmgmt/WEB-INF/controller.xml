@@ -215,10 +215,22 @@
      <request-map uri="pramoteStudents">
      	<security https="true" auth="true"/>
      	<response name="success" type="view" value="pramoteStudents"/>
+     	<response name="error" type="view" value="pramoteStudents"/>
      </request-map>
     <request-map uri="pramoteStudentsAjax">
        <security https="true" auth="true"/>
     	<event type="java" invoke="pramoteStudentsToNextClass" path="com.serp.SchoolMgmtServices" global-transaction="true"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
+    </request-map> 
+ 	<request-map uri="studentMarksEntry">
+     	<security https="true" auth="true"/>
+     	<response name="success" type="view" value="studentMarksEntry"/>
+     	<response name="error" type="view" value="studentMarksEntry"/>
+     </request-map>
+	 <request-map uri="processStudentsMarks">
+       <security https="true" auth="true"/>
+    	<event type="java" invoke="processStudentsMarks" path="com.serp.SchoolMgmtServices" global-transaction="true"/>
         <response name="success" type="request" value="json"/>
         <response name="error" type="request" value="json"/>
     </request-map> 
@@ -228,6 +240,7 @@
         <response name="success" type="view" value="FindContent"/>
         <response name="error" type="view" value="FindContent"/>
     </request-map> 
+
     
     <!-- View Mappings -->
     <view-map name="FindContent" type="screen" page="component://schoolmgmt/widget/ContentScreens.xml#FindContent"/>
@@ -253,6 +266,7 @@
 	<view-map name="TimeTableOverView" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#TimeTableOverView"/>
     <view-map name="academics" type="screen" page="component://schoolmgmt/widget/AcademicsScreens.xml#academics"/>
     <view-map name="pramoteStudents" type="screen" page="component://schoolmgmt/widget/AcademicsScreens.xml#pramoteStudents"/>
+    <view-map name="studentMarksEntry" type="screen" page="component://schoolmgmt/widget/AcademicsScreens.xml#studentMarksEntry"/>
     <view-map name="admission" type="screen" page="component://schoolmgmt/widget/AdmissionScreens.xml#admission"/>
     <view-map name="TypeWiseRevenue" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#TypeWiseRevenue"/>
     <view-map name="TypeWiseRevenueInternal" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#TypeWiseRevenueInternal"/>

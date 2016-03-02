@@ -92,4 +92,14 @@
         <auto-attributes mode="IN" entity-name="BiometricPunchData" include="nonpk" optional="true"></auto-attributes>
    </service>
 	 
+	 <service name="createOrUpdateExamMarkDetails" engine="java" location="com.serp.SchoolMgmtServices" auth="true" invoke="createOrUpdateExamMarkDetails">
+	 	<description>create or update exam marks details</description>
+		 <attribute name="partyId" mode="IN" type="String" optional="false"/>
+		 <attribute name="classId" mode="IN" type="String" optional="false"/>
+		 <attribute name="subjectId" mode="IN" type="String" optional="false"/>
+		 <attribute name="examTypeId" mode="IN" type="String" optional="false"/>
+		 <attribute name="customTimePeriodId" mode="IN" type="String" optional="false"/>
+		 <attribute name="marks" mode="IN" type="BigDecimal" optional="true"/>
+		 <attribute name="isAttempted" mode="IN" type="String" optional="true"/>
+	 </service>
 </services>
