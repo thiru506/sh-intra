@@ -68,7 +68,7 @@
 	function fetchStudents(){
 		var custId = document.getElementById("customTimePeriodId").value;
 		var fromProd = document.getElementById("fromProductId").value;
-		var toProd = document.getElementById("toProductId").value;
+		
 		if(custId==null || custId == "" || custId==undefined){
 				alert('Please Select CustomTimePeriodId');
 				document.getElementById('customTimePeriodId').focus();
@@ -79,11 +79,23 @@
 				document.getElementById('fromProductId').focus();
 				return false;
 		}
+		<#if flag?has_content && flag=="promoteStudents">
+		var toProd = document.getElementById("toProductId").value;
 		if(toProd==null || toProd=="" || toProd==undefined){
 				alert('Please Select toProductId');
 				document.getElementById('toProductId').focus();
 				return false;
 		}
+		</#if>
+        <#if flag?has_content && flag=="marksEntry">
+        var examTypeId = document.getElementById("examTypeId").value;
+		if(examTypeId==null || examTypeId=="" || examTypeId==undefined){
+				alert('Please Select Exam');
+				document.getElementById('examTypeId').focus();
+				return false;
+		}
+        </#if>
+      
 		var form = document.getElementById("fatchStudentsForm");
 		form.submit();
 	
@@ -94,7 +106,13 @@
       	<h3>Fetch Students</h3>	
      </div>
 <div class="screenlet-body">
-	<form name="fetchStudentsForm" id="fatchStudentsForm" action="">
+<#if flag?has_content && flag=="promoteStudents">
+	<form name="fetchStudentsForm" id="fatchStudentsForm" action="pramoteStudents">
+</#if>
+<#if flag?has_content && flag=="marksEntry">
+<form name="fetchStudentsForm" id="fatchStudentsForm" action="studentMarksEntry">
+</#if>
+	
 		<table>
 			<tr>
 				<td>Acadamic Year</td>
@@ -111,7 +129,12 @@
                         </#if>
 					</select><td>
 			</tr>
+			<#if flag?has_content && flag=="promoteStudents">
 			<tr><td>From Class</td>
+			</#if>
+            <#if flag?has_content && flag=="marksEntry">
+			<tr><td>Class</td>
+            </#if> 
 				<td><select name="fromProductId" id="fromProductId"> 
           				<option value="">Select</option>
 						<#if classList?has_content>
@@ -125,6 +148,7 @@
                         </#if>
 					</select></td>
 			</tr>
+			<#if flag?has_content && flag=="promoteStudents">
 			<tr><td>To Class</td>
 				<td><select name="toProductId" id="toProductId" >
 						<option value="">Select</option>
@@ -139,6 +163,25 @@
                         </#if>
 					</select></td>
 			</tr>
+			</#if>
+            <#if flag?has_content && flag=="marksEntry">
+			<tr>
+				<td>Exam </td><td>
+					<select name="examTypeId" id="examTypeId">
+						<option value="">Select</option>
+						<#if examsList?has_content>
+							<#list examsList as exam>
+                            	<#if examTypeId?exists && examTypeId==exam.examTypeId>
+									<option value="${examTypeId}" selected="selected">${exam.description?if_exists}</option>
+								<#else>
+                                	<option value="${exam.examTypeId}">${exam.description?if_exists}</option>
+                                </#if>
+                            </#list>
+						</#if>
+					</select>
+				</td>
+			</tr>	
+            </#if>
 			<tr><td></td><td><input type="button" value="Fetch Students" onclick="javascript:fetchStudents();"  class="smallSubmit"/></td></tr>
 		</table>
 	</form>
