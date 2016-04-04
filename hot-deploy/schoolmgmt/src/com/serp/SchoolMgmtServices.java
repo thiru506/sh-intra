@@ -639,4 +639,28 @@ public class SchoolMgmtServices {
 		result = ServiceUtil.returnSuccess("Created Successfully.! StudentId :"+partyId);
 		return result;
 	}
+	public static Map<String, Object> deleteCustRequestNote(DispatchContext dctx, Map<String, ? extends Object> context) {
+		Map<String, Object> result = FastMap.newInstance();
+        Delegator delegator = dctx.getDelegator();
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        Locale locale = (Locale) context.get("locale");
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        
+        String custRequestId = (String) context.get("custRequestId");
+        String noteId = (String) context.get("noteId");
+		try {
+			GenericValue custRequestNote = delegator.findOne("CustRequestNote", UtilMisc.toMap("custRequestId",custRequestId,"noteId",noteId), false);
+			if(UtilValidate.isEmpty(custRequestNote)){
+				return ServiceUtil.returnError("CustRequestNote Not Found.!");
+			}
+			GenericValue noteData = delegator.findOne("NoteData", UtilMisc.toMap("noteId",noteId), false);
+			delegator.removeValue(custRequestNote);
+			delegator.removeValue(noteData);
+        
+		} catch (Exception e) {
+            return ServiceUtil.returnError("Error While Deleting CustRequestNote.!"+e.getMessage());
+        }
+		result = ServiceUtil.returnSuccess("Deleted Successfully.!");
+		return result;
+	}
 }
