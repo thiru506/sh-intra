@@ -102,4 +102,9 @@
 		 <attribute name="marks" mode="IN" type="BigDecimal" optional="true"/>
 		 <attribute name="isAttempted" mode="IN" type="String" optional="true"/>
 	 </service>
+	 <service name="deleteCustRequestNote" engine="java" location="com.serp.SchoolMgmtServices" auth="true" invoke="deleteCustRequestNote">
+	 	<description>Delete CustRequest Note</description>
+		 <attribute name="custRequestId" mode="IN" type="String" optional="false"/>
+		 <attribute name="noteId" mode="IN" type="String" optional="false"/>
+	 </service>
 </services>

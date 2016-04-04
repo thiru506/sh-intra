@@ -279,7 +279,11 @@
      <field name="submitButton" title="Find" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListEnquires" type="list" list-name="custRequestList" separate-columns="true" target="" odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" >
-    	<field name="custRequestId" title="ENQ NO"><display></display></field>
+    	<field name="custRequestId" sort-field="true" title="IndentId" widget-style="buttontext">
+            <hyperlink description="${custRequestId}" target="ViewEnquiryOverview" target-window="_blank">
+                <parameter param-name="custRequestId"/>
+            </hyperlink>
+        </field>
     	<field name="name"><display></display></field>
     	<field name="fromPartyId"><display></display></field>
     	<field name="custRequestDate" title="ENQ Date"><display description="${groovy:org.ofbiz.base.util.UtilDateTime.toDateString(custRequestDate, &quot;MM/dd/yyyy&quot;);}"></display></field>
@@ -288,6 +292,36 @@
     	<field name="custRequestName" title="Previous School"><display></display></field>
     	<field name="emailAddress"><display></display></field>
     	<field name="phoneNumber"><display></display></field>
+    </form>
+    <form name="EnquiryOverview" type="single" default-map-name="enquiryDetails" separate-columns="true" target="" odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" >
+    	<actions>
+    	</actions>
+    	<field name="custRequestId"  title="Enquiry Id" ><display></display>
+        </field>
+        <field name="name"><display></display></field>
+    	<field name="fromPartyId" title="Party Id"><display></display></field>
+    	<field name="custRequestDate" title="ENQ Date"><display description="${groovy:org.ofbiz.base.util.UtilDateTime.toDateString(enquiryDetails.custRequestDate, &quot;MM/dd/yyyy&quot;);}"></display></field>
+    	<field name="statusId"><display-entity entity-name="StatusItem" ></display-entity></field>
+    	<field name="custRequestName" title="Previous School"><display></display></field>
+    	<field name="emailAddress"><display></display></field>
+    	<field name="phoneNumber"><display></display></field>
+    </form>
+    <form name="AddEnquiryNotes" type="single" target="createCustRequestNote">
+    	<field name="custRequestId"><hidden value="${parameters.custRequestId}"/></field>
+    	<field name="noteInfo"><textarea/></field>
+    	<field name="submitButton" title="Add" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ListEnquiryNotes" type="list"  list-name="custRequestNotes" separate-columns="true" target="deleteCustRequestNote" odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+    	<row-actions>
+    		<entity-one value-field="noteData" entity-name="NoteData">
+    			<field-map field-name="noteId" from-field="noteId"/>
+    		</entity-one>
+    		<set field="noteInfo" from-field="noteData.noteInfo"/>
+    	</row-actions>
+    	<field name="custRequestId"><hidden/></field>
+    	<field name="noteId"><hidden/></field>
+    	<field name="noteInfo"><display></display></field>
+    	<field name="submitButton" title="Delete" widget-style="smallSubmit" ><submit button-type="button"/></field>
     </form>
     <form name="ProfilePicture" target="uploadPartyContent" type="upload" 
   		header-row-style="header-row">

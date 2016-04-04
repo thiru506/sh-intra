@@ -28,6 +28,8 @@ custRequestName = parameters.custRequestName;
 List conditionList=FastList.newInstance();
 List custRequestList = FastList.newInstance(); 
 List tempList=FastList.newInstance();
+//For enquiry overview
+Map enquiryOverViewMap = FastMap.newInstance();
 if(UtilValidate.isNotEmpty(custRequestId)){
 	conditionList.add(EntityCondition.makeCondition("custRequestId",EntityOperator.EQUALS,custRequestId));
 }
@@ -77,10 +79,14 @@ if(UtilValidate.isNotEmpty(custRequestList)){
 		tempMap.name=name;
 		tempMap.emailAddress=emailAddress;
 		tempMap.phoneNumber=phoneNumber;
+		//For enquiry overview
+		enquiryOverViewMap.putAll(tempMap);
 		tempList.add(tempMap);
 	}
 }
 //Debug.log("custRequestList======"+tempList);
+//For enquiry overview
+context.enquiryDetails=enquiryOverViewMap;
 context.custRequestList=tempList;
 
 
