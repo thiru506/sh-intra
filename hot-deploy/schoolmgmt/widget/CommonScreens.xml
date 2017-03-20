@@ -31,9 +31,7 @@
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
-                            <condition>
-                                <if-has-permission permission="SCHOOLMGMT" action="_VIEW"/>
-                            </condition>
+                           
                             <widgets>
                                  <include-menu location="component://schoolmgmt/widget/SchoolMgmtMenus.xml" name="SchoolAppBar"/>
                                 <decorator-section-include name="body"/>

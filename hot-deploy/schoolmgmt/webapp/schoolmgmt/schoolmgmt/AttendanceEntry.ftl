@@ -204,8 +204,7 @@ function approveClickQtySnfValidationHandler(row) {
 		var toProductId = "${toProductId}";
 		var partySubscriptionJson=${StringUtil.wrapString(partySubscription)!'[]'};
         </#if> 
-		for (var rowCount=0; rowCount < data1.length; ++rowCount)
-		{
+		for (var rowCount=0; rowCount < data1.length; ++rowCount){
 		
 			<#if flag=="promoteStudents">	
 			var partyId = data1[rowCount]["partyId"];
@@ -236,7 +235,7 @@ function approveClickQtySnfValidationHandler(row) {
 					jQuery(formId).append(jQuery(inputPunchDate));
 					
 				}
-			}
+			
             </#if>
 		}
 		<#if flag=="promoteStudents">		

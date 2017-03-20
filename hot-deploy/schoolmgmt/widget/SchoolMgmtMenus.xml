@@ -6,28 +6,46 @@
     </menu>
      <menu name="SchoolAppBar" default-menu-item-name="dashBoard" default-selected-style="selected"
         type="simple" menu-container-style="button-bar tab-bar" selected-menuitem-context-field-name="tabButtonItem">
-        <menu-item name="MgmtDashBoard" title="Dash Board">
+        <menu-item name="Home" title="HOME">
+           <link target="Home"></link>
+        </menu-item>
+        <menu-item name="MgmtDashBoard" title=" POLICIES">
            <link target="MgmtDashBoard"></link>
         </menu-item>
-        <menu-item name="enquiry" title="Enquiry">
-           <link target="enquiry"></link>
-        </menu-item>
-        <menu-item name="academics" title="Academics">
+        <!-- <menu-item name="academics" title="Contacts">
            <link target="academics"></link>
+        </menu-item> -->
+         <menu-item name="admission" title=" CONTACTS">
+           <link target="LookUpTable"></link>
         </menu-item>
-        <menu-item name="admission" title="Admission">
-           <link target="StudentLookUpTable"></link>
+         <menu-item name="careers" title="CAREERS">
+           <link target="careers"></link>
         </menu-item>
-        <menu-item name="attendance" title="Attendance">
+         <menu-item name="biometric" title="BIOMETRIC">
+          <link target="http://shgroupbiometric.in" url-mode="plain" target-window="new">
+          </link>
+          </menu-item>
+         <menu-item name="project management tracker" title="PROJECTS MANAGEMENT TRACKER">
+          <link target="http://183.82.0.33" url-mode="plain" target-window="new">
+          </link>
+        </menu-item>
+         <menu-item name="newsandevents" title="NEWS/EVENTS">
+           <link target="newsandevents"></link>
+        </menu-item>
+        
+        
+        
+        
+       <!-- <menu-item name="attendance" title="Attendance">
            <link target="Attendance"></link>
-        </menu-item>
+        </menu-item> -->
        <!-- <menu-item name="communication" title="Communication">
            <link target="communication"></link>
         </menu-item>
         <menu-item name="humanres" title="Humanres">
            <link target="communication"></link>
         </menu-item> -->
-        <menu-item name="finance" title="Finance">
+        <!-- <menu-item name="finance" title="Finance">
            <link target="FindFeeInvoice"></link>
         </menu-item>
        <menu-item name="timeTable" title="TimeTable">
@@ -35,7 +53,7 @@
         </menu-item>
         <menu-item name="utilities" title="Utilities">
            <link target="transport"></link>
-        </menu-item>
+        </menu-item> -->
        <!--  <menu-item name="library" title="Library">
            <link target="library"></link>
         </menu-item> -->
@@ -161,8 +179,11 @@
           default-menu-item-name="enquiry" selected-menuitem-context-field-name="tabButtonItem2" >
 			<actions> 
 			</actions> 
-			<menu-item name="enquiry" title="Find Enquiry">
-           <link target="enquiry"></link>
+			<menu-item name="enquiry" title="Calender Enquiry">
+               <link target="enquiryCalendar"></link>
+        </menu-item>
+        <menu-item name="enquiryFind" title="Find Enquiry">
+               <link target="enquiry"></link>
         </menu-item>
       </menu>  
 </menus>

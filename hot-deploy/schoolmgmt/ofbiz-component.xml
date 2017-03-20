@@ -34,6 +34,6 @@
         title="SchoolMgmt"
         server="default-server"
         location="webapp/schoolmgmt"
-        base-permission="OFBTOOLS,SCHOOLMGMT"
+        base-permission="OFBTOOLS"
         mount-point="/schoolmgmt"/>
 </ofbiz-component>

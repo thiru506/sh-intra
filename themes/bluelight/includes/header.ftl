@@ -86,6 +86,9 @@ under the License.
           ${StringUtil.wrapString(webAnalyticsConfig.webAnalyticsCode?if_exists)}
         </#list>
       </script>
+<link rel="stylesheet" href="<@ofbizContentUrl>/images/jquery/plugins/sidr/stylesheets/jquery.sidr.light.css</@ofbizContentUrl>" type="text/css"/>
+<script language="javascript" type="text/javascript" src="<@ofbizContentUrl>/images/jquery/plugins/sidr/jquery.sidr.js</@ofbizContentUrl>"></script>
+    
     </#if>
 </head>
 <#if layoutSettings.headerImageLinkUrl?exists>
@@ -123,6 +126,8 @@ under the License.
     </div>
     <div id="masthead">
       <ul>
+       
+      
         <#if (userPreferences.COMPACT_HEADER)?default("N") == "Y">
             <#if shortcutIcon?has_content>
                 <#if organizationLogoLinkURL?has_content>
@@ -173,13 +178,10 @@ under the License.
               <li><a href="<@ofbizUrl>ListVisualThemes</@ofbizUrl>">${uiLabelMap.CommonVisualThemes}</a></li>
               <li><a href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a></li>
             <#else>
-              <li><a href="<@ofbizUrl>${checkLoginUrl}</@ofbizUrl>">${uiLabelMap.CommonLogin}</a></li>
+             
             </#if>
             <#--if webSiteId?exists && requestAttributes._CURRENT_VIEW_?exists && helpTopic?exists-->
-            <#if parameters.componentName?exists && requestAttributes._CURRENT_VIEW_?exists && helpTopic?exists>
-              <#include "component://common/webcommon/includes/helplink.ftl" />
-              <li><a class="help-link <#if pageAvail?has_content> alert</#if>" href="javascript:lookup_popup2('showHelp?helpTopic=${helpTopic}&amp;portalPageId=${parameters.portalPageId?if_exists}','help' ,500,500);" title="${uiLabelMap.CommonHelp}"></a></li>
-            </#if>
+          
             <#if userLogin?exists>
               <#if (userPreferences.COMPACT_HEADER)?default("N") == "Y">
                 <li class="collapsed"><a href="javascript:document.setUserPreferenceCompactHeaderN.submit()">&nbsp;&nbsp;</a>
@@ -206,3 +208,21 @@ under the License.
       </ul>
       <br class="clear" />
     </div>
+    <script>
+
+    jQuery(document).ready(function ($) {
+      $('#simple-menu').sidr({
+        timing: 'ease-in-out',
+        speed: 500
+      });
+      
+      $("#sidr").removeClass("hidden");
+      
+    });
+
+    jQuery( window ).resize(function ($) {
+      $.sidr('close', 'sidr');
+    });
+
+    </script>
+

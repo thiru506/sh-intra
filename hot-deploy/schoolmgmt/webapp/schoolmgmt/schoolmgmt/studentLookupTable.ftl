@@ -29,13 +29,12 @@ $(document).ready(function() {
 	var table = $('#example').DataTable( {
 		"data": dataSet,
 		"columns": [
-			{ "title": "Student Name" },
-			{ "title": "Ro.Number" },
-			{ "title": "Father Name" },
-			{ "title": "Blood Group" },
-			{ "title": "BirthDate" },			
-			{ "title": "MobileNumber" }],
-			"columnDefs": [{ type: 'date-eu', targets: 4 }],			
+			{ "title": "Employee Name" },
+			{ "title": "Location" },
+			{ "title": "Department" },
+			{ "title": "Email" },
+			{ "title": "Phone Number" }],
+			"columnDefs": [{ type: 'date-eu', targets: 3 }],			
             "sDom": 'lfTrtip',
             "tableTools": {
                 "sSwfPath": "<@ofbizContentUrl>/images/jquery/plugins/datatables/1.10.0/extensions/TableTools/swf/copy_csv_xls_pdf.swf</@ofbizContentUrl>",
@@ -47,16 +46,16 @@ $(document).ready(function() {
                 { 
                 	"sExtends": "csv", 
                 	"oSelectorOpts": { filter: 'applied', order: 'current' },
-                	"sFileName": "StudentList.csv"                 	
+                	"sFileName": "EmplList.csv"                 	
                 },
                 { 
                 	"sExtends": "pdf", 
                 	"oSelectorOpts": { filter: 'applied', order: 'current' },
-                	"sFileName": "StudentList.pdf"   
+                	"sFileName": "EmplList.pdf"   
                 } 
                 ]
             },
-		"iDisplayLength" : 25,		
+		"iDisplayLength" : 50,		
      	"fnRowCallback": function(nRow, aData, iDisplayIndex ) {
      		<#if security.hasEntityPermission("SCHOOLMGMT", "_ADMIN", session)>
 		    $('td:eq(0)', nRow).html('<a href="PartyView?partyId=' + aData[1] + '">' +
@@ -91,23 +90,21 @@ $(document).ready(function() {
 		<table id="example" class="display" cellspacing="0" width="100%">
         <thead>
             <tr>
-                <th>Student Name</th>
-                <th>Ro.Number</th>
-                <th>Father Name</th>
-                <th>Blood Group</th>
-                <th>Birth Date</th>
-                <th>MobileNumber</th>
+                <th>Employee Name</th>
+                <th>Location</th>
+                <th>Department</th>
+                <th>Email</th>
+                <th>Phone Number</th>
             </tr>
         </thead>
  		<tbody></tbody>
         <tfoot>
              <tr>
-                <th>Student Name</th>
-                <th>Ro.Number</th>
-                <th>Father Name</th>
-                <th>Blood Group</th>
-                <th>Birth Date</th>
-                <th>MobileNumber</th>
+                <th>Employee Name</th>
+                <th>Location</th>
+                <th>Department</th>
+                <th>Email</th>
+                <th>Phone Number</th>
             </tr>
         </tfoot>
 		</table>

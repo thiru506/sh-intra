@@ -16,6 +16,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
+
 <#if (requestAttributes.externalLoginKey)?exists><#assign externalKeyParam = "?externalLoginKey=" + requestAttributes.externalLoginKey?if_exists></#if>
 <#if (externalLoginKey)?exists><#assign externalKeyParam = "?externalLoginKey=" + requestAttributes.externalLoginKey?if_exists></#if>
 <#assign ofbizServerName = application.getAttribute("_serverId")?default("default-server")>
@@ -30,19 +31,20 @@ under the License.
   </#if>
 </#if>
 
-<div class="tabbar">
-    <div class="breadcrumbs<#if show_last_menu?exists> menu_selected</#if>">
-    <div class="breadcrumbs-start">
-      <div id="main-navigation">
-        <h2>${uiLabelMap.CommonApplications}</h2>
+<div id="sidr" class="hidden">
+
+<#if userLogin?exists>
+<#--        <h2>${uiLabelMap.CommonApplications}</h2>  -->
+
         <ul>
-          <li>
-            <ul><li><ul class="primary">
+ <#--         <li>
+            <ul><li><ul class="primary">   -->
             <#-- Primary Applications -->
             <#list displayApps as display>
               <#assign thisApp = display.getContextRoot()>
               <#assign permission = true>
               <#assign selected = false>
+         <#if display.name != "content">
               <#assign permissions = display.getBasePermission()>
               <#list permissions as perm>
                 <#if (perm != "NONE" && !security.hasEntityPermission(perm, "_VIEW", session) && !authz.hasPermission(session, perm, requestParameters))>
@@ -50,11 +52,12 @@ under the License.
                   <#assign permission = false>
                 </#if>
               </#list>
+         </#if>  
               <#if permission == true>
                 <#if thisApp == contextPath || contextPath + "/" == thisApp>
                   <#assign selected = true>
                 </#if>
-                <#assign thisApp = StringUtil.wrapString(thisApp)>
+                
                 <#assign thisURL = thisApp>
                 <#if thisApp != "/">
                   <#assign thisURL = thisURL + "/control/main">
@@ -66,8 +69,8 @@ under the License.
                 </#if>
               </#if>
             </#list>
-           </ul></li>
-           <li><ul class="secondary">
+<#--             </ul></li>
+           <li><ul class="secondary"> -->
             <#-- Secondary Applications -->
             <#list displaySecondaryApps as display>
               <#assign thisApp = display.getContextRoot()>
@@ -84,7 +87,7 @@ under the License.
                 <#if thisApp == contextPath || contextPath + "/" == thisApp>
                   <#assign selected = true>
                 </#if>
-                <#assign thisApp = StringUtil.wrapString(thisApp)>
+              
                 <#assign thisURL = thisApp>
                 <#if thisApp != "/">
                   <#assign thisURL = thisURL + "/control/main">
@@ -96,9 +99,12 @@ under the License.
                 </#if>
               </#if>
             </#list>
-            </ul>
-          </li>
+<#--            </ul>
+          </li> 
         </ul>
-        </li>
+        </li> -->
         </ul>
+<#else>
+        <h2>S-ERP</h2>
+</#if>        
       </div>

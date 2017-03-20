@@ -29,13 +29,13 @@
     <include location="component://order/webapp/ordermgr/WEB-INF/controller.xml"/>
     <include location="component://workeffort/webapp/workeffort/WEB-INF/controller.xml"/>
     <include location="component://projectmgr/webapp/projectmgr/WEB-INF/controller.xml"/>
-    
+    <include location="component://schoolmgmt/webapp/schoolmgmt/WEB-INF/controller.xml"/>
     <description>Show personal information in the system</description>
 
-    <request-map uri="main">
-        <security https="true" auth="true"/>
-        <response name="success" type="request" value="showPortalPage"/>
-    </request-map>
+    <!-- <request-map uri="main">
+        <security https="true" auth="false"/>
+        <response name="success" type="view" value="main"/>
+    </request-map> -->
     <request-map uri="newRegisterLogin">
         <security https="true" auth="false"/>
         <response name="success" type="view" value="newRegisterLogin"/>
@@ -52,7 +52,7 @@
         <response name="success" type="view" value="LookupUserLoginAndPartyDetails"/>
     </request-map>
     
-    <view-map name="main" type="screen" page="component://common/widget/PortalPageScreens.xml#showPortalPage"/>
+  <!--   <view-map name="main" type="screen" page="component://common/widget/PortalPageScreens.xml#showPortalPage"/> -->
     <view-map name="login" type="screen" page="component://myportal/widget/CommonScreens.xml#login"/>
     <view-map name="newRegisterLogin" type="screen" page="component://myportal/widget/CommonScreens.xml#newRegisterLogin"/>  
 

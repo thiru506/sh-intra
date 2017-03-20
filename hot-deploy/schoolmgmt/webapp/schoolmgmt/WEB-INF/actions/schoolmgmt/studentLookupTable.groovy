@@ -13,38 +13,17 @@ import net.sf.json.JSONArray;
 
 dctx = dispatcher.getDispatchContext();
 
-studentRoles = delegator.findList("PartyRole", EntityCondition.makeCondition("roleTypeId",EntityOperator.EQUALS,"STUDENT"), null, null, null, false );
-studentList = delegator.findList("PartyAndPerson", EntityCondition.makeCondition("partyId",EntityOperator.IN,studentRoles.partyId), null, null, null, false );
+studentList = delegator.findList("Contacts",null, null, null, null, false );
 JSONArray studentsJSON = new JSONArray();
 studentList.each { student ->
 	JSONArray studentJSON = new JSONArray();
-	studentJSON.add(student.firstName+" "+student.lastName);
-	studentJSON.add(student.partyId);
-	studentJSON.add("");
-	studentJSON.add(student.bloodGroup);
-	if(student.birthDate){
-		studentJSON.add(student.birthDate.toString());
-	}else{
-	studentJSON.add("");
-	}
-	try {
-		Map<String, Object> getTelParams = FastMap.newInstance();
-		getTelParams.put("partyId", student.partyId);
-		getTelParams.put("userLogin", userLogin);
-		tmpResult = dispatcher.runSync("getPartyTelephone", getTelParams);
-	} catch (GenericServiceException e) {
-		Debug.logError(e, module);
-		return ServiceUtil.returnError(e.getMessage());
-	}
-	if (ServiceUtil.isError(tmpResult)) {
-		return ServiceUtil.returnError(ServiceUtil.getErrorMessage(tmpResult));
-	}
-	if(tmpResult.get("contactNumber")){
-		contactNumber = (String) tmpResult.get("countryCode") + (String) tmpResult.get("contactNumber");
-		studentJSON.add(contactNumber);
-	}else{
-		studentJSON.add("");
-	}
+	studentJSON.add(student.employeeName);
+	studentJSON.add(student.location);
+	studentJSON.add(student.department);
+	studentJSON.add(student.email);
+	studentJSON.add(student.phone);
+	
+	
 	
 	studentsJSON.add(studentJSON);
 	

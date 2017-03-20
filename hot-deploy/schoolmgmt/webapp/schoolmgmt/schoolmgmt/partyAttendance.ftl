@@ -34,12 +34,12 @@ $(document).ready(function(){
   var partys = ${StringUtil.wrapString(partysJSON!'[]')};
   //alert("partys="+partys);
 //$("#partyId").append('<option value=""></option>');
-  $.each(partys, function(key, val){
+ /* $.each(partys, function(key, val){
     $("#partyId").append('<option value="' + val.partyId + '">' + val.name + " [" + val.partyId + "]" + '</option>');
   });
   $("#partyId").flexselect({
   								preSelection: false,
-  								hideDropdownOnEmptyInput: true});	
+  								hideDropdownOnEmptyInput: true});	*/
 
 thruDate = new Date();
 $("#thruDate").val(thruDate.getDate() + "/" + (thruDate.getMonth() + 1) + "/" + thruDate.getFullYear());
@@ -141,14 +141,18 @@ $("#fromDate").glDatePicker(
         		<td align="right" width="10%"><span class='h2'>Party: </span></td>
         		<#if security.hasEntityPermission("MYPORTAL", "_HREMPLVIEW", session) || security.hasEntityPermission("MYPORTAL", "_EMPLEAVE_AP", session)>
         			<#if security.hasEntityPermission("HUMANRES", "_ADMIN", session) || security.hasEntityPermission("HR_ATTENDANCE", "_VIEW", session)>
-        				<td width="20%"><select id="partyId" name="partyId" class="flexselect"></select></td>
+        				<td align="left" width="15%"><@htmlTemplate.lookupField value="${partyId?if_exists}" formName="attendance" name="partyId" id="partyId" fieldFormName="LookupPartyName"/></td>
         			<#else>
         				<#assign partyName= Static["org.ofbiz.party.party.PartyHelper"].getPartyName(delegator, userLogin.partyId, false)?if_exists/>
                 		<td width="20%" class = "h3"><input type="hidden" name="employeeId" id="employeeId" value="${userLogin.partyId?if_exists}"/>
                 		${partyName}[${userLogin.partyId?if_exists}]</td>
         			</#if>
                 <#else>
-                	<td width="20%"><select id="partyId" name="partyId" class="flexselect"></select></td> 
+                	<td valign="middle">
+			            <div>
+			              <@htmlTemplate.lookupField value="${partyId?if_exists}" formName="attendance" name="partyId" id="partyId" fieldFormName="LookupPartyName"/>
+			            </div>
+			        </td>
                 </#if>        	
         		<td align="right" width="10%"><span class='h3'>From Date: </span></td>
             	<td width="20%"><input class="mycalendar" type="text" id="fromDate" name="fromDate"/></td>        	

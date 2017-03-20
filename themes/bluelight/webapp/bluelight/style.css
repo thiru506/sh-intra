@@ -38,7 +38,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 }
 
 body {
-    line-height: 1.5em;
+    line-height: 1.1em;
     color: black;
     background: white;
 }/* reset line height and baseline colors*/
@@ -88,8 +88,8 @@ body,textarea,input,select {
 }
 
 body {
-    background: #B8DFFC;
-    font-size: 62.5%;
+    background: #ff9900;
+    font-size: 80.5%;
     position: relative;
 }
 
@@ -473,7 +473,7 @@ padding-bottom: 1em;
 /* ===== System messages rendering ===== */
 .eventMessage,
 .errorMessage {
-background-color: #B8DFFC;
+background-color: #ff9900;
 font-size: 1.3em;
 font-weight: bold;
 margin: 0 1em 0 1em;
@@ -921,7 +921,7 @@ in contained elements. */
 }
 
 .page-container {
-    background-color: #B8DFFC;
+    background-color: #ff9900;
 }
 
 .tabbar {
@@ -931,7 +931,7 @@ in contained elements. */
 }
 
 .tabbar .breadcrumbs {
-    color: #FFFFFF;
+    color: #0d0d0d;
     float: left;
     height: 100%;
     background: url("/bluelight/corner-tl.gif") no-repeat;
@@ -981,6 +981,10 @@ in contained elements. */
 /* ==================================== */
 /* ===== Masthead (Header) Styles ===== */
 /* ==================================== */
+.sidr ul li.selected {
+ background-color:#3c7aad;
+}
+
 #masthead {
     background-color: #FFFFFF;
     color: #000000;
@@ -1483,18 +1487,18 @@ the top of the main content area */
 }
 
 .tab-bar ul li {
-    background-color: #0366b0;
+    background-color: #ffa500;
     margin: 0;
 }
 
 .tab-bar ul a,.tab-bar ul a:visited {
-    color: #ffffff;
+    color: #0d0d0d;
 }
 
 .tab-bar ul a:hover,.tab-bar ul .selected,.tab-bar ul .selected a,.tab-bar ul .selected a:hover
     {
-    background-color: #5f9fcf;
-    color: #ffffff;
+    background-color: #ffa500;
+    color: #0d0d0d;
     text-decoration: none;
 }
 
@@ -1599,7 +1603,7 @@ collection of buttons used in lists */
 .basic-table tr .smallSubmit,.basic-table tr .smallSubmit:visited {
     background-color: #ffffff;
     border: #999999 solid 0.1em;
-    color: #000099;
+    color: #0d0d0d;
     font-size: 1em;
     font-weight: bold;
     margin: 0.2em;
@@ -2059,27 +2063,27 @@ background-image:url(/images/spinner.gif);
 }
 
 img.cssImgXLarge {
-	/*border: 1px black solid;*/
-	max-width: 200px;
-	max-height: 150px;
+    /*border: 1px black solid;*/
+    max-width: 200px;
+    max-height: 150px;
 }
 
 img.cssImgLarge {
-	/*border: 1px black solid;*/
-	max-width: 100px;
-	max-height: 75px;
+    /*border: 1px black solid;*/
+    max-width: 100px;
+    max-height: 75px;
 }
 
 img.cssImgStandard {
-	/*border: 1px black solid;*/
-	max-width: 70px;
-	max-height: 52px;
+    /*border: 1px black solid;*/
+    max-width: 70px;
+    max-height: 52px;
 }
 
 img.cssImgSmall {
-	/*border: 1px black solid;*/
-	max-width: 50px;
-	max-height: 37px;
+    /*border: 1px black solid;*/
+    max-width: 50px;
+    max-height: 37px;
 }
 
 /* ========================================================= */
@@ -2759,4 +2763,99 @@ height: auto;
 *+html .jstree-default a {
 white-space:normal;
 height: auto;
+}
+/* CSS for Navigation enhancements */
+
+.menu-button {
+    display: block;
+    top: 40px;
+    left: 20px;
+    background: url(/bluelight/images/hamburger_icon.png) no-repeat;
+    overflow: hidden;
+    width: 34px;
+    height: 31px;
+    text-indent: -9999px;
+}
+
+.menu-button.right {
+    right: 20px;
+    left: auto;
+}
+
+.menu-button.bottom {
+    top: 100px;
+}
+
+.menu-button.fixed {
+    position: fixed;
+}
+
+#overlay {
+    position: absolute;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    z-index: 999998;
+    display: none;
+}
+
+.sidr-open #overlay {
+    display: block;
+}
+
+/* Settings for fullwidth */
+.sidr.fullwidth {
+    width: 100%;
+}
+
+.sidr.left.fullwidth {
+    left: -100%;
+}
+
+.sidr.right.fullwidth {
+    right: -100%;
+}
+
+.sidr ul li.selected {
+ background-color:ffffb3;
+}
+
+#masthead {
+    background-color: #efe4b0; 
+}
+
+#simple-menu-text {
+    color:white;
+    font-size: 14px; 
+    margin-top:6px;
+}
+
+#commonAppBarDiv {
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  color: white;
+  font-weight: bold;
+  white-space:nowrap;
+  background-color: #efe4b0; 
+  
+}
+
+#commonAppBarSpan {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: normal;   
+  font-size: 18px;
+  padding-right: 10px;   
+}
+
+#simple-menu2 {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 50px;
 }

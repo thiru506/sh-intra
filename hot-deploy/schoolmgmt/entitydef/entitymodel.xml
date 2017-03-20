@@ -140,4 +140,17 @@
         	<key-map field-name="customTimePeriodId" />
       	</relation>
 	</entity>
+	 <entity entity-name="Contacts" package-name="org.ofbiz.schoolmgmt.Exam"
+		title="Exam Entity">
+		<field name="contactId" type="id-ne"></field>
+		<field name="employeeName" type="description"></field>
+		<field name="location" type="description"></field>
+		<field name="department" type="description"></field>
+		<field name="email" type="description"></field>
+		<field name="phone" type="description"></field>
+		<prim-key field="contactId" />
+		<relation type="one" fk-name="EXAM_TYPEPAR" title="Parent" rel-entity-name="ExamType">
+        <key-map field-name="parentTypeId" rel-field-name="examTypeId"/>
+      </relation>
+	</entity>
 </entitymodel>

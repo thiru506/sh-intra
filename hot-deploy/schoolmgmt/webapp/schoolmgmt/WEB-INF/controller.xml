@@ -26,10 +26,10 @@
     -->
 
     <!-- Request Mappings -->
-    <request-map uri="main"><security https="true" auth="true"/><response name="success" type="request" value="MgmtDashBoard"/></request-map>
+    <request-map uri="main"><security https="true" auth="false"/><response name="success" type="request" value="Home"/></request-map>
     
     <request-map uri="MgmtDashBoard">
-    	<security https="true" auth="true"/>
+    	<security https="true" auth="false"/>
     	<response name="success" type="view" value="TypeWiseRevenue"/>
     </request-map>
      <request-map uri="TypeWiseRevenueInternal">
@@ -58,8 +58,8 @@
     	<security https="true" auth="true"/>
     	<response name="success" type="view" value="DailyAttendanceEntryInternal"/>
     </request-map>
-    <request-map uri="StudentLookUpTable">
-    	<security https="true" auth="true"/>
+    <request-map uri="LookUpTable">
+    	<security https="true" auth="false"/>
     	<response name="success" type="view" value="StudentLookUpTable"/>
     </request-map>
     <request-map uri="TimeTableLookUpTable">
@@ -74,6 +74,20 @@
     	<security https="true" auth="true"/>
     	<response name="success" type="view" value="FindFeePayment"/>
     </request-map>
+    
+    <request-map uri="Home">
+    	<security https="true" auth="false"/>
+    	<response name="success" type="view" value="Home"/>
+    </request-map>
+    <request-map uri="careers">
+    	<security https="true" auth="false"/>
+    	<response name="success" type="view" value="careers"/>
+    </request-map>
+    <request-map uri="newsandevents">
+    	<security https="true" auth="false"/>
+    	<response name="success" type="view" value="newsandevents"/>
+    </request-map>
+    
     <request-map uri="academics">
     	<security https="true" auth="true"/>
     	<response name="success" type="view" value="academics"/>
@@ -174,22 +188,28 @@
         <response name="success" type="view" value="viewprofile"/>
     </request-map>
     <request-map uri="enquiry">
-    	<security auth="true" https="true"/>
+    	<security auth="false" https="true"/>
     	<response name="success" type="view" value="enquiry"/>
     </request-map>
+    
+    <request-map uri="enquiryCalendar">
+    	<security auth="false" https="true"/>
+    	<response name="success" type="view" value="enquiryCalendar"/>
+    </request-map>
+    
     <request-map uri="CreateEnquiry">
-    	<security auth="true" https="true"/>
+    	<security auth="false" https="true"/>
     	<response name="success" type="view" value="CreateEnquiry"/>
     	<response name="error" type="view" value="enquiry"/>
     </request-map>
     <request-map uri="CreateStudentEnquiry">
-        <security auth="true" https="true"/>
+        <security auth="false" https="true"/>
         <event type="service" invoke="CreateStudentEnquiry"/>
         <response name="success" type="view" value="enquiry"/>
         <response name="error" type="view" value="CreateEnquiry"/>
     </request-map>
     <request-map uri="FindStudentEnquiry">
-    	<security auth="true" https="true"/>
+    	<security auth="false" https="true"/>
     	<response name="success" type="view" value="enquiry"/>
     	<response name="error" type="view" value="enquiry"/>
     </request-map>
@@ -291,5 +311,11 @@
     <view-map name="viewprofile" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#partyOverView"/>
     <view-map name="enquiry" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#enquiry"/>
     <view-map name="CreateEnquiry" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#CreateEnquiry"/>
+     <view-map name="enquiryCalendar" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#enquiryCalendar"/>
+    
     <view-map name="AgingAnalysis" type="screen" page="component://schoolmgmt/widget/FinanceScreens.xml#AgingAnalysis"/>
+    <view-map name="Home" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#Home"/>
+    <view-map name="careers" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#careers"/>
+    <view-map name="newsandevents" type="screen" page="component://schoolmgmt/widget/SchoolMgmtScreens.xml#newsandevents"/>
+    
 </site-conf>

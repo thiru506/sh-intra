@@ -107,20 +107,23 @@ under the License.
         title="Accounting"
         server="default-server"
         location="webapp/accounting"
+        app-bar-display="false"
         base-permission="OFBTOOLS,ACCOUNTING"
         mount-point="/accounting"/>
 
     <webapp name="ar"
-        title="AR"
+        title="Accounts Receivable"
         server="default-server"
         location="webapp/ar"
+        app-bar-display="false"
         base-permission="OFBTOOLS,ACCOUNTING"
         mount-point="/ar"/>
 
     <webapp name="ap"
-        title="AP"
+        title="Accounts Payable"
         server="default-server"
         location="webapp/ap"
+        app-bar-display="false"
         base-permission="OFBTOOLS,ACCOUNTING"
         mount-point="/ap"/>
 </ofbiz-component>

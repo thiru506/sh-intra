@@ -242,7 +242,7 @@ public class DataEvents {
 
         try {
             GenericValue dataResource = delegator.findByPrimaryKeyCache("DataResource", UtilMisc.toMap("dataResourceId", dataResourceId));
-            if (!"Y".equals(dataResource.getString("isPublic"))) {
+             /*if (!"Y".equals(dataResource.getString("isPublic"))) {
                 // now require login...
                 GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
                 if (userLogin == null) {
@@ -256,14 +256,13 @@ public class DataEvents {
                 // TODO: should we restrict the roleTypeId?
                 List<GenericValue> contentAndRoleList = delegator.findByAnd("ContentAndRole",
                         UtilMisc.toMap("partyId", userLogin.get("partyId"), "dataResourceId", dataResourceId));
-               /* if (contentAndRoleList.size() == 0) {
+                if (contentAndRoleList.size() == 0) {
                     String errorMsg = "You do not have permission to download the Data Resource with ID [" + dataResourceId + "], ie you are not associated with it.";
                     Debug.logError(errorMsg, module);
                     request.setAttribute("_ERROR_MESSAGE_", errorMsg);
                     return "error";
-                }*/
-            }
-
+                }
+            }*/
             String mimeType = DataResourceWorker.getMimeType(dataResource);
 
             // hack for IE and mime types

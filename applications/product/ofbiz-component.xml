@@ -79,6 +79,7 @@ under the License.
         description="CatalogComponentDescription"
         server="default-server"
         location="webapp/catalog"
+        app-bar-display="false"
         base-permission="OFBTOOLS,CATALOG"
         mount-point="/catalog"/>
     <webapp name="facility"

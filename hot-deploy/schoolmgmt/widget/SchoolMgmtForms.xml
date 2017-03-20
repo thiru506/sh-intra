@@ -251,47 +251,42 @@
 		<field name="postalCode" title="Postal Code :"><display/></field>
     </form>
     <form name="CreateEnquiry" type="single" target="CreateStudentEnquiry">
-    	<field name="firstName" title="First Name :" required-field="true"><text></text></field>
-    	<field name="middleName" title="Middle Name :"><text></text></field>	
-    	<field name="lastName" title="Last Name :" required-field="true"><text></text></field>
-    	<field name="fatherName" title="Father Name :"><text></text></field>
+    	<field name="firstName" title="Name :" required-field="true"><text></text></field>
+    	
+    	<!-- <field name="fatherName" title="Father Name :"><text></text></field>
     	<field name="motherName" title="Mother Name :"><text></text></field>
     	<field name="gender" title="Gender :">
 		<drop-down allow-empty="false" no-current-selected-key="M">
 			<option key="F"></option>
 			<option key="M" />
 		</drop-down>		
-		</field>
-		<field name="emailAddress" title="${uiLabelMap.Email} :"><text></text></field>
-		<field name="mobileNumber" title="${uiLabelMap.Mobile} :"><text></text></field>
-		<field name="previousSchool" title="Previous School :"><text></text></field>
+		</field> -->
+		<field name="custRequestDate" title="${uiLabelMap.Date} :"><date-time/></field>
+		
+		<field name="description" title="Comments :"><text></text></field>
 		<field name="submitButton" title="Create" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="FindEnquiry" type="single" target="FindStudentEnquiry">
-     <field name="custRequestId" title="Enquiry Id"><text-find></text-find></field>
-     <field name="partyId" title="Student No"><lookup target-form-name="LookupPartyName"/></field>
-     <field name="statusId" title="Status">
+     <!-- <field name="custRequestId" title="Enquiry Id"><text-find></text-find></field> -->
+     <!-- <field name="partyId" title="Student No"><lookup target-form-name="LookupPartyName"/></field> -->
+     <!-- <field name="statusId" title="Status">
       <drop-down allow-empty="true"><entity-options description="${description}" entity-name="StatusItem"><entity-constraint name="statusTypeId" operator="equals" value="STUDENT_ENQ_STATUS"/></entity-options></drop-down>
-     </field>
-     <field name="custRequestName" title="Previous School"><text-find></text-find></field>
+     </field> -->
+     <!-- <field name="custRequestName" title="Comment"><text-find></text-find></field> -->
      <field name="fromDate" title="From Date"><date-time type="date"/></field>
      <field name="thruDate" title="Date"><date-time type="date"/></field>
      <field name="submitButton" title="Find" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListEnquires" type="list" list-name="custRequestList" separate-columns="true" target="" odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" >
-    	<field name="custRequestId" sort-field="true" title="IndentId" widget-style="buttontext">
+    	<!-- <field name="custRequestId" sort-field="true" title="IndentId" widget-style="buttontext">
             <hyperlink description="${custRequestId}" target="ViewEnquiryOverview" target-window="_blank">
                 <parameter param-name="custRequestId"/>
             </hyperlink>
-        </field>
-    	<field name="name"><display></display></field>
-    	<field name="fromPartyId"><display></display></field>
-    	<field name="custRequestDate" title="ENQ Date"><display description="${groovy:org.ofbiz.base.util.UtilDateTime.toDateString(custRequestDate, &quot;MM/dd/yyyy&quot;);}"></display></field>
-    	<field name="statusId"><display-entity entity-name="StatusItem" ></display-entity></field>
-    	<field name="name"><display></display></field>
-    	<field name="custRequestName" title="Previous School"><display></display></field>
-    	<field name="emailAddress"><display></display></field>
-    	<field name="phoneNumber"><display></display></field>
+        </field> -->
+    	<!-- <field name="fromPartyId"><display></display></field> -->
+    	<field name="custRequestDate" title="Date"><display description="${groovy:org.ofbiz.base.util.UtilDateTime.toDateString(custRequestDate, &quot;MM/dd/yyyy hh:mm&quot;);}"></display></field>
+    	<field name="custRequestName" title="Employee Name: "><display></display></field>
+    	<field name="description" tittle="comments"><display></display></field>
     </form>
     <form name="EnquiryOverview" type="single" default-map-name="enquiryDetails" separate-columns="true" target="" odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" >
     	<actions>
@@ -341,4 +336,43 @@
              
         <field name="createButton" title="Upload Pic"><submit button-type="button"/></field>
     </form> 
+    
+     <form name="ListPartyContents" type="list" separate-columns="false"
+        odd-row-style="alternate-row" default-table-style="table table-striped">
+        <actions>
+            <entity-and entity-name="PartyContentDetail">
+                <field-map field-name="contentTypeId" from-field="contentTypeId"/>
+            </entity-and>
+        </actions>
+        <row-actions>
+            <entity-one entity-name="DataResource" value-field="dataResource"/>
+            <entity-one entity-name="DataCategory" value-field="dataCategory">
+                <field-map field-name="dataCategoryId" from-field="dataResource.dataCategoryId"/>            
+            </entity-one> 
+            <set field="dataCategoryId" from-field="dataCategory.categoryName"/>
+        </row-actions>
+        <field name="partyId"><hidden/></field>
+        <field name="contentId"><hidden/></field>
+        <field name="contentName" title="ContentName">
+            <display-entity entity-name="Content" description="${contentName}" key-field-name="contentId">
+                             
+            </display-entity>
+        </field>
+        <field name="description"><display/></field>
+        <!-- <field name="statusId"><display-entity entity-name="StatusItem"></display-entity></field> -->
+      <!--   <field name="localeString"><display-entity entity-name="CountryCode" key-field-name="countryCode" description="${countryName}${countryCode}"></display-entity></field>
+        <field name="contentTypeId"><display-entity entity-name="ContentType"></display-entity></field> -->
+      <!--   <field name="mimeTypeId"><display-entity entity-name="MimeType"></display-entity></field> -->
+        <!-- <field name="dataResourceId" title="${uiLabelMap.FormFieldTitle_dataResourceName}" use-when="dataResourceId==null"><display/> </field>
+        <field name="dataResourceId" title="${uiLabelMap.FormFieldTitle_dataResourceName}" use-when="dataResourceId!=null">
+            <display-entity entity-name="DataResource" description="${dataResourceName}"/>
+        </field> -->
+         <field name="View">
+            <display-entity entity-name="Content" description="${contentName}" key-field-name="contentId">
+                <sub-hyperlink  target="img/${contentName}" description="${uiLabelMap.CommonView}" target-window="_BLANK" link-style="smallSubmit">
+                    <parameter param-name="imgId" value="${dataResource.dataResourceId}"/>
+                </sub-hyperlink>                
+            </display-entity>
+        </field>
+    </form>
 </forms>

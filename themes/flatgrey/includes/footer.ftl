@@ -30,5 +30,8 @@ under the License.
     <script type="text/javascript" src="<@ofbizContentUrl>${StringUtil.wrapString(javaScript)}</@ofbizContentUrl>" type="text/javascript"></script>
   </#list>
 </#if>
+<link rel="stylesheet" href="<@ofbizContentUrl>/images/jquery/plugins/sidr/stylesheets/jquery.sidr.light.css</@ofbizContentUrl>" type="text/css"/>
+<script language="javascript" type="text/javascript" src="<@ofbizContentUrl>/images/jquery/plugins/sidr/jquery.sidr.js</@ofbizContentUrl>"></script>
+
 </body>
 </html>
